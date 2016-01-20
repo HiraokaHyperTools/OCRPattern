@@ -38,10 +38,8 @@ InstallDirRegKey HKLM "Software\${COM}\${APP}" "Install_Dir"
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
-!define DOTNET_VERSION "2.0"
-
-!include "DotNET.nsh"
-!include LogicLib.nsh
+!include "DotNetVer.nsh"
+!include "LogicLib.nsh"
 
 ;--------------------------------
 
@@ -51,7 +49,7 @@ Page license
 Page directory
 Page instfiles
 
-LicenseData GNUGPL2.txt
+LicenseData "GNUGPL2.txt"
 
 ;--------------------------------
 
@@ -88,7 +86,13 @@ Section "" ;No components page, name is not important
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
 
-  !insertmacro CheckDotNET ${DOTNET_VERSION}
+  ${IfNot} ${HasDotNet4.0}
+    StrCpy $0 "Microsoft .NET Framework 4"
+    StrCpy $1 "https://www.microsoft.com/en-us/download/details.aspx?id=17851"
+    MessageBox MB_ICONEXCLAMATION|MB_YESNO "Install $0$\n$\n$1" IDNO +2
+      ExecShell "open" "$1"
+    Abort "Install $0"
+  ${EndIf}
 
   ReadRegStr $0 HKCU "Software\Tesseract-OCR" "InstallDir"
   ReadRegStr $1 HKLM "Software\Tesseract-OCR" "InstallDir"
