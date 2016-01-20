@@ -1,0 +1,7 @@
+LIBRARY	"poppler2com"
+EXPORTS
+	DllGetClassObject
+	DllCanUnloadNow
+	DllRegisterServer
+	DllUnregisterServer
+	
