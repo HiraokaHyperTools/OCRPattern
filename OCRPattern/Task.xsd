@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Task" targetNamespace="http://tempuri.org/Task.xsd" xmlns:mstns="http://tempuri.org/Task.xsd" xmlns="http://tempuri.org/Task.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Task" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="Task" msprop:Generator_DataSetName="Task">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Cfg" msprop:Generator_UserTableName="Cfg" msprop:Generator_RowDeletedName="CfgRowDeleted" msprop:Generator_RowChangedName="CfgRowChanged" msprop:Generator_RowClassName="CfgRow" msprop:Generator_RowChangingName="CfgRowChanging" msprop:Generator_RowEvArgName="CfgRowChangeEvent" msprop:Generator_RowEvHandlerName="CfgRowChangeEventHandler" msprop:Generator_TableClassName="CfgDataTable" msprop:Generator_TableVarName="tableCfg" msprop:Generator_RowDeletingName="CfgRowDeleting" msprop:Generator_TablePropName="Cfg">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Files" msprop:Generator_UserColumnName="Files" msprop:nullValue="_empty" msprop:Generator_ColumnVarNameInTable="columnFiles" msprop:Generator_ColumnPropNameInTable="FilesColumn" msprop:Generator_ColumnPropNameInRow="Files" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="ClearAlways" msprop:Generator_UserColumnName="ClearAlways" msprop:Generator_ColumnPropNameInRow="ClearAlways" msprop:Generator_ColumnVarNameInTable="columnClearAlways" msprop:Generator_ColumnPropNameInTable="ClearAlwaysColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="DirIn" msprop:Generator_UserColumnName="DirIn" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="DirIn" msprop:Generator_ColumnPropNameInTable="DirInColumn" msprop:Generator_ColumnVarNameInTable="columnDirIn" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="ImportAlways" msprop:Generator_UserColumnName="ImportAlways" msprop:Generator_ColumnVarNameInTable="columnImportAlways" msprop:Generator_ColumnPropNameInRow="ImportAlways" msprop:Generator_ColumnPropNameInTable="ImportAlwaysColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="DirOut" msprop:Generator_UserColumnName="DirOut" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="DirOut" msprop:Generator_ColumnPropNameInTable="DirOutColumn" msprop:Generator_ColumnVarNameInTable="columnDirOut" type="xs:string" minOccurs="0" />
+              <xs:element name="OutCmd" msprop:Generator_UserColumnName="OutCmd" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="OutCmd" msprop:Generator_ColumnPropNameInTable="OutCmdColumn" msprop:Generator_ColumnVarNameInTable="columnOutCmd" type="xs:string" minOccurs="0" />
+              <xs:element name="OutParm" msprop:Generator_UserColumnName="OutParm" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="OutParm" msprop:Generator_ColumnPropNameInTable="OutParmColumn" msprop:Generator_ColumnVarNameInTable="columnOutParm" type="xs:string" minOccurs="0" />
+              <xs:element name="MoveOutAfter" msprop:Generator_UserColumnName="MoveOutAfter" msprop:Generator_ColumnVarNameInTable="columnMoveOutAfter" msprop:Generator_ColumnPropNameInRow="MoveOutAfter" msprop:Generator_ColumnPropNameInTable="MoveOutAfterColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="MoveInAfter" msprop:Generator_UserColumnName="MoveInAfter" msprop:Generator_ColumnVarNameInTable="columnMoveInAfter" msprop:Generator_ColumnPropNameInRow="MoveInAfter" msprop:Generator_ColumnPropNameInTable="MoveInAfterColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="RunOutCmd" msprop:Generator_UserColumnName="RunOutCmd" msprop:Generator_ColumnPropNameInRow="RunOutCmd" msprop:Generator_ColumnVarNameInTable="columnRunOutCmd" msprop:Generator_ColumnPropNameInTable="RunOutCmdColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="Rotate4" msprop:Generator_UserColumnName="Rotate4" msprop:Generator_ColumnVarNameInTable="columnRotate4" msprop:Generator_ColumnPropNameInRow="Rotate4" msprop:Generator_ColumnPropNameInTable="Rotate4Column" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="OnlyThis" msprop:Generator_UserColumnName="OnlyThis" msprop:Generator_ColumnPropNameInRow="OnlyThis" msprop:Generator_ColumnVarNameInTable="columnOnlyThis" msprop:Generator_ColumnPropNameInTable="OnlyThisColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="SeledForm" msprop:Generator_UserColumnName="SeledForm" msprop:nullValue="_empty" msprop:Generator_ColumnVarNameInTable="columnSeledForm" msprop:Generator_ColumnPropNameInTable="SeledFormColumn" msprop:Generator_ColumnPropNameInRow="SeledForm" type="xs:string" minOccurs="0" />
+              <xs:element name="DirRecyc" msprop:Generator_UserColumnName="DirRecyc" msprop:nullValue="(Empty)" msprop:Generator_ColumnPropNameInRow="DirRecyc" msprop:Generator_ColumnPropNameInTable="DirRecycColumn" msprop:Generator_ColumnVarNameInTable="columnDirRecyc" type="xs:string" minOccurs="0" />
+              <xs:element name="UseRecyc" msprop:Generator_UserColumnName="UseRecyc" msprop:Generator_ColumnVarNameInTable="columnUseRecyc" msprop:Generator_ColumnPropNameInRow="UseRecyc" msprop:Generator_ColumnPropNameInTable="UseRecycColumn" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="DoNotSplit" msprop:Generator_UserColumnName="DoNotSplit" msprop:Generator_ColumnPropNameInRow="DoNotSplit" msprop:Generator_ColumnVarNameInTable="columnDoNotSplit" msprop:Generator_ColumnPropNameInTable="DoNotSplitColumn" type="xs:boolean" default="false" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

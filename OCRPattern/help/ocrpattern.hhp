@@ -1,0 +1,42 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=..\ocrpattern.chm
+Contents file=Table of Contents.hhc
+Default Font=MS UI Gothic,9,128
+Default topic=top.htm
+Display compile progress=No
+Index file=Index.hhk
+Language=0x411 日本語 (日本)
+Title=OCRPattern マニュアル
+
+
+[FILES]
+top.htm
+cbNR.htm
+cbPSM.htm
+cbPWay.htm
+cbSelArea.htm
+cbType.htm
+numNewRes.htm
+ifImportCheckBox.htm
+ifTestCheckBox.htm
+testKeywordTextBox.htm
+blacklistTextBox.htm
+whitelistTextBox.htm
+bTestAll.htm
+bTestSeled.htm
+gvRes.htm
+tstop.htm
+llRevertPic.htm
+slpPv.htm
+bSave.htm
+bSpecifyPic.htm
+tscbZoom.htm
+bAbout.htm
+bAnother.htm
+tbFiles.htm
+bAdd.htm
+cbClear.htm
+
+[INFOTYPES]
+

@@ -1,0 +1,274 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{646BF719-92B0-47F2-901C-4A1028EA7FC1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OCRPattern</RootNamespace>
+    <AssemblyName>OCRPattern</AssemblyName>
+    <ApplicationIcon>1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.5.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Users\KU\Downloads\ZXing.Net.0.5.0.0\net2.0\zxing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CHP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConfirmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmForm.Designer.cs">
+      <DependentUpon>ConfirmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DCR.cs">
+      <DependentUpon>DCR.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DCR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DCR.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DebugOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugOutForm.Designer.cs">
+      <DependentUpon>DebugOutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DSRes.cs">
+      <DependentUpon>DSRes.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DSRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSRes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EForm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EForm.Designer.cs">
+      <DependentUpon>EForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpBtn.cs" />
+    <Compile Include="MForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MForm.Designer.cs">
+      <DependentUpon>MForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OCRWIPForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OCRWIPForm.Designer.cs">
+      <DependentUpon>OCRWIPForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PicPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PicPane.Designer.cs">
+      <DependentUpon>PicPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConfirmForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConfirmForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugOutForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DebugOutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OCRWIPForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OCRWIPForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PicPane.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PicPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PSelForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PSelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="DCR.xsc">
+      <DependentUpon>DCR.xsd</DependentUpon>
+    </None>
+    <None Include="DCR.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DCR.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DCR.xss">
+      <DependentUpon>DCR.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PSelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PSelForm.Designer.cs">
+      <DependentUpon>PSelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelForm.Designer.cs">
+      <DependentUpon>SelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Task.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Task.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tessocr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zxingss.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Task.xsc">
+      <DependentUpon>Task.xsd</DependentUpon>
+    </None>
+    <None Include="Task.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Task.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Task.xss">
+      <DependentUpon>Task.xsd</DependentUpon>
+    </None>
+    <None Include="_200px_Imagemagick_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="e.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\bAdd.htm" />
+    <Content Include="help\bAnother.htm" />
+    <Content Include="help\top.htm" />
+    <Content Include="poppler2com.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="DSRes.xsc">
+      <DependentUpon>DSRes.xsd</DependentUpon>
+    </None>
+    <None Include="DSRes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSRes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DSRes.xss">
+      <DependentUpon>DSRes.xsd</DependentUpon>
+    </None>
+    <None Include="help\ocrpattern.hhp" />
+    <None Include="poppler_top.png" />
+    <None Include="Resources\Help.png" />
+    <Content Include="Resources\_1335406206_help.png" />
+    <Content Include="Resources\_1335406105_help-contents.png" />
+    <Content Include="t.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="poppler2com">
+      <Guid>{787992EB-F9D7-4D23-8218-3EA98C851A3B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>True</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

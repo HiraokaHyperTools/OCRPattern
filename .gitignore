@@ -231,3 +231,11 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+/.svn
+/BASE
+/DAITOTest
+/DEBUG1.reg
+/Hamano
+/OCRPattern.lnk
+/Setup_OCRPattern*.exe

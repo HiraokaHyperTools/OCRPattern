@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ページの種類</title>
+    <link rel="stylesheet" type="text/css" href="c.css" />
+</head>
+<body>
+    <h1>
+        ページの種類</h1>
+    <div>
+        このページの種類を選択します。
+        <h2>
+            通常フォーム認識</h2>
+        <div>
+            見積書の様に、一枚で完結する書類の場合に使用します。</div>
+        <h2>
+            区切り/代表ページ</h2>
+        <div>
+            表紙に図番や型番のような情報が書いてある場合に使用します。<br />
+            例：<br />
+            <ul>
+                <li>p.1 -- 表紙：図番ABC123</li>
+                <li>p.2 -- 図面：1ページ目 → 「図番ABC123」として認識。</li>
+                <li>p.3 -- 図面：2ページ目 → 「図番ABC123」として認識。</li>
+                <li>p.4 -- 表紙：図番DEF456</li>
+                <li>p.5 -- 図面：1ページ目 → 「図番DEF456」として認識。</li>
+                <li>p.6 -- 図面：2ページ目 → 「図番DEF456」として認識。</li>
+                <li>p.7 -- 図面：3ページ目 → 「図番DEF456」として認識。</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

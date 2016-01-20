@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ノイズ除去</title>
+    <link rel="stylesheet" type="text/css" href="c.css" />
+</head>
+<body>
+    <h1>
+        ノイズ除去</h1>
+    <div>
+        ImageMagickを利用して、ノイズ除去を試行いたします。参考までに、次のようなパラメータを使用して、補正します：
+        <ul>
+            <li>並 → -median 3 -trim</li>
+            <li>並+(メディアン・切取・境界値) → -median 3 -trim -threshold 100</li>
+            <li>強1(メディアン・切取) → -median 6 -trim</li>
+            <li>強2(ぼかし・境界値・切取) → -gaussian-blur 3x3 -threshold 100 -trim</li>
+        </ul>
+    </div>
+</body>
+</html>

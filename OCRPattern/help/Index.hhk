@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="領域をマウスで選択する">
+		<param name="Name" value="領域をマウスで選択する">
+		<param name="Local" value="cbSelArea.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ページの種類">
+		<param name="Name" value="ページの種類">
+		<param name="Local" value="cbPWay.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="DPIを変更する">
+		<param name="Name" value="DPIを変更する">
+		<param name="Local" value="numNewRes.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ノイズ除去">
+		<param name="Name" value="ノイズ除去">
+		<param name="Local" value="cbNR.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="認識タイプ">
+		<param name="Name" value="認識タイプ">
+		<param name="Local" value="cbType.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="テンプレート ツールバー">
+		<param name="Name" value="テンプレート ツールバー">
+		<param name="Local" value="tstop.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="元の画像に戻す">
+		<param name="Name" value="元の画像に戻す">
+		<param name="Local" value="llRevertPic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="入力ファイル一覧">
+		<param name="Name" value="入力ファイル一覧">
+		<param name="Local" value="tbFiles.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ファイルを追加する">
+		<param name="Name" value="ファイルを追加する">
+		<param name="Local" value="bAdd.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="開いた時に、入力ファイル一覧をクリアする">
+		<param name="Name" value="開いた時に、入力ファイル一覧をクリアする">
+		<param name="Local" value="cbClear.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="テンプレート プレビュー表示">
+		<param name="Name" value="テンプレート プレビュー表示">
+		<param name="Local" value="slpPv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="保存します">
+		<param name="Name" value="保存します">
+		<param name="Local" value="bSave.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="背景画像を指定します">
+		<param name="Name" value="背景画像を指定します">
+		<param name="Local" value="bSpecifyPic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="倍率">
+		<param name="Name" value="倍率">
+		<param name="Local" value="tscbZoom.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="利用技術について">
+		<param name="Name" value="利用技術について">
+		<param name="Local" value="bAbout.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="評価用に、別の画像を指定します">
+		<param name="Name" value="評価用に、別の画像を指定します">
+		<param name="Local" value="bAnother.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ページ分割">
+		<param name="Name" value="ページ分割">
+		<param name="Local" value="cbPSM.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="CSVに取り込む項目です">
+		<param name="Name" value="CSVに取り込む項目です">
+		<param name="Local" value="ifImportCheckBox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="フォーム判定に使用する項目です">
+		<param name="Name" value="フォーム判定に使用する項目です">
+		<param name="Local" value="ifTestCheckBox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="必要なキーワード">
+		<param name="Name" value="必要なキーワード">
+		<param name="Local" value="testKeywordTextBox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ブラックリスト">
+		<param name="Name" value="ブラックリスト">
+		<param name="Local" value="blacklistTextBox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ホワイトリスト">
+		<param name="Name" value="ホワイトリスト">
+		<param name="Local" value="whitelistTextBox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="認識テスト (すべて)">
+		<param name="Name" value="認識テスト (すべて)">
+		<param name="Local" value="bTestAll.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="認識テスト (選択分)">
+		<param name="Name" value="認識テスト (選択分)">
+		<param name="Local" value="bTestSeled.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="認識結果">
+		<param name="Name" value="認識結果">
+		<param name="Local" value="gvRes.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>
