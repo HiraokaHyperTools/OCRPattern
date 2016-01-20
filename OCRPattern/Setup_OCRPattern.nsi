@@ -10,8 +10,9 @@
 !define APP "OCRPattern"
 !define TTL "OCRPattern"
 !define COM "HIRAOKA HYPERS TOOLS, Inc."
-!define VER "0.14"
-!define APV "0_14"
+!system 'DefineAsmVer.exe bin\DEBUG\${APP}.exe "!define VER ""[SVER]"" " > Ver.nsh'
+!include "Ver.nsh"
+!searchreplace APV ${VER} "." "_"
 
 !define EXT ".OCR-Settei"
 !define PROGID "OCR-Settei"
