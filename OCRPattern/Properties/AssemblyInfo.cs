@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HIRAOKA HYPERS TOOLS, Inc.")]
 [assembly: AssemblyProduct("OCRPattern")]
-[assembly: AssemblyCopyright("Copyright (C)  2012,2013")]
+[assembly: AssemblyCopyright("Copyright (C)  2012,2013,2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly:     AssemblyVersion("0.14.0.0")] // here
-[assembly: AssemblyFileVersion("0.14.0.0")] // here
+[assembly:     AssemblyVersion("0.15.0.0")] // here
+[assembly: AssemblyFileVersion("0.15.0.0")] // here

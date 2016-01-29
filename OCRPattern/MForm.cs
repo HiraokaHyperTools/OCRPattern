@@ -13,6 +13,7 @@ using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 using poppler2com;
 using System.Diagnostics;
+using OCRPattern.Properties;
 
 namespace OCRPattern {
     public partial class MForm : Form {
@@ -22,6 +23,7 @@ namespace OCRPattern {
             this.fpxml = fpxml;
             this.run = run;
             InitializeComponent();
+            Icon = Resources.t;
         }
 
         private void bAdd_Click(object sender, EventArgs e) {

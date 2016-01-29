@@ -25,7 +25,7 @@ namespace OCRPattern.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TIF/PDF|*.tif;*.tiff;*.pdf")]
+        [global::System.Configuration.DefaultSettingValueAttribute("画像など|*.png;*.bmp;*.tif;*.tiff;*.jpg;*.jpeg;*.pdf")]
         public string GazoIn {
             get {
                 return ((string)(this["GazoIn"]));
@@ -37,7 +37,7 @@ namespace OCRPattern.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("画像|*.png;*.bmp;*.tif;*.jpg;*.jpeg")]
+        [global::System.Configuration.DefaultSettingValueAttribute("画像など|*.png;*.bmp;*.tif;*.tiff;*.jpg;*.jpeg;*.pdf")]
         public string PicIn {
             get {
                 return ((string)(this["PicIn"]));

@@ -25,6 +25,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -260,6 +261,7 @@
     <None Include="help\ocrpattern.hhp" />
     <None Include="poppler_top.png" />
     <None Include="Resources\Help.png" />
+    <None Include="Resources\A4V300.tif" />
     <Content Include="Resources\_1335406206_help.png" />
     <Content Include="Resources\_1335406105_help-contents.png" />
     <Content Include="t.ico">

@@ -38,8 +38,6 @@
             this.mCLLetterL = new System.Windows.Forms.ToolStripMenuItem();
             this.tsc = new System.Windows.Forms.ToolStripContainer();
             this.vsc = new System.Windows.Forms.SplitContainer();
-            this.slpPv = new OCRPattern.ScrollLessPanel();
-            this.picPane = new OCRPattern.PicPane();
             this.cmsPicPane = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mSelArea = new System.Windows.Forms.ToolStripMenuItem();
             this.tlpStat = new System.Windows.Forms.TableLayoutPanel();
@@ -91,7 +89,10 @@
             this.tstop = new System.Windows.Forms.ToolStrip();
             this.bSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bSpecifyPic = new System.Windows.Forms.ToolStripButton();
+            this.bBGPic = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bA4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.bSpecifyPic = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tscbZoom = new System.Windows.Forms.ToolStripComboBox();
@@ -99,9 +100,11 @@
             this.bAbout = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.bAnother = new System.Windows.Forms.ToolStripButton();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.ofdPic = new System.Windows.Forms.OpenFileDialog();
             this.ofdAnother = new System.Windows.Forms.OpenFileDialog();
-            this.tt = new System.Windows.Forms.ToolTip(this.components);
+            this.slpPv = new OCRPattern.ScrollLessPanel();
+            this.picPane = new OCRPattern.PicPane();
             testKeywordLabel = new System.Windows.Forms.Label();
             laWL = new System.Windows.Forms.Label();
             laBL = new System.Windows.Forms.Label();
@@ -112,10 +115,10 @@
             this.tsc.ContentPanel.SuspendLayout();
             this.tsc.TopToolStripPanel.SuspendLayout();
             this.tsc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vsc)).BeginInit();
             this.vsc.Panel1.SuspendLayout();
             this.vsc.Panel2.SuspendLayout();
             this.vsc.SuspendLayout();
-            this.slpPv.SuspendLayout();
             this.cmsPicPane.SuspendLayout();
             this.tlpStat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).BeginInit();
@@ -125,6 +128,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingNavigator)).BeginInit();
             this.blkBindingNavigator.SuspendLayout();
             this.tstop.SuspendLayout();
+            this.slpPv.SuspendLayout();
             this.SuspendLayout();
             // 
             // testKeywordLabel
@@ -188,26 +192,26 @@
             this.mCLLetterU,
             this.mCLLetterL});
             this.cmsCharList.Name = "cmsCharList";
-            this.cmsCharList.Size = new System.Drawing.Size(129, 70);
+            this.cmsCharList.Size = new System.Drawing.Size(127, 70);
             // 
             // mCLDigit
             // 
             this.mCLDigit.Name = "mCLDigit";
-            this.mCLDigit.Size = new System.Drawing.Size(128, 22);
+            this.mCLDigit.Size = new System.Drawing.Size(126, 22);
             this.mCLDigit.Text = "半角 数字";
             this.mCLDigit.Click += new System.EventHandler(this.mCLDigit_Click);
             // 
             // mCLLetterU
             // 
             this.mCLLetterU.Name = "mCLLetterU";
-            this.mCLLetterU.Size = new System.Drawing.Size(128, 22);
+            this.mCLLetterU.Size = new System.Drawing.Size(126, 22);
             this.mCLLetterU.Text = "半角 A-Z";
             this.mCLLetterU.Click += new System.EventHandler(this.mCLDigit_Click);
             // 
             // mCLLetterL
             // 
             this.mCLLetterL.Name = "mCLLetterL";
-            this.mCLLetterL.Size = new System.Drawing.Size(128, 22);
+            this.mCLLetterL.Size = new System.Drawing.Size(126, 22);
             this.mCLLetterL.Text = "半角 a-z";
             this.mCLLetterL.Click += new System.EventHandler(this.mCLDigit_Click);
             // 
@@ -217,7 +221,7 @@
             // tsc.ContentPanel
             // 
             this.tsc.ContentPanel.Controls.Add(this.vsc);
-            this.tsc.ContentPanel.Size = new System.Drawing.Size(770, 630);
+            this.tsc.ContentPanel.Size = new System.Drawing.Size(770, 631);
             this.tsc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tsc.Location = new System.Drawing.Point(0, 0);
             this.tsc.Name = "tsc";
@@ -276,57 +280,23 @@
             this.vsc.Panel2.Controls.Add(cRTypeLabel);
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
-            this.vsc.Size = new System.Drawing.Size(770, 630);
-            this.vsc.SplitterDistance = 332;
+            this.vsc.Size = new System.Drawing.Size(770, 631);
+            this.vsc.SplitterDistance = 326;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
-            // 
-            // slpPv
-            // 
-            this.slpPv.AccessibleName = "テンプレート プレビュー表示";
-            this.slpPv.AutoScroll = true;
-            this.slpPv.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.slpPv.Controls.Add(this.picPane);
-            this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.slpPv.Location = new System.Drawing.Point(0, 0);
-            this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(332, 615);
-            this.slpPv.TabIndex = 1;
-            // 
-            // picPane
-            // 
-            this.picPane.AutoScroll = true;
-            this.picPane.AutoSize = true;
-            this.picPane.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.picPane.BackColor = System.Drawing.Color.White;
-            this.picPane.CanSelRect = false;
-            this.picPane.ContextMenuStrip = this.cmsPicPane;
-            this.picPane.ForeColor = System.Drawing.Color.Black;
-            this.picPane.Image = null;
-            this.picPane.Location = new System.Drawing.Point(3, 3);
-            this.picPane.MinimumSize = new System.Drawing.Size(32, 32);
-            this.picPane.Name = "picPane";
-            this.picPane.PelsPerMeter = new System.Drawing.SizeF(0F, 0F);
-            this.picPane.SelRect = ((System.Drawing.RectangleF)(resources.GetObject("picPane.SelRect")));
-            this.picPane.Size = new System.Drawing.Size(32, 32);
-            this.picPane.TabIndex = 0;
-            this.picPane.UseBright = false;
-            this.picPane.Zoom = 1F;
-            this.picPane.ImageChanged += new System.EventHandler(this.picPane_ImageChanged);
-            this.picPane.SelRectChanged += new System.EventHandler<OCRPattern.SelRectChangedEventArgs>(this.picPane_SelRectChanged);
             // 
             // cmsPicPane
             // 
             this.cmsPicPane.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mSelArea});
             this.cmsPicPane.Name = "cmsPicPane";
-            this.cmsPicPane.Size = new System.Drawing.Size(293, 26);
+            this.cmsPicPane.Size = new System.Drawing.Size(249, 26);
             this.cmsPicPane.Opening += new System.ComponentModel.CancelEventHandler(this.cmsPicPane_Opening);
             // 
             // mSelArea
             // 
             this.mSelArea.Name = "mSelArea";
-            this.mSelArea.Size = new System.Drawing.Size(292, 22);
+            this.mSelArea.Size = new System.Drawing.Size(248, 22);
             this.mSelArea.Text = "領域を左ボタンでドラッグし、選択する";
             this.mSelArea.Click += new System.EventHandler(this.mSelArea_Click);
             // 
@@ -340,11 +310,11 @@
             this.tlpStat.Controls.Add(this.llRevertPic, 0, 0);
             this.tlpStat.Controls.Add(this.lRes, 1, 0);
             this.tlpStat.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tlpStat.Location = new System.Drawing.Point(0, 615);
+            this.tlpStat.Location = new System.Drawing.Point(0, 616);
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(332, 15);
+            this.tlpStat.Size = new System.Drawing.Size(326, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -366,7 +336,7 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(318, 0);
+            this.lRes.Location = new System.Drawing.Point(312, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
@@ -440,7 +410,7 @@
             this.numNewRes.TabIndex = 6;
             this.numNewRes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tt.SetToolTip(this.numNewRes, "ノイズ除去の前に、画像の解像度を統一する場合に使用します。\r\n\r\nスキャンによって異なるdpiを使用しますと、ノイズ除去の結果も大きく異なりますので、統一すると良" +
-                    "いでしょう。\r\n\r\n大体、200～300dpiが適当な範囲でしょうか。 ");
+        "いでしょう。\r\n\r\n大体、200～300dpiが適当な範囲でしょうか。 ");
             // 
             // label4
             // 
@@ -596,7 +566,7 @@
             this.ifTestCheckBox.TabIndex = 17;
             this.ifTestCheckBox.Text = "フォーム判定に使用する項目です";
             this.tt.SetToolTip(this.ifTestCheckBox, "このテンプレートを使用するかどうか、判定するために使います。必要なキーワード：に、キーワードを入力します。\r\n\r\n例：\r\n認識結果「注 文 書」を、キーワード「注" +
-                    "文書」で認識 → 合格");
+        "文書」で認識 → 合格");
             // 
             // ifImportCheckBox
             // 
@@ -626,8 +596,8 @@
             this.gvRes.AllowUserToAddRows = false;
             this.gvRes.AllowUserToDeleteRows = false;
             this.gvRes.AllowUserToOrderColumns = true;
-            this.gvRes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gvRes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gvRes.AutoGenerateColumns = false;
             this.gvRes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn7,
@@ -637,7 +607,7 @@
             this.gvRes.Location = new System.Drawing.Point(5, 385);
             this.gvRes.Name = "gvRes";
             this.gvRes.RowTemplate.Height = 21;
-            this.gvRes.Size = new System.Drawing.Size(424, 179);
+            this.gvRes.Size = new System.Drawing.Size(426, 179);
             this.gvRes.TabIndex = 28;
             this.gvRes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRes_CellContentClick);
             // 
@@ -699,7 +669,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(432, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(438, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -715,7 +685,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 22);
             this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目の総数";
             // 
@@ -813,7 +783,7 @@
             this.tstop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bSave,
             this.toolStripSeparator1,
-            this.bSpecifyPic,
+            this.bBGPic,
             this.toolStripSeparator2,
             this.toolStripLabel1,
             this.tscbZoom,
@@ -823,7 +793,7 @@
             this.bAnother});
             this.tstop.Location = new System.Drawing.Point(3, 0);
             this.tstop.Name = "tstop";
-            this.tstop.Size = new System.Drawing.Size(761, 26);
+            this.tstop.Size = new System.Drawing.Size(642, 25);
             this.tstop.TabIndex = 0;
             // 
             // bSave
@@ -831,7 +801,7 @@
             this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
             this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(88, 23);
+            this.bSave.Size = new System.Drawing.Size(79, 22);
             this.bSave.Text = "保存します";
             this.bSave.ToolTipText = "編集しているテンプレートを保存します。";
             this.bSave.Click += new System.EventHandler(this.bSave_Click);
@@ -839,27 +809,49 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bBGPic
+            // 
+            this.bBGPic.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bA4,
+            this.toolStripSeparator5,
+            this.bSpecifyPic});
+            this.bBGPic.Image = ((System.Drawing.Image)(resources.GetObject("bBGPic.Image")));
+            this.bBGPic.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bBGPic.Name = "bBGPic";
+            this.bBGPic.Size = new System.Drawing.Size(84, 22);
+            this.bBGPic.Text = "背景画像";
+            this.bBGPic.ToolTipText = "背景画像を指定します。この画像がテンプレート編集の下地となります。 また、テンプレート内部に保存されます。";
+            // 
+            // bA4
+            // 
+            this.bA4.Name = "bA4";
+            this.bA4.Size = new System.Drawing.Size(153, 22);
+            this.bA4.Text = "白紙(A4縦)";
+            this.bA4.Click += new System.EventHandler(this.bA4_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(150, 6);
             // 
             // bSpecifyPic
             // 
-            this.bSpecifyPic.Image = ((System.Drawing.Image)(resources.GetObject("bSpecifyPic.Image")));
-            this.bSpecifyPic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bSpecifyPic.Name = "bSpecifyPic";
-            this.bSpecifyPic.Size = new System.Drawing.Size(160, 23);
-            this.bSpecifyPic.Text = "背景画像を指定します...";
-            this.bSpecifyPic.ToolTipText = "背景画像を指定します。この画像がテンプレート編集の下地となります。 また、テンプレート内部に保存されます。";
+            this.bSpecifyPic.Size = new System.Drawing.Size(153, 22);
+            this.bSpecifyPic.Text = "ファイルを指定...";
             this.bSpecifyPic.Click += new System.EventHandler(this.bSpecifyPic_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(44, 23);
+            this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
             this.toolStripLabel1.Text = "倍率：";
             this.toolStripLabel1.ToolTipText = "背景画像を画面に表示する際の、倍率を指定します。";
             // 
@@ -875,22 +867,23 @@
             "12.5%",
             "25%",
             "50%",
+            "75%",
             "100%"});
             this.tscbZoom.Name = "tscbZoom";
-            this.tscbZoom.Size = new System.Drawing.Size(75, 26);
+            this.tscbZoom.Size = new System.Drawing.Size(75, 25);
             this.tscbZoom.SelectedIndexChanged += new System.EventHandler(this.tscbZoom_SelectedIndexChanged);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // bAbout
             // 
             this.bAbout.Image = ((System.Drawing.Image)(resources.GetObject("bAbout.Image")));
             this.bAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bAbout.Name = "bAbout";
-            this.bAbout.Size = new System.Drawing.Size(136, 23);
+            this.bAbout.Size = new System.Drawing.Size(124, 22);
             this.bAbout.Text = "利用技術について...";
             this.bAbout.ToolTipText = "利用技術について、特に謝辞のある物を表示します。 ";
             this.bAbout.Click += new System.EventHandler(this.bAbout_Click);
@@ -898,14 +891,14 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // bAnother
             // 
             this.bAnother.Image = ((System.Drawing.Image)(resources.GetObject("bAnother.Image")));
             this.bAnother.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bAnother.Name = "bAnother";
-            this.bAnother.Size = new System.Drawing.Size(220, 23);
+            this.bAnother.Size = new System.Drawing.Size(199, 22);
             this.bAnother.Text = "評価用に、別の画像を指定します...";
             this.bAnother.ToolTipText = "認識に使用したい画像をファイルから指定します。1ページのみ選択できます。この画像は、テンプレート内容に保存されません。 ";
             this.bAnother.Click += new System.EventHandler(this.bAnother_Click);
@@ -918,6 +911,40 @@
             // 
             this.ofdAnother.Filter = global::OCRPattern.Properties.Settings.Default.GazoIn;
             // 
+            // slpPv
+            // 
+            this.slpPv.AccessibleName = "テンプレート プレビュー表示";
+            this.slpPv.AutoScroll = true;
+            this.slpPv.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.slpPv.Controls.Add(this.picPane);
+            this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.slpPv.Location = new System.Drawing.Point(0, 0);
+            this.slpPv.Name = "slpPv";
+            this.slpPv.Size = new System.Drawing.Size(326, 616);
+            this.slpPv.TabIndex = 1;
+            // 
+            // picPane
+            // 
+            this.picPane.AutoScroll = true;
+            this.picPane.AutoSize = true;
+            this.picPane.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.picPane.BackColor = System.Drawing.Color.White;
+            this.picPane.CanSelRect = false;
+            this.picPane.ContextMenuStrip = this.cmsPicPane;
+            this.picPane.ForeColor = System.Drawing.Color.Black;
+            this.picPane.Image = null;
+            this.picPane.Location = new System.Drawing.Point(3, 3);
+            this.picPane.MinimumSize = new System.Drawing.Size(32, 32);
+            this.picPane.Name = "picPane";
+            this.picPane.PelsPerMeter = new System.Drawing.SizeF(0F, 0F);
+            this.picPane.SelRect = ((System.Drawing.RectangleF)(resources.GetObject("picPane.SelRect")));
+            this.picPane.Size = new System.Drawing.Size(32, 32);
+            this.picPane.TabIndex = 0;
+            this.picPane.UseBright = false;
+            this.picPane.Zoom = 1F;
+            this.picPane.ImageChanged += new System.EventHandler(this.picPane_ImageChanged);
+            this.picPane.SelRectChanged += new System.EventHandler<OCRPattern.SelRectChangedEventArgs>(this.picPane_SelRectChanged);
+            // 
             // EForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -927,8 +954,8 @@
             this.Name = "EForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "テンプレート編集";
-            this.Load += new System.EventHandler(this.EForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EForm_FormClosing);
+            this.Load += new System.EventHandler(this.EForm_Load);
             this.cmsCharList.ResumeLayout(false);
             this.tsc.ContentPanel.ResumeLayout(false);
             this.tsc.TopToolStripPanel.ResumeLayout(false);
@@ -939,9 +966,8 @@
             this.vsc.Panel1.PerformLayout();
             this.vsc.Panel2.ResumeLayout(false);
             this.vsc.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vsc)).EndInit();
             this.vsc.ResumeLayout(false);
-            this.slpPv.ResumeLayout(false);
-            this.slpPv.PerformLayout();
             this.cmsPicPane.ResumeLayout(false);
             this.tlpStat.ResumeLayout(false);
             this.tlpStat.PerformLayout();
@@ -954,6 +980,8 @@
             this.blkBindingNavigator.PerformLayout();
             this.tstop.ResumeLayout(false);
             this.tstop.PerformLayout();
+            this.slpPv.ResumeLayout(false);
+            this.slpPv.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -964,7 +992,6 @@
         private System.Windows.Forms.ToolStrip tstop;
         private System.Windows.Forms.ToolStripButton bSave;
         private System.Windows.Forms.OpenFileDialog ofdPic;
-        private System.Windows.Forms.ToolStripButton bSpecifyPic;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.SplitContainer vsc;
         private System.Windows.Forms.BindingNavigator blkBindingNavigator;
@@ -1030,5 +1057,9 @@
         private System.Windows.Forms.ToolTip tt;
         private System.Windows.Forms.Button bVerifyKw;
         private System.Windows.Forms.CheckBox cbNeedVerify;
+        private System.Windows.Forms.ToolStripDropDownButton bBGPic;
+        private System.Windows.Forms.ToolStripMenuItem bA4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem bSpecifyPic;
     }
 }

@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="GazoIn" Type="System.String" Scope="User">
-      <Value Profile="(Default)">TIF/PDF|*.tif;*.tiff;*.pdf</Value>
+      <Value Profile="(Default)">画像など|*.png;*.bmp;*.tif;*.tiff;*.jpg;*.jpeg;*.pdf</Value>
     </Setting>
     <Setting Name="PicIn" Type="System.String" Scope="User">
-      <Value Profile="(Default)">画像|*.png;*.bmp;*.tif;*.jpg;*.jpeg</Value>
+      <Value Profile="(Default)">画像など|*.png;*.bmp;*.tif;*.tiff;*.jpg;*.jpeg;*.pdf</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -65,7 +65,7 @@ namespace OCRPattern.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap _1335406105_help_contents {
             get {
-                object obj = ResourceManager.GetObject("_1335406105_help-contents", resourceCulture);
+                object obj = ResourceManager.GetObject("_1335406105_help_contents", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,6 +93,26 @@ namespace OCRPattern.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap A4V300 {
+            get {
+                object obj = ResourceManager.GetObject("A4V300", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Icon e {
+            get {
+                object obj = ResourceManager.GetObject("e", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
@@ -107,6 +127,16 @@ namespace OCRPattern.Properties {
             get {
                 object obj = ResourceManager.GetObject("poppler_top", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Icon t {
+            get {
+                object obj = ResourceManager.GetObject("t", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

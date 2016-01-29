@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
 using System.Xml;
 using Microsoft.VisualBasic;
+using OCRPattern.Properties;
 
 namespace OCRPattern {
     public partial class EForm : Form {
@@ -23,6 +24,8 @@ namespace OCRPattern {
             this.fpxml = fpxml;
 
             InitializeComponent();
+
+            Icon = Resources.e;
         }
 
         private void EForm_Load(object sender, EventArgs e) {
@@ -124,6 +127,7 @@ namespace OCRPattern {
 
         void ocrs_PictureChanged(object sender, EventArgs e) {
             picPane.Image = ((OCRSettei)sender).Picture;
+            tscbZoom_SelectedIndexChanged(sender, e);
         }
 
         OCRSettei ocrs = new OCRSettei();
@@ -144,12 +148,16 @@ namespace OCRPattern {
 
         private void bSpecifyPic_Click(object sender, EventArgs e) {
             if (ofdPic.ShowDialog(this) == DialogResult.OK) {
-                ocrs.Picture = new Bitmap(new MemoryStream(File.ReadAllBytes(ofdPic.FileName)));
+                Bitmap pic;
+                if (LPUt.Eat(ofdPic.FileName, out pic)) {
+                    ocrs.Picture = pic;
+                }
             }
         }
 
         private void tscbZoom_SelectedIndexChanged(object sender, EventArgs e) {
-            picPane.Zoom = float.Parse(tscbZoom.Text.Split('%')[0]) / 100.0f;
+            if (!String.IsNullOrEmpty(tscbZoom.Text))
+                picPane.Zoom = float.Parse(tscbZoom.Text.Split('%')[0]) / 100.0f;
         }
 
         private void picPane_SelRectChanged(object sender, SelRectChangedEventArgs e) {
@@ -258,10 +266,9 @@ namespace OCRPattern {
             cmsCharList.Show(b, new Point(0, b.Height));
         }
 
-        private void bAnother_Click(object sender, EventArgs e) {
-            if (ofdAnother.ShowDialog(this) == DialogResult.OK) {
+        class LPUt {
+            internal static bool Eat(String fp, out Bitmap pic2) {
                 int cz = 0;
-                String fp = ofdAnother.FileName;
                 if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0) {
                     using (UtPDFio io = new UtPDFio(fp)) {
                         cz = io.NumPages;
@@ -278,16 +285,30 @@ namespace OCRPattern {
                         int z = (int)form.numPage.Value;
                         if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0) {
                             using (UtPDFio io = new UtPDFio(fp)) {
-                                SetPv(io.Rasterize(z - 1));
+                                pic2 = (io.Rasterize(z - 1));
                             }
                         }
                         else {
                             using (Bitmap pic = new Bitmap(fp)) {
                                 pic.SelectActiveFrame(FrameDimension.Page, z - 1);
-                                SetPv((Bitmap)pic.Clone());
+                                pic2 = ((Bitmap)pic.Clone());
                             }
                         }
+                        return true;
                     }
+                    else {
+                        pic2 = null;
+                        return false;
+                    }
+                }
+            }
+        }
+
+        private void bAnother_Click(object sender, EventArgs e) {
+            if (ofdAnother.ShowDialog(this) == DialogResult.OK) {
+                Bitmap pic;
+                if (LPUt.Eat(ofdAnother.FileName, out pic)) {
+                    SetPv(pic);
                 }
             }
         }
@@ -581,6 +602,10 @@ namespace OCRPattern {
                 f ? MessageBoxIcon.Information : MessageBoxIcon.Error
                 );
         }
+
+        private void bA4_Click(object sender, EventArgs e) {
+            ocrs.Picture = Resources.A4V300;
+        }
     }
 
     public class RUt {
@@ -645,10 +670,17 @@ namespace OCRPattern {
                 picUsed = pic;
                 String ty = row.CRType;
                 if (ty == "zxing") {
-                    IBarcodeReader reader = new BarcodeReader();
-                    Result result = reader.Decode(pic);
-                    if (result != null)
-                        textrec = result.Text;
+                    if (pic.Width >= 8 && pic.Height >= 8) {
+                        IBarcodeReader reader = new BarcodeReader();
+                        try {
+                            Result result = reader.Decode(pic);
+                            if (result != null)
+                                textrec = result.Text;
+                        }
+                        catch (IndexOutOfRangeException) {
+                            // 画像が小さいなど
+                        }
+                    }
                 }
                 else if (ty.StartsWith("ocr.") && TOcr.IsInstalled) {
                     textrec = TOcr.Rec(pic, ty.Substring(4), row.Whitelist, row.Blacklist, row.PSM);
