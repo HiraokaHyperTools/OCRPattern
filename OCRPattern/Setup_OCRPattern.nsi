@@ -10,7 +10,7 @@
 !define APP "OCRPattern"
 !define TTL "OCRPattern"
 !define COM "HIRAOKA HYPERS TOOLS, Inc."
-!system 'DefineAsmVer.exe bin\DEBUG\${APP}.exe "!define VER ""[SVER]"" " > Ver.nsh'
+!system 'DefineAsmVer.exe bin\x86\DEBUG\${APP}.exe "!define VER ""[SVER]"" " > Ver.nsh'
 !include "Ver.nsh"
 !searchreplace APV ${VER} "." "_"
 
@@ -114,7 +114,7 @@ Section "" ;No components page, name is not important
   ${EndIf}
 
   ; Put file there
-  File "bin\x86\DEBUG\*.*"
+  File /r /x "*.vshost.*" "bin\x86\DEBUG\*.*"
 
   ; EXT
   WriteRegStr HKCR "${EXT}" "" "${PROGID}"
