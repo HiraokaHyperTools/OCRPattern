@@ -389,7 +389,7 @@ public:
 
 };
 
-DLLEXP HRESULT GetMyPoppler(IMyPoppler **pprv) {
+DLLEXP HRESULT __stdcall GetMyPoppler(IMyPoppler **pprv) {
 	if (pprv == NULL)
 		return E_POINTER;
 
