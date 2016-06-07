@@ -593,7 +593,7 @@ namespace OCRPattern {
             String s = Interaction.InputBox("認識結果を入力してください。指定した内容で合格するかどうかを検定します。", "", dv ?? "", -1, -1);
             if (s.Length == 0) return;
 
-            bool f = UtKwt.PartMatch(s, testKeywordTextBox.Text);
+            bool f = UtKwt.PartMatch2(s, testKeywordTextBox.Text, cbSkipWs.Checked);
 
             MessageBox.Show(this,
                 f ? "合格" : "不合格",

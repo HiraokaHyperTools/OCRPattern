@@ -360,7 +360,7 @@ namespace OCRPattern {
                             wipper.HintForm(x, rows.Length * 2);
 
                             Object res = RUt.Recognize2(pic, row);
-                            if (res != null && UtKwt.PartMatch(Convert.ToString(res), row.TestKeyword)) {
+                            if (res != null && UtKwt.PartMatch2(Convert.ToString(res), row.TestKeyword, row.SkipWs)) {
                                 any = true;
                             }
                             else {
@@ -599,7 +599,7 @@ namespace OCRPattern {
     }
 
     public abstract class UtPICio : IDisposable {
-        public abstract int NumPages { get;}
+        public abstract int NumPages { get; }
         public abstract Bitmap Rasterize(int z);
         public abstract void SavePageAs(string fp, int page);
 
@@ -708,6 +708,12 @@ namespace OCRPattern {
         public static bool PartMatch(String input, String test) {
             input = Regex.Replace(input, "\\s+", " ");
             test = Regex.Replace(test, "\\s+", " ").Trim();
+            return input.Contains(test);
+        }
+
+        public static bool PartMatch2(String input, String test, bool skipws) {
+            input = Regex.Replace(input, "\\s+", skipws ? "" : " ");
+            test = Regex.Replace(test, "\\s+", skipws ? "" : " ").Trim();
             return input.Contains(test);
         }
     }

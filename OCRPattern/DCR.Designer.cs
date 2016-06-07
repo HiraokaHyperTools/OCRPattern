@@ -309,6 +309,8 @@ namespace OCRPattern {
             
             private global::System.Data.DataColumn columnNeedVerify;
             
+            private global::System.Data.DataColumn columnSkipWs;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BlkDataTable() {
@@ -464,6 +466,14 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SkipWsColumn {
+                get {
+                    return this.columnSkipWs;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -499,7 +509,23 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public BlkRow AddBlkRow(float x, float y, float cx, float cy, string CRType, string FieldName, bool IfImport, bool IfTest, string Blacklist, string Whitelist, string PSM, string TestKeyword, string NoiseReduction, int ResampleDPI, bool NeedVerify) {
+            public BlkRow AddBlkRow(
+                        float x, 
+                        float y, 
+                        float cx, 
+                        float cy, 
+                        string CRType, 
+                        string FieldName, 
+                        bool IfImport, 
+                        bool IfTest, 
+                        string Blacklist, 
+                        string Whitelist, 
+                        string PSM, 
+                        string TestKeyword, 
+                        string NoiseReduction, 
+                        int ResampleDPI, 
+                        bool NeedVerify, 
+                        bool SkipWs) {
                 BlkRow rowBlkRow = ((BlkRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         x,
@@ -516,7 +542,8 @@ namespace OCRPattern {
                         TestKeyword,
                         NoiseReduction,
                         ResampleDPI,
-                        NeedVerify};
+                        NeedVerify,
+                        SkipWs};
                 rowBlkRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBlkRow);
                 return rowBlkRow;
@@ -554,6 +581,7 @@ namespace OCRPattern {
                 this.columnNoiseReduction = base.Columns["NoiseReduction"];
                 this.columnResampleDPI = base.Columns["ResampleDPI"];
                 this.columnNeedVerify = base.Columns["NeedVerify"];
+                this.columnSkipWs = base.Columns["SkipWs"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -589,6 +617,8 @@ namespace OCRPattern {
                 base.Columns.Add(this.columnResampleDPI);
                 this.columnNeedVerify = new global::System.Data.DataColumn("NeedVerify", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNeedVerify);
+                this.columnSkipWs = new global::System.Data.DataColumn("SkipWs", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSkipWs);
                 this.columnx.AllowDBNull = false;
                 this.columnx.DefaultValue = ((float)(0F));
                 this.columny.AllowDBNull = false;
@@ -607,6 +637,7 @@ namespace OCRPattern {
                 this.columnNoiseReduction.DefaultValue = ((string)(""));
                 this.columnResampleDPI.DefaultValue = ((int)(0));
                 this.columnNeedVerify.DefaultValue = ((bool)(false));
+                this.columnSkipWs.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -969,6 +1000,22 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool SkipWs {
+                get {
+                    try {
+                        return ((bool)(this[this.tableBlk.SkipWsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'Blk\' にある列 \'SkipWs\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableBlk.SkipWsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCRTypeNull() {
                 return this.IsNull(this.tableBlk.CRTypeColumn);
             }
@@ -1097,6 +1144,18 @@ namespace OCRPattern {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNeedVerifyNull() {
                 this[this.tableBlk.NeedVerifyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSkipWsNull() {
+                return this.IsNull(this.tableBlk.SkipWsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSkipWsNull() {
+                this[this.tableBlk.SkipWsColumn] = global::System.Convert.DBNull;
             }
         }
         
