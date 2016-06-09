@@ -21,6 +21,7 @@ namespace OCRPattern {
         internal static OCRWIPForm Show1() {
             OCRWIPForm form = new OCRWIPForm();
             form.Show();
+            form.Update();
             return form;
         }
 

@@ -13,6 +13,8 @@ namespace OCRPattern {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            //String s = Ocrad.Rec(new System.Drawing.Bitmap(@"C:\Users\ku_000\Documents\S50O5SiIlj.jpg"));
+
             for (int x = 0; x < args.Length; x++) {
                 String a = args[x];
                 if (a == "/e") {

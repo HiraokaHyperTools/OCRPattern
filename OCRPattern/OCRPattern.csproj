@@ -111,6 +111,7 @@
     <Compile Include="EForm.Designer.cs">
       <DependentUpon>EForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GOcr.cs" />
     <Compile Include="HelpBtn.cs" />
     <Compile Include="MForm.cs">
       <SubType>Form</SubType>
@@ -185,6 +186,18 @@
     <None Include="DCR.xss">
       <DependentUpon>DCR.xsd</DependentUpon>
     </None>
+    <None Include="gocr\cctable-ascii+">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="gocr\cctable-jpn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="gocr\PLM-ascii+.dic">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="gocr\PLM-jpn.dic">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -241,6 +254,18 @@
     <Content Include="e.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="gocr\cygwin1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="gocr\gocr.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="gocr\ocrad.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="gocr\nhocr.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="help\bAdd.htm" />
     <Content Include="help\bAnother.htm" />
     <Content Include="help\top.htm" />

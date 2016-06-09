@@ -87,7 +87,6 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.blkBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.fieldNameTextBox = new System.Windows.Forms.TextBox();
             this.tstop = new System.Windows.Forms.ToolStrip();
             this.bSave = new System.Windows.Forms.ToolStripButton();
@@ -283,7 +282,7 @@
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
             this.vsc.Size = new System.Drawing.Size(770, 631);
-            this.vsc.SplitterDistance = 322;
+            this.vsc.SplitterDistance = 320;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
             // 
@@ -296,7 +295,7 @@
             this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.slpPv.Location = new System.Drawing.Point(0, 0);
             this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(322, 616);
+            this.slpPv.Size = new System.Drawing.Size(320, 616);
             this.slpPv.TabIndex = 1;
             // 
             // picPane
@@ -350,7 +349,7 @@
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(322, 15);
+            this.tlpStat.Size = new System.Drawing.Size(320, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -372,7 +371,7 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(308, 0);
+            this.lRes.Location = new System.Drawing.Point(306, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
@@ -695,7 +694,7 @@
             this.blkBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
             this.blkBindingNavigator.BindingSource = this.blkBindingSource;
             this.blkBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.blkBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.blkBindingNavigator.DeleteItem = null;
             this.blkBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -707,8 +706,7 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem,
-            this.blkBindingNavigatorSaveItem});
+            this.bindingNavigatorDeleteItem});
             this.blkBindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.blkBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.blkBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -716,7 +714,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(442, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(444, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -744,6 +742,7 @@
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorDeleteItem.Text = "削除";
+            this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -804,15 +803,6 @@
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // blkBindingNavigatorSaveItem
-            // 
-            this.blkBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.blkBindingNavigatorSaveItem.Enabled = false;
-            this.blkBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("blkBindingNavigatorSaveItem.Image")));
-            this.blkBindingNavigatorSaveItem.Name = "blkBindingNavigatorSaveItem";
-            this.blkBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
-            this.blkBindingNavigatorSaveItem.Text = "データの保存";
             // 
             // fieldNameTextBox
             // 
@@ -1021,7 +1011,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.ToolStripButton blkBindingNavigatorSaveItem;
         private System.Windows.Forms.TextBox fieldNameTextBox;
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

@@ -33,6 +33,9 @@ namespace OCRPattern {
                 List<KeyValuePair<string, string>> alkv = new List<KeyValuePair<string, string>>();
                 alkv.Add(new KeyValuePair<string, string>("ocr.jpn", "日本語OCR"));
                 alkv.Add(new KeyValuePair<string, string>("ocr.eng", "英語OCR"));
+                alkv.Add(new KeyValuePair<string, string>("gocr", "英語OCR (GOCR)"));
+                alkv.Add(new KeyValuePair<string, string>("ocrad", "英語OCR (Ocrad)"));
+                alkv.Add(new KeyValuePair<string, string>("nhocr", "英語OCR (NHocr)"));
                 alkv.Add(new KeyValuePair<string, string>("ocr.chi_sim", "中国語(sim)OCR"));
                 alkv.Add(new KeyValuePair<string, string>("ocr.chi_tra", "中国語(tra)OCR"));
                 alkv.Add(new KeyValuePair<string, string>("zxing", "バーコードOCR"));
@@ -606,6 +609,13 @@ namespace OCRPattern {
         private void bA4_Click(object sender, EventArgs e) {
             ocrs.Picture = Resources.A4V300;
         }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e) {
+            if (MessageBox.Show(this, "この枠を削除しますか?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != System.Windows.Forms.DialogResult.Yes) 
+                return;
+
+            blkBindingSource.RemoveCurrent();
+        }
     }
 
     public class RUt {
@@ -681,6 +691,15 @@ namespace OCRPattern {
                             // 画像が小さいなど
                         }
                     }
+                }
+                else if (ty == "gocr") {
+                    textrec = GOcr.Rec(pic);
+                }
+                else if (ty == "ocrad") {
+                    textrec = Ocrad.Rec(pic);
+                }
+                else if (ty == "nhocr") {
+                    textrec = NHocr.Rec(pic);
                 }
                 else if (ty.StartsWith("ocr.") && TOcr.IsInstalled) {
                     textrec = TOcr.Rec(pic, ty.Substring(4), row.Whitelist, row.Blacklist, row.PSM);
