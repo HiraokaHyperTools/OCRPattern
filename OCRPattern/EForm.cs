@@ -611,11 +611,53 @@ namespace OCRPattern {
         }
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e) {
-            if (MessageBox.Show(this, "この枠を削除しますか?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != System.Windows.Forms.DialogResult.Yes) 
+            if (MessageBox.Show(this, "この枠を削除しますか?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != System.Windows.Forms.DialogResult.Yes)
                 return;
 
             blkBindingSource.RemoveCurrent();
         }
+
+        private void Add2PP(string p) {
+            var tb = postProcessTextBox;
+            var rows = new List<string>(tb.Lines);
+            while (rows.Count > 0 && rows[rows.Count - 1].Length == 0) {
+                rows.RemoveAt(rows.Count - 1);
+            }
+            rows.Add(p);
+            tb.Lines = rows.ToArray();
+        }
+
+        private void mPPErase_Click(object sender, EventArgs e) {
+            String s = Interaction.InputBox("文字を入力");
+            if (s.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
+            Add2PP("×" + s);
+        }
+
+        private void mPPRepl_Click(object sender, EventArgs e) {
+            String s = Interaction.InputBox("どの文字を？");
+            if (s.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
+            String t = Interaction.InputBox("どの文字に変更？");
+            if (t.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
+            Add2PP(s + "→" + t);
+        }
+
+        private void mPPSwap_Click(object sender, EventArgs e) {
+            String s = Interaction.InputBox("どの文字と？");
+            if (s.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
+            String t = Interaction.InputBox("どの文字を入れ替え？");
+            if (t.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
+            Add2PP(s + "⇔" + t);
+        }
+
+        private void bAddPP_Click(object sender, EventArgs e) {
+            cmsPP.Show(bAddPP, new Point(0, bAddPP.Height));
+        }
+
+        private const int SC_CONTEXTHELP = 0xf180;
+        private const int WM_SYSCOMMAND = 0x112;
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
     }
 
     public class RUt {
@@ -707,6 +749,53 @@ namespace OCRPattern {
                         textrec = ((String)textrec).Replace("—", "-");
                     }
                 }
+            }
+
+            if (textrec is String && row.PostProcess != null) {
+                String[] alpp = row.PostProcess.Replace("\r\n", "\n").Split('\n');
+                String ntr = "";
+                foreach (char c in "" + textrec) {
+                    foreach (String pp in alpp) {
+                        if (false) { }
+                        else if (pp.Length == 2 && pp[0] == '×') {
+                            if (pp[1] == c) {
+                                goto _SkipIt;
+                            }
+                        }
+                        else if (pp.Length == 3) {
+                            if (false) { }
+                            else if (pp[1] == '⇔') {
+                                if (false) { }
+                                else if (pp[0] == c) {
+                                    ntr += pp[2];
+                                    goto _SkipIt;
+                                }
+                                else if (pp[2] == c) {
+                                    ntr += pp[0];
+                                    goto _SkipIt;
+                                }
+                            }
+                            else if (pp[1] == '→') {
+                                if (false) { }
+                                else if (pp[0] == c) {
+                                    ntr += pp[2];
+                                    goto _SkipIt;
+                                }
+                            }
+                            else if (pp[1] == '←') {
+                                if (false) { }
+                                else if (pp[2] == c) {
+                                    ntr += pp[0];
+                                    goto _SkipIt;
+                                }
+                            }
+                        }
+                    }
+                    ntr += c;
+
+                _SkipIt: ;
+                }
+                textrec = ntr;
             }
 
             return textrec;

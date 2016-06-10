@@ -311,6 +311,8 @@ namespace OCRPattern {
             
             private global::System.Data.DataColumn columnSkipWs;
             
+            private global::System.Data.DataColumn columnPostProcess;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BlkDataTable() {
@@ -474,6 +476,14 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PostProcessColumn {
+                get {
+                    return this.columnPostProcess;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -525,7 +535,8 @@ namespace OCRPattern {
                         string NoiseReduction, 
                         int ResampleDPI, 
                         bool NeedVerify, 
-                        bool SkipWs) {
+                        bool SkipWs, 
+                        string PostProcess) {
                 BlkRow rowBlkRow = ((BlkRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         x,
@@ -543,7 +554,8 @@ namespace OCRPattern {
                         NoiseReduction,
                         ResampleDPI,
                         NeedVerify,
-                        SkipWs};
+                        SkipWs,
+                        PostProcess};
                 rowBlkRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBlkRow);
                 return rowBlkRow;
@@ -582,6 +594,7 @@ namespace OCRPattern {
                 this.columnResampleDPI = base.Columns["ResampleDPI"];
                 this.columnNeedVerify = base.Columns["NeedVerify"];
                 this.columnSkipWs = base.Columns["SkipWs"];
+                this.columnPostProcess = base.Columns["PostProcess"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -619,6 +632,8 @@ namespace OCRPattern {
                 base.Columns.Add(this.columnNeedVerify);
                 this.columnSkipWs = new global::System.Data.DataColumn("SkipWs", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSkipWs);
+                this.columnPostProcess = new global::System.Data.DataColumn("PostProcess", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPostProcess);
                 this.columnx.AllowDBNull = false;
                 this.columnx.DefaultValue = ((float)(0F));
                 this.columny.AllowDBNull = false;
@@ -638,6 +653,8 @@ namespace OCRPattern {
                 this.columnResampleDPI.DefaultValue = ((int)(0));
                 this.columnNeedVerify.DefaultValue = ((bool)(false));
                 this.columnSkipWs.DefaultValue = ((bool)(false));
+                this.columnPostProcess.AllowDBNull = false;
+                this.columnPostProcess.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1011,6 +1028,17 @@ namespace OCRPattern {
                 }
                 set {
                     this[this.tableBlk.SkipWsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PostProcess {
+                get {
+                    return ((string)(this[this.tableBlk.PostProcessColumn]));
+                }
+                set {
+                    this[this.tableBlk.PostProcessColumn] = value;
                 }
             }
             

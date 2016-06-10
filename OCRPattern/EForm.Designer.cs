@@ -31,6 +31,7 @@
             System.Windows.Forms.Label xLabel;
             System.Windows.Forms.Label cRTypeLabel;
             System.Windows.Forms.Label fieldNameLabel;
+            System.Windows.Forms.Label postProcessLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EForm));
             this.cmsCharList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mCLDigit = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,9 +46,11 @@
             this.tlpStat = new System.Windows.Forms.TableLayoutPanel();
             this.llRevertPic = new System.Windows.Forms.LinkLabel();
             this.lRes = new System.Windows.Forms.Label();
-            this.cbSkipWs = new System.Windows.Forms.CheckBox();
+            this.bAddPP = new System.Windows.Forms.Button();
+            this.postProcessTextBox = new System.Windows.Forms.TextBox();
             this.blkBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dcr = new OCRPattern.DCR();
+            this.cbSkipWs = new System.Windows.Forms.CheckBox();
             this.cbNeedVerify = new System.Windows.Forms.CheckBox();
             this.bVerifyKw = new System.Windows.Forms.Button();
             this.lnum = new System.Windows.Forms.Label();
@@ -78,7 +81,6 @@
             this.blkBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -87,6 +89,7 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.fieldNameTextBox = new System.Windows.Forms.TextBox();
             this.tstop = new System.Windows.Forms.ToolStrip();
             this.bSave = new System.Windows.Forms.ToolStripButton();
@@ -105,12 +108,17 @@
             this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.ofdPic = new System.Windows.Forms.OpenFileDialog();
             this.ofdAnother = new System.Windows.Forms.OpenFileDialog();
+            this.cmsPP = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mPPErase = new System.Windows.Forms.ToolStripMenuItem();
+            this.mPPRepl = new System.Windows.Forms.ToolStripMenuItem();
+            this.mPPSwap = new System.Windows.Forms.ToolStripMenuItem();
             testKeywordLabel = new System.Windows.Forms.Label();
             laWL = new System.Windows.Forms.Label();
             laBL = new System.Windows.Forms.Label();
             xLabel = new System.Windows.Forms.Label();
             cRTypeLabel = new System.Windows.Forms.Label();
             fieldNameLabel = new System.Windows.Forms.Label();
+            postProcessLabel = new System.Windows.Forms.Label();
             this.cmsCharList.SuspendLayout();
             this.tsc.ContentPanel.SuspendLayout();
             this.tsc.TopToolStripPanel.SuspendLayout();
@@ -129,6 +137,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingNavigator)).BeginInit();
             this.blkBindingNavigator.SuspendLayout();
             this.tstop.SuspendLayout();
+            this.cmsPP.SuspendLayout();
             this.SuspendLayout();
             // 
             // testKeywordLabel
@@ -184,6 +193,15 @@
             fieldNameLabel.Size = new System.Drawing.Size(67, 12);
             fieldNameLabel.TabIndex = 14;
             fieldNameLabel.Text = "フィールド名：";
+            // 
+            // postProcessLabel
+            // 
+            postProcessLabel.AutoSize = true;
+            postProcessLabel.Location = new System.Drawing.Point(238, 286);
+            postProcessLabel.Name = "postProcessLabel";
+            postProcessLabel.Size = new System.Drawing.Size(59, 12);
+            postProcessLabel.TabIndex = 33;
+            postProcessLabel.Text = "文字変換：";
             // 
             // cmsCharList
             // 
@@ -248,6 +266,9 @@
             // vsc.Panel2
             // 
             this.vsc.Panel2.AutoScroll = true;
+            this.vsc.Panel2.Controls.Add(this.bAddPP);
+            this.vsc.Panel2.Controls.Add(postProcessLabel);
+            this.vsc.Panel2.Controls.Add(this.postProcessTextBox);
             this.vsc.Panel2.Controls.Add(this.cbSkipWs);
             this.vsc.Panel2.Controls.Add(this.cbNeedVerify);
             this.vsc.Panel2.Controls.Add(this.bVerifyKw);
@@ -282,7 +303,7 @@
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
             this.vsc.Size = new System.Drawing.Size(770, 631);
-            this.vsc.SplitterDistance = 320;
+            this.vsc.SplitterDistance = 308;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
             // 
@@ -295,7 +316,7 @@
             this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.slpPv.Location = new System.Drawing.Point(0, 0);
             this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(320, 616);
+            this.slpPv.Size = new System.Drawing.Size(308, 616);
             this.slpPv.TabIndex = 1;
             // 
             // picPane
@@ -349,7 +370,7 @@
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(320, 15);
+            this.tlpStat.Size = new System.Drawing.Size(308, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -371,12 +392,43 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(306, 0);
+            this.lRes.Location = new System.Drawing.Point(294, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
             this.lRes.TabIndex = 4;
             this.lRes.Text = "...";
+            // 
+            // bAddPP
+            // 
+            this.bAddPP.Location = new System.Drawing.Point(356, 275);
+            this.bAddPP.Name = "bAddPP";
+            this.bAddPP.Size = new System.Drawing.Size(75, 23);
+            this.bAddPP.TabIndex = 104;
+            this.bAddPP.Text = "追加∇";
+            this.bAddPP.UseVisualStyleBackColor = true;
+            this.bAddPP.Click += new System.EventHandler(this.bAddPP_Click);
+            // 
+            // postProcessTextBox
+            // 
+            this.postProcessTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.blkBindingSource, "PostProcess", true));
+            this.postProcessTextBox.Location = new System.Drawing.Point(240, 301);
+            this.postProcessTextBox.Multiline = true;
+            this.postProcessTextBox.Name = "postProcessTextBox";
+            this.postProcessTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.postProcessTextBox.Size = new System.Drawing.Size(191, 78);
+            this.postProcessTextBox.TabIndex = 29;
+            this.tt.SetToolTip(this.postProcessTextBox, "認識を実行した後に、結果を操作できるようにします。この設定は、枠ごとに異なります。\r\n\r\n例えば、零 0 と オー O が逆に認識される等。");
+            // 
+            // blkBindingSource
+            // 
+            this.blkBindingSource.DataMember = "Blk";
+            this.blkBindingSource.DataSource = this.dcr;
+            // 
+            // dcr
+            // 
+            this.dcr.DataSetName = "DCR";
+            this.dcr.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // cbSkipWs
             // 
@@ -388,16 +440,6 @@
             this.cbSkipWs.TabIndex = 18;
             this.cbSkipWs.Text = "空白を詰めて判定";
             this.cbSkipWs.UseVisualStyleBackColor = true;
-            // 
-            // blkBindingSource
-            // 
-            this.blkBindingSource.DataMember = "Blk";
-            this.blkBindingSource.DataSource = this.dcr;
-            // 
-            // dcr
-            // 
-            this.dcr.DataSetName = "DCR";
-            this.dcr.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // cbNeedVerify
             // 
@@ -436,7 +478,7 @@
             this.bReportAll.Location = new System.Drawing.Point(208, 570);
             this.bReportAll.Name = "bReportAll";
             this.bReportAll.Size = new System.Drawing.Size(75, 46);
-            this.bReportAll.TabIndex = 32;
+            this.bReportAll.TabIndex = 103;
             this.bReportAll.Text = "レポート化";
             this.tt.SetToolTip(this.bReportAll, "認識テストの結果をHTMLと画像を組み合わせてレポートを作成します。");
             this.bReportAll.UseVisualStyleBackColor = true;
@@ -578,7 +620,7 @@
             this.bTestSeled.Location = new System.Drawing.Point(93, 570);
             this.bTestSeled.Name = "bTestSeled";
             this.bTestSeled.Size = new System.Drawing.Size(75, 46);
-            this.bTestSeled.TabIndex = 31;
+            this.bTestSeled.TabIndex = 102;
             this.bTestSeled.Text = "認識テスト\r\n(選択分)";
             this.tt.SetToolTip(this.bTestSeled, "表で選択している認識枠について、認識を実行します。認識結果は、表に出力されます。 ");
             this.bTestSeled.UseVisualStyleBackColor = true;
@@ -630,7 +672,7 @@
             this.bTestAll.Location = new System.Drawing.Point(3, 570);
             this.bTestAll.Name = "bTestAll";
             this.bTestAll.Size = new System.Drawing.Size(75, 46);
-            this.bTestAll.TabIndex = 30;
+            this.bTestAll.TabIndex = 101;
             this.bTestAll.Text = "認識テスト\r\n(すべて)";
             this.tt.SetToolTip(this.bTestAll, "すべての認識枠について、認識を実行します。認識結果は、表に出力されます。");
             this.bTestAll.UseVisualStyleBackColor = true;
@@ -654,7 +696,7 @@
             this.gvRes.Name = "gvRes";
             this.gvRes.RowTemplate.Height = 21;
             this.gvRes.Size = new System.Drawing.Size(426, 179);
-            this.gvRes.TabIndex = 29;
+            this.gvRes.TabIndex = 99;
             this.gvRes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRes_CellContentClick);
             // 
             // dataGridViewTextBoxColumn7
@@ -714,7 +756,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(444, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(456, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -733,16 +775,6 @@
             this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 22);
             this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目の総数";
-            // 
-            // bindingNavigatorDeleteItem
-            // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorDeleteItem.Text = "削除";
-            this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -803,6 +835,16 @@
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bindingNavigatorDeleteItem
+            // 
+            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
+            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
+            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem.Text = "削除";
+            this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
             // fieldNameTextBox
             // 
@@ -948,6 +990,36 @@
             // 
             this.ofdAnother.Filter = global::OCRPattern.Properties.Settings.Default.GazoIn;
             // 
+            // cmsPP
+            // 
+            this.cmsPP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mPPErase,
+            this.mPPRepl,
+            this.mPPSwap});
+            this.cmsPP.Name = "cmsPP";
+            this.cmsPP.Size = new System.Drawing.Size(202, 70);
+            // 
+            // mPPErase
+            // 
+            this.mPPErase.Name = "mPPErase";
+            this.mPPErase.Size = new System.Drawing.Size(201, 22);
+            this.mPPErase.Text = "指定した文字を削除したい";
+            this.mPPErase.Click += new System.EventHandler(this.mPPErase_Click);
+            // 
+            // mPPRepl
+            // 
+            this.mPPRepl.Name = "mPPRepl";
+            this.mPPRepl.Size = new System.Drawing.Size(201, 22);
+            this.mPPRepl.Text = "文字を置き換えしたい";
+            this.mPPRepl.Click += new System.EventHandler(this.mPPRepl_Click);
+            // 
+            // mPPSwap
+            // 
+            this.mPPSwap.Name = "mPPSwap";
+            this.mPPSwap.Size = new System.Drawing.Size(201, 22);
+            this.mPPSwap.Text = "文字を入れ替えたい";
+            this.mPPSwap.Click += new System.EventHandler(this.mPPSwap_Click);
+            // 
             // EForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -985,6 +1057,7 @@
             this.blkBindingNavigator.PerformLayout();
             this.tstop.ResumeLayout(false);
             this.tstop.PerformLayout();
+            this.cmsPP.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1064,5 +1137,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem bSpecifyPic;
         private System.Windows.Forms.CheckBox cbSkipWs;
+        private System.Windows.Forms.TextBox postProcessTextBox;
+        private System.Windows.Forms.Button bAddPP;
+        private System.Windows.Forms.ContextMenuStrip cmsPP;
+        private System.Windows.Forms.ToolStripMenuItem mPPErase;
+        private System.Windows.Forms.ToolStripMenuItem mPPRepl;
+        private System.Windows.Forms.ToolStripMenuItem mPPSwap;
     }
 }
