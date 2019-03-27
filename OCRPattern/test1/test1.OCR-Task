@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<OCRTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Task>
+    <xs:schema id="Task" targetNamespace="http://tempuri.org/Task.xsd" xmlns:mstns="http://tempuri.org/Task.xsd" xmlns="http://tempuri.org/Task.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+      <xs:element name="Task" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="Cfg">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Files" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="ClearAlways" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="DirIn" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="ImportAlways" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="DirOut" type="xs:string" minOccurs="0" />
+                  <xs:element name="OutCmd" type="xs:string" minOccurs="0" />
+                  <xs:element name="OutParm" type="xs:string" minOccurs="0" />
+                  <xs:element name="MoveOutAfter" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="MoveInAfter" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="RunOutCmd" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="Rotate4" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="OnlyThis" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="SeledForm" type="xs:string" minOccurs="0" />
+                  <xs:element name="DirRecyc" type="xs:string" minOccurs="0" />
+                  <xs:element name="UseRecyc" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="DoNotSplit" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="EraseOlderTempFiles" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="EraseOlderOutFiles" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="EraseOlderFiles" type="xs:boolean" default="false" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+      <Task xmlns="http://tempuri.org/Task.xsd">
+        <Cfg diffgr:id="Cfg1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+          <Files>D:\Proj\OCRPattern\OCRPattern\test1\丸々検査リスト - コピー.pdf</Files>
+          <ClearAlways>false</ClearAlways>
+          <DirIn>D:\Proj\OCRPattern\OCRPattern\test1</DirIn>
+          <ImportAlways>false</ImportAlways>
+          <DirOut>C:\A</DirOut>
+          <OutCmd>C:\Program Files (x86)\CRIMP32\CRIMP32.exe</OutCmd>
+          <OutParm>/import "%csv%" "%pic%" test1</OutParm>
+          <MoveOutAfter>true</MoveOutAfter>
+          <MoveInAfter>true</MoveInAfter>
+          <RunOutCmd>true</RunOutCmd>
+          <Rotate4>false</Rotate4>
+          <OnlyThis>true</OnlyThis>
+          <SeledForm>test1</SeledForm>
+          <UseRecyc>false</UseRecyc>
+          <DoNotSplit>true</DoNotSplit>
+          <EraseOlderTempFiles>true</EraseOlderTempFiles>
+          <EraseOlderOutFiles>true</EraseOlderOutFiles>
+          <EraseOlderFiles>false</EraseOlderFiles>
+        </Cfg>
+      </Task>
+    </diffgr:diffgram>
+  </Task>
+</OCRTask>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +15,7 @@ using System.Drawing.Imaging;
 using System.Xml;
 using Microsoft.VisualBasic;
 using OCRPattern.Properties;
+using OCRPattern.Utils;
 
 namespace OCRPattern {
     public partial class EForm : Form {
@@ -898,7 +899,7 @@ namespace OCRPattern {
                 if (rk != null) {
                     String ver = rk.GetValue("CurrentVersion") as String;
                     if (ver != null)
-                        return new Version(ver);
+                        return SemVerToVersion.Parse(ver);
                 }
                 return null;
             }

@@ -7,12 +7,19 @@
 
 ;--------------------------------
 
+Unicode true
+
+XPStyle on
+
 !define APP "OCRPattern"
 !define TTL "OCRPattern"
 !define COM "HIRAOKA HYPERS TOOLS, Inc."
 !system 'DefineAsmVer.exe bin\x86\DEBUG\${APP}.exe "!define VER ""[SVER]"" " > Ver.nsh'
 !include "Ver.nsh"
 !searchreplace APV ${VER} "." "_"
+
+!system 'MySign "bin\x86\DEBUG\${APP}".exe'
+!finalize 'MySign "%1"'
 
 !define EXT ".OCR-Settei"
 !define PROGID "OCR-Settei"

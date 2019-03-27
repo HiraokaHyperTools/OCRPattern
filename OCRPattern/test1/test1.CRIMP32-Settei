@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="yes"?>
+<HI xmlns="http://tempuri.org/HI.xsd">
+  <xs:schema id="HI" targetNamespace="http://tempuri.org/HI.xsd" xmlns:mstns="http://tempuri.org/HI.xsd" xmlns="http://tempuri.org/HI.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="HI" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="THiki">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="グループID" type="xs:int" minOccurs="0" />
+                <xs:element name="登録者" type="xs:string" minOccurs="0" />
+                <xs:element name="会社名" type="xs:string" minOccurs="0" />
+                <xs:element name="項目1" type="xs:string" minOccurs="0" />
+                <xs:element name="項目2" type="xs:string" minOccurs="0" />
+                <xs:element name="項目3" type="xs:string" minOccurs="0" />
+                <xs:element name="項目4" type="xs:string" minOccurs="0" />
+                <xs:element name="項目5" type="xs:string" minOccurs="0" />
+                <xs:element name="項目6" type="xs:string" minOccurs="0" />
+                <xs:element name="項目7" type="xs:string" minOccurs="0" />
+                <xs:element name="メモ" type="xs:string" minOccurs="0" />
+                <xs:element name="判定列" type="xs:string" minOccurs="0" />
+                <xs:element name="判定値" type="xs:string" minOccurs="0" />
+                <xs:element name="日付" type="xs:string" minOccurs="0" />
+                <xs:element name="グループ専属書類" type="xs:boolean" default="false" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <THiki>
+    <グループID>2</グループID>
+    <登録者>0</登録者>
+    <会社名 />
+    <項目1>FORM</項目1>
+    <項目2>EIGO</項目2>
+    <項目3>=Its a ocr!</項目3>
+    <判定列>FORM</判定列>
+    <判定値>test1</判定値>
+    <日付 />
+    <グループ専属書類>false</グループ専属書類>
+  </THiki>
+</HI>

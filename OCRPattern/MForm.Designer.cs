@@ -1,4 +1,4 @@
-﻿namespace OCRPattern {
+namespace OCRPattern {
     partial class MForm {
         /// <summary>
         /// 必要なデザイナ変数です。
@@ -30,6 +30,7 @@
             this.cfgBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.task = new OCRPattern.Task();
             this.tsc = new System.Windows.Forms.ToolStripContainer();
+            this.cbEraseOlderOutFiles = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbDoNotSplit = new System.Windows.Forms.CheckBox();
             this.bRefRecycDir = new System.Windows.Forms.Button();
@@ -41,6 +42,7 @@
             this.cbOnlyThis = new System.Windows.Forms.CheckBox();
             this.cbRotate4 = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbEraseOlderTempFiles = new System.Windows.Forms.CheckBox();
             this.cbMoveInAfter = new System.Windows.Forms.CheckBox();
             this.cbMoveOutAfter = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -130,6 +132,7 @@
             // 
             // tsc.ContentPanel
             // 
+            this.tsc.ContentPanel.Controls.Add(this.cbEraseOlderOutFiles);
             this.tsc.ContentPanel.Controls.Add(this.groupBox5);
             this.tsc.ContentPanel.Controls.Add(this.groupBox4);
             this.tsc.ContentPanel.Controls.Add(this.cbRotate4);
@@ -145,17 +148,28 @@
             this.tsc.ContentPanel.Controls.Add(this.label2);
             this.tsc.ContentPanel.Controls.Add(this.label1);
             this.tsc.ContentPanel.Controls.Add(this.tbFiles);
-            this.tsc.ContentPanel.Size = new System.Drawing.Size(434, 720);
+            this.tsc.ContentPanel.Size = new System.Drawing.Size(434, 729);
             this.tsc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tsc.Location = new System.Drawing.Point(0, 0);
             this.tsc.Name = "tsc";
-            this.tsc.Size = new System.Drawing.Size(434, 745);
+            this.tsc.Size = new System.Drawing.Size(434, 754);
             this.tsc.TabIndex = 0;
             this.tsc.Text = "toolStripContainer1";
             // 
             // tsc.TopToolStripPanel
             // 
             this.tsc.TopToolStripPanel.Controls.Add(this.tstop);
+            // 
+            // cbEraseOlderOutFiles
+            // 
+            this.cbEraseOlderOutFiles.AutoSize = true;
+            this.cbEraseOlderOutFiles.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "EraseOlderOutFiles", true));
+            this.cbEraseOlderOutFiles.Location = new System.Drawing.Point(162, 305);
+            this.cbEraseOlderOutFiles.Name = "cbEraseOlderOutFiles";
+            this.cbEraseOlderOutFiles.Size = new System.Drawing.Size(183, 16);
+            this.cbEraseOlderOutFiles.TabIndex = 7;
+            this.cbEraseOlderOutFiles.Text = "31 日経過した古いファイルを削除";
+            this.cbEraseOlderOutFiles.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -215,7 +229,7 @@
             this.groupBox4.Controls.Add(this.bSelForm);
             this.groupBox4.Controls.Add(this.tbSeledForm);
             this.groupBox4.Controls.Add(this.cbOnlyThis);
-            this.groupBox4.Location = new System.Drawing.Point(12, 639);
+            this.groupBox4.Location = new System.Drawing.Point(12, 649);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(407, 64);
             this.groupBox4.TabIndex = 14;
@@ -224,7 +238,7 @@
             // bSelForm
             // 
             this.bSelForm.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bSelForm.Location = new System.Drawing.Point(320, 22);
+            this.bSelForm.Location = new System.Drawing.Point(320, 32);
             this.bSelForm.Name = "bSelForm";
             this.bSelForm.Size = new System.Drawing.Size(75, 19);
             this.bSelForm.TabIndex = 4;
@@ -235,7 +249,7 @@
             // tbSeledForm
             // 
             this.tbSeledForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cfgBindingSource, "SeledForm", true));
-            this.tbSeledForm.Location = new System.Drawing.Point(8, 22);
+            this.tbSeledForm.Location = new System.Drawing.Point(8, 32);
             this.tbSeledForm.Name = "tbSeledForm";
             this.tbSeledForm.Size = new System.Drawing.Size(306, 19);
             this.tbSeledForm.TabIndex = 1;
@@ -256,7 +270,7 @@
             // 
             this.cbRotate4.AutoSize = true;
             this.cbRotate4.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "Rotate4", true));
-            this.cbRotate4.Location = new System.Drawing.Point(18, 617);
+            this.cbRotate4.Location = new System.Drawing.Point(18, 627);
             this.cbRotate4.Name = "cbRotate4";
             this.cbRotate4.Size = new System.Drawing.Size(129, 16);
             this.cbRotate4.TabIndex = 13;
@@ -267,14 +281,26 @@
             // groupBox3
             // 
             this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox3.Controls.Add(this.cbEraseOlderTempFiles);
             this.groupBox3.Controls.Add(this.cbMoveInAfter);
             this.groupBox3.Controls.Add(this.cbMoveOutAfter);
             this.groupBox3.Location = new System.Drawing.Point(12, 534);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(407, 77);
+            this.groupBox3.Size = new System.Drawing.Size(407, 87);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "認識が終了した後の動作";
+            // 
+            // cbEraseOlderTempFiles
+            // 
+            this.cbEraseOlderTempFiles.AutoSize = true;
+            this.cbEraseOlderTempFiles.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "EraseOlderTempFiles", true));
+            this.cbEraseOlderTempFiles.Location = new System.Drawing.Point(150, 62);
+            this.cbEraseOlderTempFiles.Name = "cbEraseOlderTempFiles";
+            this.cbEraseOlderTempFiles.Size = new System.Drawing.Size(183, 16);
+            this.cbEraseOlderTempFiles.TabIndex = 2;
+            this.cbEraseOlderTempFiles.Text = "31 日経過した古いファイルを削除";
+            this.cbEraseOlderTempFiles.UseVisualStyleBackColor = true;
             // 
             // cbMoveInAfter
             // 
@@ -495,7 +521,7 @@
             this.bDebugOutput});
             this.tstop.Location = new System.Drawing.Point(3, 0);
             this.tstop.Name = "tstop";
-            this.tstop.Size = new System.Drawing.Size(307, 25);
+            this.tstop.Size = new System.Drawing.Size(310, 25);
             this.tstop.TabIndex = 0;
             // 
             // bSave
@@ -503,7 +529,7 @@
             this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
             this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(88, 22);
+            this.bSave.Size = new System.Drawing.Size(84, 22);
             this.bSave.Text = "設定を保存";
             this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
@@ -517,7 +543,7 @@
             this.bRun.Image = ((System.Drawing.Image)(resources.GetObject("bRun.Image")));
             this.bRun.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bRun.Name = "bRun";
-            this.bRun.Size = new System.Drawing.Size(89, 22);
+            this.bRun.Size = new System.Drawing.Size(83, 22);
             this.bRun.Text = "OCRを開始";
             this.bRun.Click += new System.EventHandler(this.bRun_Click);
             // 
@@ -536,8 +562,8 @@
             this.bDebugOutput.Image = ((System.Drawing.Image)(resources.GetObject("bDebugOutput.Image")));
             this.bDebugOutput.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bDebugOutput.Name = "bDebugOutput";
-            this.bDebugOutput.Size = new System.Drawing.Size(100, 22);
-            this.bDebugOutput.Text = "デバッグ出力";
+            this.bDebugOutput.Size = new System.Drawing.Size(113, 22);
+            this.bDebugOutput.Text = "ログフォルダを表示";
             this.bDebugOutput.Click += new System.EventHandler(this.bDebugOutput_Click);
             // 
             // fbdDirIn
@@ -559,19 +585,19 @@
             this.mParmcsv,
             this.mParmpic});
             this.cmsOutCmd.Name = "cmsOutCmd";
-            this.cmsOutCmd.Size = new System.Drawing.Size(149, 48);
+            this.cmsOutCmd.Size = new System.Drawing.Size(140, 48);
             // 
             // mParmcsv
             // 
             this.mParmcsv.Name = "mParmcsv";
-            this.mParmcsv.Size = new System.Drawing.Size(148, 22);
+            this.mParmcsv.Size = new System.Drawing.Size(139, 22);
             this.mParmcsv.Text = "出力したCSV";
             this.mParmcsv.Click += new System.EventHandler(this.mParmcsv_Click);
             // 
             // mParmpic
             // 
             this.mParmpic.Name = "mParmpic";
-            this.mParmpic.Size = new System.Drawing.Size(148, 22);
+            this.mParmpic.Size = new System.Drawing.Size(139, 22);
             this.mParmpic.Text = "出力した画像";
             this.mParmpic.Click += new System.EventHandler(this.mParmpic_Click);
             // 
@@ -588,7 +614,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 745);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(434, 754);
             this.Controls.Add(this.tsc);
             this.Name = "MForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -673,6 +700,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton bDebugOutput;
         private System.Windows.Forms.CheckBox cbDoNotSplit;
+        private System.Windows.Forms.CheckBox cbEraseOlderTempFiles;
+        private System.Windows.Forms.CheckBox cbEraseOlderOutFiles;
     }
 }
 

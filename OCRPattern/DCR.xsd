@@ -31,7 +31,7 @@
               <xs:element name="ResampleDPI" msprop:Generator_ColumnVarNameInTable="columnResampleDPI" msprop:Generator_ColumnPropNameInRow="ResampleDPI" msprop:Generator_ColumnPropNameInTable="ResampleDPIColumn" msprop:Generator_UserColumnName="ResampleDPI" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="NeedVerify" msprop:Generator_ColumnVarNameInTable="columnNeedVerify" msprop:Generator_ColumnPropNameInRow="NeedVerify" msprop:Generator_ColumnPropNameInTable="NeedVerifyColumn" msprop:Generator_UserColumnName="NeedVerify" type="xs:boolean" default="false" minOccurs="0" />
               <xs:element name="SkipWs" msprop:Generator_ColumnVarNameInTable="columnSkipWs" msprop:Generator_ColumnPropNameInRow="SkipWs" msprop:Generator_ColumnPropNameInTable="SkipWsColumn" msprop:Generator_UserColumnName="SkipWs" type="xs:boolean" default="false" minOccurs="0" />
-              <xs:element name="PostProcess" msprop:Generator_ColumnVarNameInTable="columnPostProcess" msprop:Generator_ColumnPropNameInRow="PostProcess" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInTable="PostProcessColumn" msprop:Generator_UserColumnName="PostProcess" type="xs:string" default="" />
+              <xs:element name="PostProcess" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="PostProcess" msprop:Generator_ColumnVarNameInTable="columnPostProcess" msprop:Generator_ColumnPropNameInTable="PostProcessColumn" msprop:Generator_UserColumnName="PostProcess" type="xs:string" default="" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

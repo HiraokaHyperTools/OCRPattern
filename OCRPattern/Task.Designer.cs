@@ -311,6 +311,10 @@ namespace OCRPattern {
             
             private global::System.Data.DataColumn columnDoNotSplit;
             
+            private global::System.Data.DataColumn columnEraseOlderTempFiles;
+            
+            private global::System.Data.DataColumn columnEraseOlderOutFiles;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CfgDataTable() {
@@ -474,6 +478,22 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EraseOlderTempFilesColumn {
+                get {
+                    return this.columnEraseOlderTempFiles;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EraseOlderOutFilesColumn {
+                get {
+                    return this.columnEraseOlderOutFiles;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -525,7 +545,9 @@ namespace OCRPattern {
                         string SeledForm, 
                         string DirRecyc, 
                         bool UseRecyc, 
-                        bool DoNotSplit) {
+                        bool DoNotSplit, 
+                        bool EraseOlderTempFiles, 
+                        bool EraseOlderOutFiles) {
                 CfgRow rowCfgRow = ((CfgRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Files,
@@ -543,7 +565,9 @@ namespace OCRPattern {
                         SeledForm,
                         DirRecyc,
                         UseRecyc,
-                        DoNotSplit};
+                        DoNotSplit,
+                        EraseOlderTempFiles,
+                        EraseOlderOutFiles};
                 rowCfgRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCfgRow);
                 return rowCfgRow;
@@ -582,6 +606,8 @@ namespace OCRPattern {
                 this.columnDirRecyc = base.Columns["DirRecyc"];
                 this.columnUseRecyc = base.Columns["UseRecyc"];
                 this.columnDoNotSplit = base.Columns["DoNotSplit"];
+                this.columnEraseOlderTempFiles = base.Columns["EraseOlderTempFiles"];
+                this.columnEraseOlderOutFiles = base.Columns["EraseOlderOutFiles"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -619,6 +645,10 @@ namespace OCRPattern {
                 base.Columns.Add(this.columnUseRecyc);
                 this.columnDoNotSplit = new global::System.Data.DataColumn("DoNotSplit", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDoNotSplit);
+                this.columnEraseOlderTempFiles = new global::System.Data.DataColumn("EraseOlderTempFiles", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEraseOlderTempFiles);
+                this.columnEraseOlderOutFiles = new global::System.Data.DataColumn("EraseOlderOutFiles", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEraseOlderOutFiles);
                 this.columnFiles.DefaultValue = ((string)(""));
                 this.columnClearAlways.DefaultValue = ((bool)(false));
                 this.columnDirIn.DefaultValue = ((string)(""));
@@ -630,6 +660,8 @@ namespace OCRPattern {
                 this.columnOnlyThis.DefaultValue = ((bool)(false));
                 this.columnUseRecyc.DefaultValue = ((bool)(false));
                 this.columnDoNotSplit.DefaultValue = ((bool)(false));
+                this.columnEraseOlderTempFiles.DefaultValue = ((bool)(false));
+                this.columnEraseOlderOutFiles.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1028,6 +1060,38 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool EraseOlderTempFiles {
+                get {
+                    try {
+                        return ((bool)(this[this.tableCfg.EraseOlderTempFilesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'Cfg\' にある列 \'EraseOlderTempFiles\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableCfg.EraseOlderTempFilesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool EraseOlderOutFiles {
+                get {
+                    try {
+                        return ((bool)(this[this.tableCfg.EraseOlderOutFilesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'Cfg\' にある列 \'EraseOlderOutFiles\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableCfg.EraseOlderOutFilesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsFilesNull() {
                 return this.IsNull(this.tableCfg.FilesColumn);
             }
@@ -1216,6 +1280,30 @@ namespace OCRPattern {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDoNotSplitNull() {
                 this[this.tableCfg.DoNotSplitColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEraseOlderTempFilesNull() {
+                return this.IsNull(this.tableCfg.EraseOlderTempFilesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEraseOlderTempFilesNull() {
+                this[this.tableCfg.EraseOlderTempFilesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEraseOlderOutFilesNull() {
+                return this.IsNull(this.tableCfg.EraseOlderOutFilesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEraseOlderOutFilesNull() {
+                this[this.tableCfg.EraseOlderOutFilesColumn] = global::System.Convert.DBNull;
             }
         }
         

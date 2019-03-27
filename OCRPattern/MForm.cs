@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +14,8 @@ using System.Text.RegularExpressions;
 using poppler2com;
 using System.Diagnostics;
 using OCRPattern.Properties;
+using NLog;
+using OCRPattern.Utils;
 
 namespace OCRPattern {
     public partial class MForm : Form {
@@ -124,6 +126,8 @@ namespace OCRPattern {
                 alfp.Add(fp);
             }
 
+            Logger log = LogManager.GetCurrentClassLogger();
+
             #region IDisposable メンバ
 
             public void Dispose() {
@@ -131,14 +135,16 @@ namespace OCRPattern {
                     try {
                         MFUt.MoveTo(fp, Path.GetTempPath());
                     }
-                    catch (Exception err) {
-                        Debug.Fail("削除に失敗しました(" + fp + ")", err.ToString());
+                    catch (Exception ex) {
+                        log.Warn(ex, "一時ファイルの削除に失敗: {0}", fp);
                     }
                 }
             }
 
             #endregion
         }
+
+        Logger log = LogManager.GetCurrentClassLogger();
 
         private void bRun_Click(object sender, EventArgs e) {
             CRContext crc = new CRContext();
@@ -158,6 +164,12 @@ namespace OCRPattern {
             using (Move2Temp m2t = new Move2Temp())
             using (OCRWIPForm form = OCRWIPForm.Show1()) {
                 form.panelWIP.Show();
+                if (cbEraseOlderOutFiles.Checked) {
+                    EraseOldFiles.Run(outDir, "\\.(tif|tiff|pdf|csv|tmp)$", TimeSpan.FromDays(31));
+                }
+                if (cbEraseOlderTempFiles.Checked) {
+                    EraseOldFiles.Run(Path.GetTempPath(), "\\.(tif|tiff|pdf|csv|tmp)$", TimeSpan.FromDays(31));
+                }
                 foreach (String fp in tbFiles.Lines) {
                     if (!File.Exists(fp)) continue;
                     form.lfn.Text = Path.GetFileName(fp);
@@ -201,7 +213,9 @@ namespace OCRPattern {
                                         try {
                                             File.Delete(fp);
                                         }
-                                        catch (Exception) { }
+                                        catch (Exception ex) {
+                                            log.Warn(ex, "認識失敗ファイルの削除に失敗: {0}", fp);
+                                        }
                                         break;
                                     }
                                     else {
@@ -220,6 +234,8 @@ namespace OCRPattern {
             MessageBox.Show(this, "完了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        Logger runCmdLog = LogManager.GetLogger("RunCmd");
+
         private void RunCmd(string fp, string fppic, string fpcsv, Move2Temp m2t) {
             if (cbMoveInAfter.Checked) {
                 m2t.Add(fp);
@@ -232,8 +248,10 @@ namespace OCRPattern {
                     );
                 String cwd = Path.GetDirectoryName(fpxml); // new cwd at fpxml.
                 if (cwd != null && Directory.Exists(cwd)) psi.WorkingDirectory = cwd;
+                runCmdLog.Debug("実行: {0}\n{1}", psi.FileName, psi.Arguments);
                 Process p = Process.Start(psi);
                 p.WaitForExit();
+                runCmdLog.Debug("結果: {0}", p.ExitCode);
             }
 
             if (cbMoveOutAfter.Checked) {
@@ -330,18 +348,22 @@ namespace OCRPattern {
             Avail, Fail, Sepa, SaveAll,
         }
 
+        Logger ocrLog = LogManager.GetLogger("OCR");
+
         private CRRes TryCR(Bitmap picSrc, String fp, int z, CRContext crc, OCRWIPForm wipper, bool rotate4, String formSel) {
             String baseDir = Path.GetDirectoryName(fpxml);
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "認識対象＝" + fp);
+            ocrLog.Info("認識対象＝{0}", fp);
+            ocrLog.Debug("ページ＝{0}", 1 + z);
 
             if (formSel == null) formSel = "";
             bool fSelForm = formSel != "";
 
             for (int rot = 0; rot < (rotate4 ? 4 : 1); rot++) {
+                ocrLog.Debug("回転回数＝{0}", rot);
                 wipper.HintRot(rot);
                 Bitmap pic = PiUt.Rotate(picSrc, rot);
                 foreach (KeyValuePair<string, OCRSettei> kvs in crc.dictSet) {
-                    Program.appTrace.TraceEvent(TraceEventType.Information, 0, "フォーム＝" + kvs.Key);
+                    ocrLog.Info("フォーム＝{0}", kvs.Key);
 
                     bool forceThis = false;
                     if (fSelForm) {
@@ -369,7 +391,7 @@ namespace OCRPattern {
                         }
                     }
 
-                    Program.appTrace.TraceEvent(TraceEventType.Information, 0, "fail=" + fail + ", " + "any=" + any);
+                    ocrLog.Debug("fail={0}, any={1}", fail, any);
 
                     if (fail) {
                         if (forceThis) {
@@ -383,19 +405,19 @@ namespace OCRPattern {
                         if (!any) continue;
                     }
 
-                    Program.appTrace.TraceEvent(TraceEventType.Information, 0, "通過");
+                    ocrLog.Info("通過");
 
                     bool needVerify = kvs.Value.DCR.Blk.Select("NeedVerify").Length != 0;
 
                     wipper.HintTempl(Path.GetFileNameWithoutExtension(kvs.Key), true);
 
                     if (kvs.Value.PWay == "S1" && z == 0) {
-                        Program.appTrace.TraceEvent(TraceEventType.Information, 0, "種類＝表紙付きモード");
+                        ocrLog.Info("種類＝表紙付きモード");
                         if (fail) {
-                            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "検出：失敗");
+                            ocrLog.Info("検出：失敗");
                         }
                         else {
-                            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "検出：成功");
+                            ocrLog.Info("検出：成功");
                             // 表紙付き(フォーム検出成功)
                             crc.StartTemplPage();
                             crc.AddTempl("TEMPLATE", Path.GetFileNameWithoutExtension(kvs.Key));
@@ -421,6 +443,7 @@ namespace OCRPattern {
                                         case DialogResult.No:
                                             continue;
                                         default:
+                                            log.Info("中止しました。");
                                             throw new ApplicationException("中止しました。");
                                     }
                                 }
@@ -432,12 +455,12 @@ namespace OCRPattern {
                         }
                     }
                     else if (kvs.Value.PWay == "S") {
-                        Program.appTrace.TraceEvent(TraceEventType.Information, 0, "種類＝区切り/代表ページ");
+                        ocrLog.Info("種類＝区切り/代表ページ");
                         if (fail) {
-                            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "検出：失敗");
+                            ocrLog.Info("検出：失敗");
                         }
                         else {
-                            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "検出：成功");
+                            ocrLog.Info("検出：成功");
                             // 区切り(フォーム検出成功)
                             crc.StartTemplPage();
                             crc.AddTempl("TEMPLATE", Path.GetFileNameWithoutExtension(kvs.Key));
@@ -454,7 +477,7 @@ namespace OCRPattern {
                         }
                     }
                     else if (kvs.Value.PWay == "") {
-                        Program.appTrace.TraceEvent(TraceEventType.Information, 0, "種類＝通常フォーム認識");
+                        ocrLog.Info("種類＝通常フォーム認識");
                         // 通常(フォーム検出成功)
                         crc.ClearTempl();
                         crc.NewRecord();
@@ -478,6 +501,7 @@ namespace OCRPattern {
                                     case DialogResult.No:
                                         continue;
                                     default:
+                                        log.Info("中止しました。");
                                         throw new ApplicationException("中止しました。");
                                 }
                             }
@@ -486,10 +510,10 @@ namespace OCRPattern {
                         crc.TemplAvail = false;
                         return CRRes.Avail;
                     }
-                    Program.appTrace.TraceEvent(TraceEventType.Information, 0, "終了");
+                    ocrLog.Info("終了");
                 }
             }
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "crc.TemplAvail=" + crc.TemplAvail);
+            ocrLog.Debug("crc.TemplAvail={0}", crc.TemplAvail);
             if (crc.TemplAvail) {
                 // 区切り従属
                 crc.NewRecord();
@@ -591,9 +615,23 @@ namespace OCRPattern {
             }
         }
 
+        string LogDir => Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "OCRPattern",
+            "logs"
+            );
+
         private void bDebugOutput_Click(object sender, EventArgs e) {
-            DebugOutForm form = new DebugOutForm();
-            form.Show();
+            var dir = LogDir;
+
+            try {
+                Directory.CreateDirectory(dir);
+                Process.Start(dir);
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"エラーが発生しました。\n\n{ex}");
+                log.Warn(ex, "ログフォルダを開くことができませんでした: {0}", dir);
+            }
         }
 
     }
@@ -737,13 +775,15 @@ namespace OCRPattern {
             return dictSet.Count != 0;
         }
 
+        Logger crcLog = LogManager.GetLogger("CRContext");
+
         public void AddTempl(String field, Object value) {
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "CRContext.AddTempl(" + field + "," + value + ")");
+            crcLog.Debug("AddTempl({0}, {1})", field, value);
             dictTempl[field] = Convert.ToString(value);
         }
 
         internal void StartTemplPage() {
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "CRContext.StartTemplPage");
+            crcLog.Debug("StartTemplPage");
             dictTempl.Clear();
         }
 
@@ -754,7 +794,7 @@ namespace OCRPattern {
         public bool TemplAvail { get { return templAvail; } set { templAvail = value; } }
 
         internal void NewRecord() {
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "CRContext.NewRecord");
+            crcLog.Debug("NewRecord");
             drCR = dtCR.NewRow();
         }
 
@@ -766,19 +806,19 @@ namespace OCRPattern {
         }
 
         internal void CommitRecord() {
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "CRContext.CommitRecord");
+            crcLog.Debug("CommitRecord");
             dtCR.Rows.Add(drCR);
         }
 
         internal void AddFrmTempl() {
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "CRContext.AddFrmTempl");
+            crcLog.Debug("AddFrmTempl");
             foreach (KeyValuePair<string, string> kv in dictTempl) {
                 SetValue(kv.Key, kv.Value);
             }
         }
 
         internal void ClearTempl() {
-            Program.appTrace.TraceEvent(TraceEventType.Information, 0, "CRContext.ClearTempl");
+            crcLog.Debug("ClearTempl");
             dictTempl.Clear();
             TemplAvail = false;
         }

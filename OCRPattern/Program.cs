@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -36,7 +36,5 @@ namespace OCRPattern {
             }
 
         }
-
-        public static TraceSource appTrace = new TraceSource("OCRPattern", SourceLevels.Information);
     }
 }
