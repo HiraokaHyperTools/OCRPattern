@@ -6,24 +6,32 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace OCRPattern {
-    public class Utpbm {
-        public static void Save(String fppbm, Bitmap pic) {
-            using (FileStream os = File.Create(fppbm)) {
+namespace OCRPattern
+{
+    public class Utpbm
+    {
+        public static void Save(String fppbm, Bitmap pic)
+        {
+            using (FileStream os = File.Create(fppbm))
+            {
                 byte[] bin = Encoding.ASCII.GetBytes(
                     "P4\n"
                     + pic.Width + " " + pic.Height + "\n"
                     );
                 os.Write(bin, 0, bin.Length);
                 int cx = pic.Width, cy = pic.Height;
-                for (int y = 0; y < cy; y++) {
+                for (int y = 0; y < cy; y++)
+                {
                     int b = 0;
-                    for (int x = 0; ; x++) {
-                        if (x == cx) {
+                    for (int x = 0; ; x++)
+                    {
+                        if (x == cx)
+                        {
                             os.WriteByte((byte)b);
                             break;
                         }
-                        if (x != 0 && 0 == (x & 7)) {
+                        if (x != 0 && 0 == (x & 7))
+                        {
                             os.WriteByte((byte)b);
                             b = 0;
                         }
@@ -36,8 +44,10 @@ namespace OCRPattern {
         }
     }
 
-    public class GOcr {
-        public static string Rec(Bitmap pic) {
+    public class GOcr
+    {
+        public static string Rec(Bitmap pic)
+        {
             String fppbm = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".pbm");
             Utpbm.Save(fppbm, pic);
 
@@ -56,8 +66,10 @@ namespace OCRPattern {
         }
     }
 
-    public class Ocrad {
-        public static string Rec(Bitmap pic) {
+    public class Ocrad
+    {
+        public static string Rec(Bitmap pic)
+        {
             String fppbm = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".pbm");
             Utpbm.Save(fppbm, pic);
 
@@ -77,8 +89,10 @@ namespace OCRPattern {
         }
     }
 
-    public class NHocr {
-        public static string Rec(Bitmap pic) {
+    public class NHocr
+    {
+        public static string Rec(Bitmap pic)
+        {
             String fppbm = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".pbm");
             Utpbm.Save(fppbm, pic);
 

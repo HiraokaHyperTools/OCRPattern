@@ -17,11 +17,14 @@ using Microsoft.VisualBasic;
 using OCRPattern.Properties;
 using OCRPattern.Utils;
 
-namespace OCRPattern {
-    public partial class EForm : Form {
+namespace OCRPattern
+{
+    public partial class EForm : Form
+    {
         String fpxml;
 
-        public EForm(String fpxml) {
+        public EForm(String fpxml)
+        {
             this.fpxml = fpxml;
 
             InitializeComponent();
@@ -29,7 +32,8 @@ namespace OCRPattern {
             Icon = Resources.e;
         }
 
-        private void EForm_Load(object sender, EventArgs e) {
+        private void EForm_Load(object sender, EventArgs e)
+        {
             {
                 List<KeyValuePair<string, string>> alkv = new List<KeyValuePair<string, string>>();
                 alkv.Add(new KeyValuePair<string, string>("ocr.jpn", "日本語OCR"));
@@ -76,9 +80,11 @@ namespace OCRPattern {
                 cbNR.DisplayMember = "Value";
             }
 
-            if (File.Exists(fpxml) && new FileInfo(fpxml).Length != 0) {
+            if (File.Exists(fpxml) && new FileInfo(fpxml).Length != 0)
+            {
                 XmlSerializer xs = new XmlSerializer(typeof(OCRSettei));
-                using (FileStream fs = File.OpenRead(fpxml)) {
+                using (FileStream fs = File.OpenRead(fpxml))
+                {
                     ocrs = (OCRSettei)xs.Deserialize(fs);
                     dcr.Merge(ocrs.DCR, true, MissingSchemaAction.Add);
                     ocrs.DCR = dcr;
@@ -86,10 +92,14 @@ namespace OCRPattern {
                 this.Text += "：" + Path.GetFileNameWithoutExtension(fpxml);
             }
 
-            foreach (DataTable dt1 in ocrs.DCR.Tables) {
-                foreach (DataRow dr1 in dt1.Rows) {
-                    foreach (DataColumn dc in dt1.Columns) {
-                        if (dr1.IsNull(dc)) {
+            foreach (DataTable dt1 in ocrs.DCR.Tables)
+            {
+                foreach (DataRow dr1 in dt1.Rows)
+                {
+                    foreach (DataColumn dc in dt1.Columns)
+                    {
+                        if (dr1.IsNull(dc))
+                        {
                             //dr1[dc] = dc.DefaultValue;
                         }
                     }
@@ -117,9 +127,11 @@ namespace OCRPattern {
             }
         }
 
-        void blkBindingSource_CurrentItemChanged(object sender, EventArgs e) {
+        void blkBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
             DataRowView drv = blkBindingSource.Current as DataRowView;
-            if (drv != null) {
+            if (drv != null)
+            {
                 picPane.SelRect = new RectangleF(
                     (float)drv["x"],
                     (float)drv["y"],
@@ -129,14 +141,16 @@ namespace OCRPattern {
             }
         }
 
-        void ocrs_PictureChanged(object sender, EventArgs e) {
+        void ocrs_PictureChanged(object sender, EventArgs e)
+        {
             picPane.Image = ((OCRSettei)sender).Picture;
             tscbZoom_SelectedIndexChanged(sender, e);
         }
 
         OCRSettei ocrs = new OCRSettei();
 
-        private void bSave_Click(object sender, EventArgs e) {
+        private void bSave_Click(object sender, EventArgs e)
+        {
             if (String.IsNullOrEmpty(fpxml)) return;
 
             if (!ValidateChildren())
@@ -144,31 +158,38 @@ namespace OCRPattern {
             blkBindingSource.EndEdit();
 
             XmlSerializer xs = new XmlSerializer(typeof(OCRSettei));
-            using (FileStream fs = File.Create(fpxml)) {
+            using (FileStream fs = File.Create(fpxml))
+            {
                 xs.Serialize(fs, ocrs);
             }
             MessageBox.Show(this, "保存しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void bSpecifyPic_Click(object sender, EventArgs e) {
-            if (ofdPic.ShowDialog(this) == DialogResult.OK) {
+        private void bSpecifyPic_Click(object sender, EventArgs e)
+        {
+            if (ofdPic.ShowDialog(this) == DialogResult.OK)
+            {
                 Bitmap pic;
-                if (LPUt.Eat(ofdPic.FileName, out pic)) {
+                if (LPUt.Eat(ofdPic.FileName, out pic))
+                {
                     ocrs.Picture = pic;
                 }
             }
         }
 
-        private void tscbZoom_SelectedIndexChanged(object sender, EventArgs e) {
+        private void tscbZoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
             if (!String.IsNullOrEmpty(tscbZoom.Text))
                 picPane.Zoom = float.Parse(tscbZoom.Text.Split('%')[0]) / 100.0f;
         }
 
-        private void picPane_SelRectChanged(object sender, SelRectChangedEventArgs e) {
+        private void picPane_SelRectChanged(object sender, SelRectChangedEventArgs e)
+        {
             RectangleF rc = picPane.SelRect;
 
             DataRowView drv = blkBindingSource.Current as DataRowView;
-            if (drv != null) {
+            if (drv != null)
+            {
                 drv.BeginEdit();
                 drv["x"] = rc.Left;
                 drv["y"] = rc.Top;
@@ -180,17 +201,20 @@ namespace OCRPattern {
             if (e.Final) cbSelArea.Checked = false;
         }
 
-        private void bTestAll_Click(object sender, EventArgs e) {
+        private void bTestAll_Click(object sender, EventArgs e)
+        {
             if (!ValidateChildren())
                 return;
 
             blkBindingSource.EndEdit();
 
-            if (!TOcr.IsInstalled) {
+            if (!TOcr.IsInstalled)
+            {
                 if (MessageBox.Show(this, "Tesseract-OCR 3.01以上が必要です。\n\n見付かりませんでした。\n\nOCRは使用できません。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
                     return;
             }
-            if (!Magick.IsInstalled) {
+            if (!Magick.IsInstalled)
+            {
                 if (MessageBox.Show(this, "ImageMagick 6.7.6以上が必要です。\n\n見付かりませんでした。\n\n画像処理は使用できません。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
                     return;
             }
@@ -200,10 +224,12 @@ namespace OCRPattern {
                 Recognize(all);
         }
 
-        public void Recognize(bool all) {
+        public void Recognize(bool all)
+        {
             Bitmap picSrc = (Bitmap)picPane.Image; //ocrs.Picture;
 
-            foreach (DataGridViewRow vr in gvRes.Rows) {
+            foreach (DataGridViewRow vr in gvRes.Rows)
+            {
                 if (!all && (!vr.Selected && !Object.ReferenceEquals(blkBindingSource.Current, vr.DataBoundItem))) continue;
                 DCR.BlkRow row = (DCR.BlkRow)((DataRowView)vr.DataBoundItem).Row;
 
@@ -213,9 +239,12 @@ namespace OCRPattern {
             }
         }
 
-        private void EForm_FormClosing(object sender, FormClosingEventArgs e) {
-            if (e.CloseReason == CloseReason.UserClosing) {
-                switch (MessageBox.Show(this, "保存しますか?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)) {
+        private void EForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                switch (MessageBox.Show(this, "保存しますか?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation))
+                {
                     case DialogResult.Yes:
                         bSave.PerformClick();
                         return;
@@ -229,24 +258,29 @@ namespace OCRPattern {
             }
         }
 
-        private void bAbout_Click(object sender, EventArgs e) {
+        private void bAbout_Click(object sender, EventArgs e)
+        {
             using (OCRWIPForm form = new OCRWIPForm(Application.ProductName + " " + Application.ProductVersion + " について"))
                 form.ShowDialog(this);
         }
 
-        private void cbSelArea_CheckedChanged(object sender, EventArgs e) {
+        private void cbSelArea_CheckedChanged(object sender, EventArgs e)
+        {
             picPane.CanSelRect = cbSelArea.Checked;
         }
 
-        private void cmsPicPane_Opening(object sender, CancelEventArgs e) {
+        private void cmsPicPane_Opening(object sender, CancelEventArgs e)
+        {
             mSelArea.Checked = cbSelArea.Checked;
         }
 
-        private void mSelArea_Click(object sender, EventArgs e) {
+        private void mSelArea_Click(object sender, EventArgs e)
+        {
             cbSelArea.Checked = !cbSelArea.Checked;
         }
 
-        private void mCLDigit_Click(object sender, EventArgs e) {
+        private void mCLDigit_Click(object sender, EventArgs e)
+        {
             Button la = cmsCharList.SourceControl as Button;
             if (la == null) return;
 
@@ -265,42 +299,56 @@ namespace OCRPattern {
             tb.Text = String.Join("", new List<string>(dict.Keys).ToArray());
         }
 
-        private void bBL_Click(object sender, EventArgs e) {
+        private void bBL_Click(object sender, EventArgs e)
+        {
             Button b = (Button)sender;
             cmsCharList.Show(b, new Point(0, b.Height));
         }
 
-        class LPUt {
-            internal static bool Eat(String fp, out Bitmap pic2) {
+        class LPUt
+        {
+            internal static bool Eat(String fp, out Bitmap pic2)
+            {
                 int cz = 0;
-                if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0) {
-                    using (UtPDFio io = new UtPDFio(fp)) {
+                if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0)
+                {
+                    using (UtPDFio io = new UtPDFio(fp))
+                    {
                         cz = io.NumPages;
                     }
                 }
-                else {
-                    using (Bitmap pic = new Bitmap(fp)) {
+                else
+                {
+                    using (Bitmap pic = new Bitmap(fp))
+                    {
                         cz = pic.GetFrameCount(FrameDimension.Page);
                     }
                 }
-                using (PSelForm form = new PSelForm()) {
+                using (PSelForm form = new PSelForm())
+                {
                     form.numPage.Maximum = cz;
-                    if (form.ShowDialog() == DialogResult.OK) {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
                         int z = (int)form.numPage.Value;
-                        if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0) {
-                            using (UtPDFio io = new UtPDFio(fp)) {
+                        if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0)
+                        {
+                            using (UtPDFio io = new UtPDFio(fp))
+                            {
                                 pic2 = (io.Rasterize(z - 1));
                             }
                         }
-                        else {
-                            using (Bitmap pic = new Bitmap(fp)) {
+                        else
+                        {
+                            using (Bitmap pic = new Bitmap(fp))
+                            {
                                 pic.SelectActiveFrame(FrameDimension.Page, z - 1);
                                 pic2 = ((Bitmap)pic.Clone());
                             }
                         }
                         return true;
                     }
-                    else {
+                    else
+                    {
                         pic2 = null;
                         return false;
                     }
@@ -308,57 +356,71 @@ namespace OCRPattern {
             }
         }
 
-        private void bAnother_Click(object sender, EventArgs e) {
-            if (ofdAnother.ShowDialog(this) == DialogResult.OK) {
+        private void bAnother_Click(object sender, EventArgs e)
+        {
+            if (ofdAnother.ShowDialog(this) == DialogResult.OK)
+            {
                 Bitmap pic;
-                if (LPUt.Eat(ofdAnother.FileName, out pic)) {
+                if (LPUt.Eat(ofdAnother.FileName, out pic))
+                {
                     SetPv(pic);
                 }
             }
         }
 
-        private void SetPv(Bitmap bitmap) {
+        private void SetPv(Bitmap bitmap)
+        {
             picPane.Image = bitmap;
             llRevertPic.Show();
         }
 
-        private void llRevertPic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+        private void llRevertPic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
             picPane.Image = ocrs.Picture;
             llRevertPic.Hide();
         }
 
-        private void gvRes_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+        private void gvRes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
 
-        private void picPane_ImageChanged(object sender, EventArgs e) {
+        private void picPane_ImageChanged(object sender, EventArgs e)
+        {
             Image p = picPane.Image;
             lRes.Text = (p == null) ? "" : String.Format("画像サイズ={2}x{3} DPI={0:0}x{1:0}", p.HorizontalResolution, p.VerticalResolution
                 , p.Width, p.Height);
         }
 
-        class XUt {
-            internal static XmlElement NewTag(XmlDocument xmlo, String tag) {
+        class XUt
+        {
+            internal static XmlElement NewTag(XmlDocument xmlo, String tag)
+            {
                 XmlElement el = xmlo.CreateElement(tag);
                 xmlo.AppendChild(el);
                 return el;
             }
-            internal static XmlElement NewTag(XmlElement elparent, String tag) {
+            internal static XmlElement NewTag(XmlElement elparent, String tag)
+            {
                 XmlElement el = elparent.OwnerDocument.CreateElement(tag);
                 elparent.AppendChild(el);
                 return el;
             }
         }
 
-        class PUt {
-            internal static Bitmap Clone(Bitmap pic) {
-                switch (pic.PixelFormat) {
+        class PUt
+        {
+            internal static Bitmap Clone(Bitmap pic)
+            {
+                switch (pic.PixelFormat)
+                {
                     case PixelFormat.Format1bppIndexed:
                     case PixelFormat.Format4bppIndexed:
                     case PixelFormat.Format8bppIndexed:
                         Bitmap pic2 = new Bitmap(pic.Width, pic.Height);
                         pic2.SetResolution(pic.HorizontalResolution, pic.VerticalResolution);
-                        using (Graphics cv = Graphics.FromImage(pic2)) {
+                        using (Graphics cv = Graphics.FromImage(pic2))
+                        {
                             cv.DrawImageUnscaledAndClipped(pic, new Rectangle(Point.Empty, pic2.Size));
                         }
                         return pic2;
@@ -367,7 +429,8 @@ namespace OCRPattern {
             }
         }
 
-        private void bReportAll_Click(object sender, EventArgs e) {
+        private void bReportAll_Click(object sender, EventArgs e)
+        {
             DataTable dt2 = new DataTable("OCRPattern レポート");
             DataColumn dcOutNum = dt2.Columns.Add("番号", typeof(int));
             foreach (DataColumn dc in ocrs.DCR.Blk.Columns)
@@ -375,7 +438,8 @@ namespace OCRPattern {
             DataColumn dcOutRes = dt2.Columns.Add("認識結果");
             DataColumn dcOutPic = dt2.Columns.Add("画像", typeof(Bitmap));
 
-            foreach (DataColumn dc in dt2.Columns) {
+            foreach (DataColumn dc in dt2.Columns)
+            {
                 if (dc.ColumnName == "CRType") dc.Caption = "認識タイプ";
                 if (dc.ColumnName == "IfImport") dc.Caption = "CSVへ";
                 if (dc.ColumnName == "IfTest") dc.Caption = "フォーム判定用";
@@ -386,10 +450,12 @@ namespace OCRPattern {
             }
 
             int y = 0;
-            foreach (DataGridViewRow row in gvRes.Rows) {
+            foreach (DataGridViewRow row in gvRes.Rows)
+            {
                 DataRowView drvSrc = (DataRowView)row.DataBoundItem;
                 DataRowView drvDst = dt2.DefaultView.AddNew();
-                foreach (DataColumn dc in drvSrc.Row.Table.Columns) {
+                foreach (DataColumn dc in drvSrc.Row.Table.Columns)
+                {
                     drvDst[dc.ColumnName] = drvSrc[dc.ColumnName];
                 }
                 y++;
@@ -424,7 +490,8 @@ namespace OCRPattern {
                     XmlElement elthead = XUt.NewTag(eltable, "thead");
                     {
                         XmlElement eltr = XUt.NewTag(elthead, "tr");
-                        foreach (DataColumn col in dt2.Columns) {
+                        foreach (DataColumn col in dt2.Columns)
+                        {
                             XmlElement elth = XUt.NewTag(eltr, "th");
                             elth.SetAttribute("nowrap", "nowrap");
                             elth.AppendChild(xmlo.CreateTextNode(col.Caption));
@@ -434,9 +501,11 @@ namespace OCRPattern {
                 {
                     XmlElement eltbody = XUt.NewTag(eltable, "tbody");
                     {
-                        foreach (DataRow row in dt2.Rows) {
+                        foreach (DataRow row in dt2.Rows)
+                        {
                             XmlElement eltr = XUt.NewTag(eltbody, "tr");
-                            foreach (DataColumn col in dt2.Columns) {
+                            foreach (DataColumn col in dt2.Columns)
+                            {
                                 XmlElement eltd = XUt.NewTag(eltr, "td");
                                 eltd.SetAttribute("nowrap", "nowrap");
                                 Object val = row[col];
@@ -447,11 +516,13 @@ namespace OCRPattern {
                                 else if (col.ColumnName == "CRType") val = VUt.Resolve(val, cbType);
                                 else if (col.ColumnName == "NoiseReduction") val = VUt.Resolve(val, cbNR);
                                 else if (col.ColumnName == "PSM") val = VUt.Resolve(val, cbPSM);
-                                if (col == dcOutRes) {
+                                if (col == dcOutRes)
+                                {
                                     XmlElement elpre = XUt.NewTag(eltd, "pre");
                                     elpre.AppendChild(xmlo.CreateTextNode(Convert.ToString(val)));
                                 }
-                                else {
+                                else
+                                {
                                     eltd.AppendChild(xmlo.CreateTextNode(Convert.ToString(val)));
                                 }
                             }
@@ -466,9 +537,11 @@ namespace OCRPattern {
                                 Convert.ToSingle(row["cy"])
                                 ));
 
-                            if (!row.IsNull("画像")) {
+                            if (!row.IsNull("画像"))
+                            {
                                 Bitmap pic = (Bitmap)row["画像"];
-                                if (pic != null) {
+                                if (pic != null)
+                                {
                                     pic.Save(Path.Combine(outDir, num + ".jpg"), ImageFormat.Jpeg);
                                     alNum.Add(num.ToString());
                                 }
@@ -493,7 +566,8 @@ namespace OCRPattern {
                 {
                     XmlElement elpdiv = XUt.NewTag(elbody, "div");
 
-                    foreach (String num in alNum) {
+                    foreach (String num in alNum)
+                    {
                         XmlElement elt2 = XUt.NewTag(elpdiv, "table");
                         elt2.SetAttribute("border", "1");
                         elt2.SetAttribute("cellpadding", "5");
@@ -539,7 +613,8 @@ namespace OCRPattern {
                 }
 
                 String fpHtml = Path.Combine(outDir, "report.html");
-                using (XmlTextWriter wr = new XmlTextWriter(fpHtml, Encoding.UTF8)) {
+                using (XmlTextWriter wr = new XmlTextWriter(fpHtml, Encoding.UTF8))
+                {
                     wr.Formatting = Formatting.Indented;
                     xmlo.Save(wr);
                 }
@@ -548,9 +623,12 @@ namespace OCRPattern {
             Process.Start(outDir);
         }
 
-        class VUt {
-            internal static object Resolve(object input, ComboBox cb) {
-                foreach (Object row in (cb.DataSource as System.Collections.IEnumerable)) {
+        class VUt
+        {
+            internal static object Resolve(object input, ComboBox cb)
+            {
+                foreach (Object row in (cb.DataSource as System.Collections.IEnumerable))
+                {
                     if (row == null) continue;
                     System.Reflection.PropertyInfo valueMember = row.GetType().GetProperty(cb.ValueMember);
                     if (valueMember == null || !valueMember.CanRead) continue;
@@ -558,11 +636,13 @@ namespace OCRPattern {
                     if (displayMember == null || !displayMember.CanRead) continue;
 
                     Object value = valueMember.GetValue(row, new Object[0]);
-                    if (value is IComparable) {
+                    if (value is IComparable)
+                    {
                         if (((IComparable)value).CompareTo(input) != 0)
                             continue;
                     }
-                    else if (value != input) {
+                    else if (value != input)
+                    {
                         continue;
                     }
                     return displayMember.GetValue(row, new Object[0]);
@@ -571,9 +651,12 @@ namespace OCRPattern {
             }
         }
 
-        class GUt {
-            internal static void Mark(Bitmap pic, Font font, int num, RectangleF rc) {
-                using (Graphics cv = Graphics.FromImage(pic)) {
+        class GUt
+        {
+            internal static void Mark(Bitmap pic, Font font, int num, RectangleF rc)
+            {
+                using (Graphics cv = Graphics.FromImage(pic))
+                {
                     cv.PageUnit = GraphicsUnit.Millimeter;
                     StringFormat sf = new StringFormat();
                     sf.Alignment = StringAlignment.Far;
@@ -587,10 +670,12 @@ namespace OCRPattern {
             }
         }
 
-        private void bVerifyKw_Click(object sender, EventArgs e) {
+        private void bVerifyKw_Click(object sender, EventArgs e)
+        {
             DataGridViewRow row = gvRes.CurrentRow;
             String dv = null;
-            if (row != null) {
+            if (row != null)
+            {
                 dv = (row.Cells[cRes.Index].Value as String);
             }
 
@@ -607,34 +692,40 @@ namespace OCRPattern {
                 );
         }
 
-        private void bA4_Click(object sender, EventArgs e) {
+        private void bA4_Click(object sender, EventArgs e)
+        {
             ocrs.Picture = Resources.A4V300;
         }
 
-        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e) {
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
             if (MessageBox.Show(this, "この枠を削除しますか?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != System.Windows.Forms.DialogResult.Yes)
                 return;
 
             blkBindingSource.RemoveCurrent();
         }
 
-        private void Add2PP(string p) {
+        private void Add2PP(string p)
+        {
             var tb = postProcessTextBox;
             var rows = new List<string>(tb.Lines);
-            while (rows.Count > 0 && rows[rows.Count - 1].Length == 0) {
+            while (rows.Count > 0 && rows[rows.Count - 1].Length == 0)
+            {
                 rows.RemoveAt(rows.Count - 1);
             }
             rows.Add(p);
             tb.Lines = rows.ToArray();
         }
 
-        private void mPPErase_Click(object sender, EventArgs e) {
+        private void mPPErase_Click(object sender, EventArgs e)
+        {
             String s = Interaction.InputBox("文字を入力");
             if (s.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
             Add2PP("×" + s);
         }
 
-        private void mPPRepl_Click(object sender, EventArgs e) {
+        private void mPPRepl_Click(object sender, EventArgs e)
+        {
             String s = Interaction.InputBox("どの文字を？");
             if (s.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
             String t = Interaction.InputBox("どの文字に変更？");
@@ -642,7 +733,8 @@ namespace OCRPattern {
             Add2PP(s + "→" + t);
         }
 
-        private void mPPSwap_Click(object sender, EventArgs e) {
+        private void mPPSwap_Click(object sender, EventArgs e)
+        {
             String s = Interaction.InputBox("どの文字と？");
             if (s.Length != 1) { MessageBox.Show("キャンセルしました。"); return; }
             String t = Interaction.InputBox("どの文字を入れ替え？");
@@ -650,7 +742,8 @@ namespace OCRPattern {
             Add2PP(s + "⇔" + t);
         }
 
-        private void bAddPP_Click(object sender, EventArgs e) {
+        private void bAddPP_Click(object sender, EventArgs e)
+        {
             cmsPP.Show(bAddPP, new Point(0, bAddPP.Height));
         }
 
@@ -661,12 +754,16 @@ namespace OCRPattern {
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
     }
 
-    public class RUt {
-        class CUt {
-            internal static Bitmap Cut(Bitmap picSrc, Rectangle rc) {
+    public class RUt
+    {
+        class CUt
+        {
+            internal static Bitmap Cut(Bitmap picSrc, Rectangle rc)
+            {
                 Bitmap pic = new Bitmap(rc.Width, rc.Height);
                 pic.SetResolution(picSrc.HorizontalResolution, picSrc.VerticalResolution);
-                using (Graphics cv = Graphics.FromImage(pic)) {
+                using (Graphics cv = Graphics.FromImage(pic))
+                {
                     cv.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                     cv.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
 
@@ -675,12 +772,14 @@ namespace OCRPattern {
                 return pic;
             }
 
-            internal static Bitmap CutDPI(Bitmap picSrc, Rectangle rc, int dpi) {
+            internal static Bitmap CutDPI(Bitmap picSrc, Rectangle rc, int dpi)
+            {
                 int cx = (int)(((float)rc.Width / picSrc.HorizontalResolution) * dpi);
                 int cy = (int)(((float)rc.Height / picSrc.VerticalResolution) * dpi);
                 Bitmap pic = new Bitmap(cx, cy);
                 pic.SetResolution(dpi, dpi);
-                using (Graphics cv = Graphics.FromImage(pic)) {
+                using (Graphics cv = Graphics.FromImage(pic))
+                {
                     cv.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                     cv.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
 
@@ -695,14 +794,16 @@ namespace OCRPattern {
             }
         }
 
-        public static object Recognize2(Bitmap picSrc, DCR.BlkRow row) {
+        public static object Recognize2(Bitmap picSrc, DCR.BlkRow row)
+        {
             Bitmap picUsed;
             Object res = Recognize3(picSrc, row, out picUsed);
             if (picUsed != null) picUsed.Dispose();
             return res;
         }
 
-        public static object Recognize3(Bitmap picSrc, DCR.BlkRow row, out Bitmap picUsed) {
+        public static object Recognize3(Bitmap picSrc, DCR.BlkRow row, out Bitmap picUsed)
+        {
             SizeF PPM = UtPelsPerMeter.Compute(picSrc);
 
             Rectangle rc = new Rectangle(
@@ -717,75 +818,98 @@ namespace OCRPattern {
             Bitmap picS = (row.ResampleDPI == 0) ? CUt.Cut(picSrc, rc) : CUt.CutDPI(picSrc, rc, row.ResampleDPI);
             {
                 Bitmap pic = picS;
-                if (!String.IsNullOrEmpty(row.NoiseReduction) && Magick.IsInstalled) {
+                if (!String.IsNullOrEmpty(row.NoiseReduction) && Magick.IsInstalled)
+                {
                     pic = Magick.Run(pic, row.NoiseReduction);
                 }
                 picUsed = pic;
                 String ty = row.CRType;
-                if (ty == "zxing") {
-                    if (pic.Width >= 8 && pic.Height >= 8) {
+                if (ty == "zxing")
+                {
+                    if (pic.Width >= 8 && pic.Height >= 8)
+                    {
                         IBarcodeReader reader = new BarcodeReader();
-                        try {
+                        try
+                        {
                             Result result = reader.Decode(pic);
                             if (result != null)
                                 textrec = result.Text;
                         }
-                        catch (IndexOutOfRangeException) {
+                        catch (IndexOutOfRangeException)
+                        {
                             // 画像が小さいなど
                         }
                     }
                 }
-                else if (ty == "gocr") {
+                else if (ty == "gocr")
+                {
                     textrec = GOcr.Rec(pic);
                 }
-                else if (ty == "ocrad") {
+                else if (ty == "ocrad")
+                {
                     textrec = Ocrad.Rec(pic);
                 }
-                else if (ty == "nhocr") {
+                else if (ty == "nhocr")
+                {
                     textrec = NHocr.Rec(pic);
                 }
-                else if (ty.StartsWith("ocr.") && TOcr.IsInstalled) {
+                else if (ty.StartsWith("ocr.") && TOcr.IsInstalled)
+                {
                     textrec = TOcr.Rec(pic, ty.Substring(4), row.Whitelist, row.Blacklist, row.PSM);
-                    if (textrec is String) {
+                    if (textrec is String)
+                    {
                         textrec = ((String)textrec).Replace("—", "-");
                     }
                 }
             }
 
-            if (textrec is String && row.PostProcess != null) {
+            if (textrec is String && row.PostProcess != null)
+            {
                 String[] alpp = row.PostProcess.Replace("\r\n", "\n").Split('\n');
                 String ntr = "";
-                foreach (char c in "" + textrec) {
-                    foreach (String pp in alpp) {
+                foreach (char c in "" + textrec)
+                {
+                    foreach (String pp in alpp)
+                    {
                         if (false) { }
-                        else if (pp.Length == 2 && pp[0] == '×') {
-                            if (pp[1] == c) {
+                        else if (pp.Length == 2 && pp[0] == '×')
+                        {
+                            if (pp[1] == c)
+                            {
                                 goto _SkipIt;
                             }
                         }
-                        else if (pp.Length == 3) {
+                        else if (pp.Length == 3)
+                        {
                             if (false) { }
-                            else if (pp[1] == '⇔') {
+                            else if (pp[1] == '⇔')
+                            {
                                 if (false) { }
-                                else if (pp[0] == c) {
+                                else if (pp[0] == c)
+                                {
                                     ntr += pp[2];
                                     goto _SkipIt;
                                 }
-                                else if (pp[2] == c) {
+                                else if (pp[2] == c)
+                                {
                                     ntr += pp[0];
                                     goto _SkipIt;
                                 }
                             }
-                            else if (pp[1] == '→') {
+                            else if (pp[1] == '→')
+                            {
                                 if (false) { }
-                                else if (pp[0] == c) {
+                                else if (pp[0] == c)
+                                {
                                     ntr += pp[2];
                                     goto _SkipIt;
                                 }
                             }
-                            else if (pp[1] == '←') {
+                            else if (pp[1] == '←')
+                            {
                                 if (false) { }
-                                else if (pp[2] == c) {
+                                else if (pp[2] == c)
+                                {
                                     ntr += pp[0];
                                     goto _SkipIt;
                                 }
@@ -794,7 +918,7 @@ namespace OCRPattern {
                     }
                     ntr += c;
 
-                _SkipIt: ;
+                _SkipIt:;
                 }
                 textrec = ntr;
             }
@@ -803,28 +927,37 @@ namespace OCRPattern {
         }
     }
 
-    public class Magick {
-        internal static string InstallDir {
-            get {
+    public class Magick
+    {
+        internal static string InstallDir
+        {
+            get
+            {
                 RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ImageMagick\Current", false);
-                if (rk != null) {
+                if (rk != null)
+                {
                     return rk.GetValue("BinPath") as String;
                 }
                 return null;
             }
         }
-        internal static string Convertexe {
-            get {
+        internal static string Convertexe
+        {
+            get
+            {
                 String dir = InstallDir;
                 if (dir != null)
                     return Path.Combine(dir, "convert.exe");
                 return null;
             }
         }
-        internal static Version Ver {
-            get {
+        internal static Version Ver
+        {
+            get
+            {
                 RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ImageMagick\Current", false);
-                if (rk != null) {
+                if (rk != null)
+                {
                     String ver = rk.GetValue("Version") as String;
                     if (ver != null)
                         return new Version(ver);
@@ -833,8 +966,10 @@ namespace OCRPattern {
             }
         }
 
-        public static bool IsInstalled {
-            get {
+        public static bool IsInstalled
+        {
+            get
+            {
                 String fp = Convertexe;
                 if (fp != null && File.Exists(fp) && Ver != null && Ver >= new Version(6, 7, 6))
                     return true;
@@ -842,7 +977,8 @@ namespace OCRPattern {
             }
         }
 
-        public static Bitmap Run(Bitmap picSrc, String parms) {
+        public static Bitmap Run(Bitmap picSrc, String parms)
+        {
             String prefix = Guid.NewGuid().ToString("N");
 
             String fpSrc = Path.Combine(Path.GetTempPath(), prefix) + ".s.png";
@@ -867,9 +1003,12 @@ namespace OCRPattern {
         }
     }
 
-    public class TOcr {
-        class RUt {
-            internal static RegistryKey OpenSubKey(String p) {
+    public class TOcr
+    {
+        class RUt
+        {
+            internal static RegistryKey OpenSubKey(String p)
+            {
                 RegistryKey rk = Registry.CurrentUser.OpenSubKey(p, false);
                 if (rk == null)
                     rk = Registry.LocalMachine.OpenSubKey(p, false);
@@ -877,26 +1016,34 @@ namespace OCRPattern {
             }
         }
 
-        internal static string InstallDir {
-            get {
+        internal static string InstallDir
+        {
+            get
+            {
                 RegistryKey rk = RUt.OpenSubKey(@"Software\Tesseract-OCR");
-                if (rk != null) {
+                if (rk != null)
+                {
                     return rk.GetValue("InstallDir") as String;
                 }
                 return null;
             }
         }
-        internal static string Tessexe {
-            get {
+        internal static string Tessexe
+        {
+            get
+            {
                 String dir = InstallDir;
                 if (dir == null) return null;
                 return Path.Combine(dir, "tesseract.exe");
             }
         }
-        internal static Version Ver {
-            get {
+        internal static Version Ver
+        {
+            get
+            {
                 RegistryKey rk = RUt.OpenSubKey(@"Software\Tesseract-OCR");
-                if (rk != null) {
+                if (rk != null)
+                {
                     String ver = rk.GetValue("CurrentVersion") as String;
                     if (ver != null)
                         return SemVerToVersion.Parse(ver);
@@ -905,8 +1052,10 @@ namespace OCRPattern {
             }
         }
 
-        public static bool IsInstalled {
-            get {
+        public static bool IsInstalled
+        {
+            get
+            {
                 String fp = Tessexe;
                 if (fp != null && File.Exists(fp) && Ver != null && Ver >= new Version(3, 1))
                     return true;
@@ -914,7 +1063,8 @@ namespace OCRPattern {
             }
         }
 
-        public static string Rec(Bitmap pic, String lang, String whitelist, String blacklist, String psm) {
+        public static string Rec(Bitmap pic, String lang, String whitelist, String blacklist, String psm)
+        {
             String prefix = Guid.NewGuid().ToString("N");
 
             String fp = Path.Combine(Path.GetTempPath(), prefix) + ".bmp";
@@ -960,14 +1110,18 @@ namespace OCRPattern {
     }
 
     [XmlType("OCRSettei")]
-    public class OCRSettei {
+    public class OCRSettei
+    {
         Bitmap _Picture = null;
 
         [XmlIgnore()]
-        public Bitmap Picture {
+        public Bitmap Picture
+        {
             get { return _Picture; }
-            set {
-                if (_Picture != value) {
+            set
+            {
+                if (_Picture != value)
+                {
                     _Picture = value;
                     OnPictureChanged();
                 }
@@ -975,21 +1129,28 @@ namespace OCRPattern {
         }
 
         [XmlElement("PictureBinary")]
-        public byte[] PictureBinary {
-            get {
-                if (_Picture != null) {
+        public byte[] PictureBinary
+        {
+            get
+            {
+                if (_Picture != null)
+                {
                     TypeConverter cvt = TypeDescriptor.GetConverter(typeof(Bitmap));
                     return (byte[])cvt.ConvertTo(_Picture, typeof(byte[]));
                 }
-                else {
+                else
+                {
                     return null;
                 }
             }
-            set {
-                if (value != null) {
+            set
+            {
+                if (value != null)
+                {
                     Picture = new Bitmap(new MemoryStream(value));
                 }
-                else {
+                else
+                {
                     Picture = null;
                 }
             }
@@ -1000,7 +1161,8 @@ namespace OCRPattern {
 
         public event EventHandler PictureChanged;
 
-        internal void OnPictureChanged() {
+        internal void OnPictureChanged()
+        {
             if (PictureChanged != null) PictureChanged(this, new EventArgs());
         }
 
@@ -1010,8 +1172,10 @@ namespace OCRPattern {
         public String PWay { get { return _PWay; } set { _PWay = value; } }
     }
 
-    public class UtPelsPerMeter {
-        public static SizeF Compute(Image _Image) {
+    public class UtPelsPerMeter
+    {
+        public static SizeF Compute(Image _Image)
+        {
             return new SizeF(
                 _Image.HorizontalResolution * 1.0f / 25.4f / 1000.0f,
                 _Image.VerticalResolution * 1.0f / 25.4f / 1000.0f
@@ -1020,8 +1184,10 @@ namespace OCRPattern {
     }
 
     // http://d.hatena.ne.jp/alcy/20071103/1194087513
-    public class ScrollLessPanel : Panel {
-        protected override Point ScrollToControl(Control activeControl) {
+    public class ScrollLessPanel : Panel
+    {
+        protected override Point ScrollToControl(Control activeControl)
+        {
             return new Point(-this.HorizontalScroll.Value, -this.VerticalScroll.Value);
         }
     }
