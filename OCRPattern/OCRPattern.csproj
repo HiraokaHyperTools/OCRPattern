@@ -83,6 +83,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CHP.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,12 +122,14 @@
     </Compile>
     <Compile Include="GOcr.cs" />
     <Compile Include="HelpBtn.cs" />
+    <Compile Include="Interfaces\IMultiPageFileLoader.cs" />
     <Compile Include="MForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MForm.Designer.cs">
       <DependentUpon>MForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\OCRTask.cs" />
     <Compile Include="OCRWIPForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,8 +144,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CRContext.cs" />
+    <Compile Include="Utils\Csvw.cs" />
     <Compile Include="Utils\EraseOldFiles.cs" />
+    <Compile Include="Utils\FPUt.cs" />
+    <Compile Include="Utils\MFUt.cs" />
+    <Compile Include="Utils\Move2Temp.cs" />
+    <Compile Include="Utils\PdfFileLoader.cs" />
+    <Compile Include="Utils\PiUt.cs" />
+    <Compile Include="Utils\SCUt.cs" />
     <Compile Include="Utils\SemVerToVersion.cs" />
+    <Compile Include="Utils\TiffFileLoader.cs" />
+    <Compile Include="Utils\UtKwt.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfirmForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConfirmForm.cs</DependentUpon>
@@ -235,6 +256,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Credits.rtf" />
     <None Include="tessocr.png" />
   </ItemGroup>
   <ItemGroup>

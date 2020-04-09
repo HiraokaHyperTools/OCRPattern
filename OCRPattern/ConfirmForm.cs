@@ -1,3 +1,4 @@
+using OCRPattern.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -117,7 +118,7 @@ namespace OCRPattern
         {
             if (DialogResult == DialogResult.Cancel && e.CloseReason == CloseReason.UserClosing)
             {
-                if (MessageBox.Show(this, "íÜé~ÇµÇ‹Ç∑Ç©ÅH", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                if (MessageBox.Show(this, "‰∏≠Ê≠¢„Åó„Åæ„Åô„ÅãÔºü", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                 {
                     e.Cancel = true;
                 }

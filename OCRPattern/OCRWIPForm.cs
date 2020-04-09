@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,11 +16,6 @@ namespace OCRPattern
             InitializeComponent();
         }
 
-        public OCRWIPForm(String ttl)
-        {
-            InitializeComponent();
-            Text = ttl;
-        }
 
         internal static OCRWIPForm Show1()
         {
@@ -28,11 +23,6 @@ namespace OCRPattern
             form.Show();
             form.Update();
             return form;
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(((LinkLabel)sender).Text);
         }
 
         internal void HintPage(int p)

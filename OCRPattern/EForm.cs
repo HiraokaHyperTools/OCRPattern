@@ -260,8 +260,8 @@ namespace OCRPattern
 
         private void bAbout_Click(object sender, EventArgs e)
         {
-            using (OCRWIPForm form = new OCRWIPForm(Application.ProductName + " " + Application.ProductVersion + " について"))
-                form.ShowDialog(this);
+            var form = new AboutForm();
+            form.ShowDialog(this);
         }
 
         private void cbSelArea_CheckedChanged(object sender, EventArgs e)
@@ -312,7 +312,7 @@ namespace OCRPattern
                 int cz = 0;
                 if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0)
                 {
-                    using (UtPDFio io = new UtPDFio(fp))
+                    using (PdfFileLoader io = new PdfFileLoader(fp))
                     {
                         cz = io.NumPages;
                     }
@@ -332,7 +332,7 @@ namespace OCRPattern
                         int z = (int)form.numPage.Value;
                         if (String.Compare(Path.GetExtension(fp), ".pdf", true) == 0)
                         {
-                            using (UtPDFio io = new UtPDFio(fp))
+                            using (PdfFileLoader io = new PdfFileLoader(fp))
                             {
                                 pic2 = (io.Rasterize(z - 1));
                             }
