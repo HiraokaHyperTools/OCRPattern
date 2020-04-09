@@ -83,16 +83,6 @@ namespace OCRPattern.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap _200px_Imagemagick_logo {
-            get {
-                object obj = ResourceManager.GetObject("_200px_Imagemagick_logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
         internal static System.Drawing.Bitmap A4V300 {
             get {
                 object obj = ResourceManager.GetObject("A4V300", resourceCulture);
@@ -131,42 +121,12 @@ namespace OCRPattern.Properties {
         }
         
         /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
-        internal static System.Drawing.Bitmap poppler_top {
-            get {
-                object obj = ResourceManager.GetObject("poppler_top", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Icon t {
             get {
                 object obj = ResourceManager.GetObject("t", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
-        internal static System.Drawing.Bitmap tessocr {
-            get {
-                object obj = ResourceManager.GetObject("tessocr", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
-        internal static System.Drawing.Bitmap zxingss {
-            get {
-                object obj = ResourceManager.GetObject("zxingss", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
