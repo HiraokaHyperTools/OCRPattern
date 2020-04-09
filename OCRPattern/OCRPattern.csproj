@@ -89,9 +89,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CHP.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ConfirmForm.cs">
       <SubType>Form</SubType>
     </Compile>
