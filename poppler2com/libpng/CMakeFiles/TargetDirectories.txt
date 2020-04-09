@@ -1,3 +1,0 @@
-C:/Proj/poppler2com/libpng/CMakeFiles/ALL_BUILD.dir
-C:/Proj/poppler2com/libpng/CMakeFiles/ZERO_CHECK.dir
-C:/Proj/poppler2com/libpng/CMakeFiles/png15_static.dir
