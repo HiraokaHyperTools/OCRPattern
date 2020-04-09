@@ -11,11 +11,11 @@ using System.Runtime.InteropServices;
 using System.Web;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
-using poppler2com;
 using System.Diagnostics;
 using OCRPattern.Properties;
 using NLog;
 using OCRPattern.Utils;
+using PdfiumViewer;
 
 namespace OCRPattern
 {
@@ -622,9 +622,6 @@ namespace OCRPattern
             return CRRes.Fail;
         }
 
-        [DllImport("poppler2com.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
-        static extern int GetMyPoppler(out IMyPoppler pprv);
-
         private void bRefDirOut_Click(object sender, EventArgs e)
         {
             if (fbdDirOut.ShowDialog(this) == DialogResult.OK)
@@ -802,73 +799,53 @@ namespace OCRPattern
 
     public class UtPDFio : UtPICio
     {
-        IMyPoppler pop = null;
-        IMyPDFDoc doc = null;
+        private readonly PdfDocument pdfDocument;
+        private readonly string pdfOpen;
 
         public float DPI = 200;
 
-        public override int NumPages { get { return doc.getNumPages(); } }
+        public override int NumPages => pdfDocument.PageCount;
 
         public UtPDFio(String fp)
         {
-            GetMyPoppler(out pop);
-            doc = pop.NewPDFDoc(fp);
+            pdfDocument = PdfDocument.Load(fp);
+
+            pdfOpen = fp;
         }
 
         public override Bitmap Rasterize(int z)
         {
-            IMySplashOutputDev dev = doc.displayPage(1 + z, DPI, DPI, 0, 1, 0, 0);
-            try
-            {
-                int cx = dev.BitmapWidth;
-                int cy = dev.BitmapHeight;
-                Bitmap pic = new Bitmap(cx, cy, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-                {
-                    pic.SetResolution(DPI, DPI);
-                    BitmapData bd = pic.LockBits(new Rectangle(0, 0, cx, cy), System.Drawing.Imaging.ImageLockMode.WriteOnly, pic.PixelFormat);
-                    try
-                    {
-                        byte[] bin = new byte[bd.Stride];
-                        for (int y = 0; y < cy; y++)
-                        {
-                            Marshal.Copy(new IntPtr(dev.DataPtr.ToInt64() + bin.Length * y), bin, 0, bin.Length);
-                            for (int x = 0; x < cx; x++)
-                            {
-                                int i = 3 * x;
-                                byte b = bin[i + 2];
-                                bin[i + 2] = bin[i];
-                                bin[i] = b;
-                            }
-                            Marshal.Copy(bin, 0, new IntPtr(bd.Scan0.ToInt64() + bin.Length * y), bin.Length);
-                        }
-                    }
-                    finally
-                    {
-                        pic.UnlockBits(bd);
-                    }
-                    return pic;
-                }
-            }
-            finally
-            {
-                Marshal.ReleaseComObject(dev);
-            }
+            return (Bitmap)pdfDocument.Render(z, DPI, DPI, false);
         }
 
-        public override void SavePageAs(string fp, int page)
+        public override void SavePageAs(string pdfSave, int index)
         {
-            doc.savePageAs(fp, page);
-        }
+            using (var newPdf = PdfDocument.Load(pdfOpen))
+            {
+                index -= 1;
 
-        [DllImport("poppler2com.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
-        static extern int GetMyPoppler(out IMyPoppler pprv);
+                while (newPdf.PageCount >= 2)
+                {
+                    if (index >= 1)
+                    {
+                        newPdf.DeletePage(0);
+                        index -= 1;
+                    }
+                    else
+                    {
+                        newPdf.DeletePage(1);
+                    }
+                }
+
+                newPdf.Save(pdfSave);
+            }
+        }
 
         #region IDisposable メンバ
 
         public override void Dispose()
         {
-            if (doc != null) Marshal.ReleaseComObject(doc);
-            if (pop != null) Marshal.ReleaseComObject(pop);
+            pdfDocument?.Dispose();
         }
 
         #endregion
