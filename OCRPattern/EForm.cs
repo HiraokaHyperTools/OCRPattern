@@ -44,6 +44,7 @@ namespace OCRPattern
                 alkv.Add(new KeyValuePair<string, string>("ocr.chi_sim", "中国語(sim)OCR"));
                 alkv.Add(new KeyValuePair<string, string>("ocr.chi_tra", "中国語(tra)OCR"));
                 alkv.Add(new KeyValuePair<string, string>("zxing", "バーコードOCR"));
+                alkv.Add(new KeyValuePair<string, string>("zxing.code128", "CODE128 OCR"));
                 cbType.DataSource = alkv;
                 cbType.ValueMember = "Key";
                 cbType.DisplayMember = "Value";
@@ -829,6 +830,24 @@ namespace OCRPattern
                     if (pic.Width >= 8 && pic.Height >= 8)
                     {
                         IBarcodeReader reader = new BarcodeReader();
+                        try
+                        {
+                            Result result = reader.Decode(pic);
+                            if (result != null)
+                                textrec = result.Text;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            // 画像が小さいなど
+                        }
+                    }
+                }
+                else if (ty == "zxing.code128")
+                {
+                    if (pic.Width >= 8 && pic.Height >= 8)
+                    {
+                        IBarcodeReader reader = new BarcodeReader();
+                        reader.Options.PossibleFormats = new BarcodeFormat[] { BarcodeFormat.CODE_128 };
                         try
                         {
                             Result result = reader.Decode(pic);

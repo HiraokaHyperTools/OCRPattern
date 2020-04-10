@@ -146,6 +146,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SQLServerLookupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQLServerLookupForm.Designer.cs">
+      <DependentUpon>SQLServerLookupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\CRContext.cs" />
     <Compile Include="Utils\Csvw.cs" />
     <Compile Include="Utils\EraseOldFiles.cs" />
@@ -193,6 +199,9 @@
     <EmbeddedResource Include="SelForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQLServerLookupForm.resx">
+      <DependentUpon>SQLServerLookupForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include=".editorconfig" />
     <None Include="DCR.xsc">

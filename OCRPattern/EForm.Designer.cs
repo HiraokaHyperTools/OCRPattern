@@ -112,6 +112,7 @@
             this.mPPErase = new System.Windows.Forms.ToolStripMenuItem();
             this.mPPRepl = new System.Windows.Forms.ToolStripMenuItem();
             this.mPPSwap = new System.Windows.Forms.ToolStripMenuItem();
+            this.bSQLServer = new System.Windows.Forms.Button();
             testKeywordLabel = new System.Windows.Forms.Label();
             laWL = new System.Windows.Forms.Label();
             laBL = new System.Windows.Forms.Label();
@@ -210,26 +211,26 @@
             this.mCLLetterU,
             this.mCLLetterL});
             this.cmsCharList.Name = "cmsCharList";
-            this.cmsCharList.Size = new System.Drawing.Size(127, 70);
+            this.cmsCharList.Size = new System.Drawing.Size(126, 70);
             // 
             // mCLDigit
             // 
             this.mCLDigit.Name = "mCLDigit";
-            this.mCLDigit.Size = new System.Drawing.Size(126, 22);
+            this.mCLDigit.Size = new System.Drawing.Size(125, 22);
             this.mCLDigit.Text = "半角 数字";
             this.mCLDigit.Click += new System.EventHandler(this.mCLDigit_Click);
             // 
             // mCLLetterU
             // 
             this.mCLLetterU.Name = "mCLLetterU";
-            this.mCLLetterU.Size = new System.Drawing.Size(126, 22);
+            this.mCLLetterU.Size = new System.Drawing.Size(125, 22);
             this.mCLLetterU.Text = "半角 A-Z";
             this.mCLLetterU.Click += new System.EventHandler(this.mCLDigit_Click);
             // 
             // mCLLetterL
             // 
             this.mCLLetterL.Name = "mCLLetterL";
-            this.mCLLetterL.Size = new System.Drawing.Size(126, 22);
+            this.mCLLetterL.Size = new System.Drawing.Size(125, 22);
             this.mCLLetterL.Text = "半角 a-z";
             this.mCLLetterL.Click += new System.EventHandler(this.mCLDigit_Click);
             // 
@@ -266,6 +267,7 @@
             // vsc.Panel2
             // 
             this.vsc.Panel2.AutoScroll = true;
+            this.vsc.Panel2.Controls.Add(this.bSQLServer);
             this.vsc.Panel2.Controls.Add(this.bAddPP);
             this.vsc.Panel2.Controls.Add(postProcessLabel);
             this.vsc.Panel2.Controls.Add(this.postProcessTextBox);
@@ -303,7 +305,7 @@
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
             this.vsc.Size = new System.Drawing.Size(770, 631);
-            this.vsc.SplitterDistance = 308;
+            this.vsc.SplitterDistance = 306;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
             // 
@@ -316,7 +318,7 @@
             this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.slpPv.Location = new System.Drawing.Point(0, 0);
             this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(308, 616);
+            this.slpPv.Size = new System.Drawing.Size(306, 616);
             this.slpPv.TabIndex = 1;
             // 
             // picPane
@@ -346,13 +348,13 @@
             this.cmsPicPane.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mSelArea});
             this.cmsPicPane.Name = "cmsPicPane";
-            this.cmsPicPane.Size = new System.Drawing.Size(249, 26);
+            this.cmsPicPane.Size = new System.Drawing.Size(250, 26);
             this.cmsPicPane.Opening += new System.ComponentModel.CancelEventHandler(this.cmsPicPane_Opening);
             // 
             // mSelArea
             // 
             this.mSelArea.Name = "mSelArea";
-            this.mSelArea.Size = new System.Drawing.Size(248, 22);
+            this.mSelArea.Size = new System.Drawing.Size(249, 22);
             this.mSelArea.Text = "領域を左ボタンでドラッグし、選択する";
             this.mSelArea.Click += new System.EventHandler(this.mSelArea_Click);
             // 
@@ -370,7 +372,7 @@
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(308, 15);
+            this.tlpStat.Size = new System.Drawing.Size(306, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -392,7 +394,7 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(294, 0);
+            this.lRes.Location = new System.Drawing.Point(292, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
@@ -756,7 +758,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(456, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(458, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -772,7 +774,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
             this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目の総数";
             // 
@@ -803,6 +805,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 19);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -872,7 +875,7 @@
             this.bAnother});
             this.tstop.Location = new System.Drawing.Point(3, 0);
             this.tstop.Name = "tstop";
-            this.tstop.Size = new System.Drawing.Size(642, 25);
+            this.tstop.Size = new System.Drawing.Size(634, 25);
             this.tstop.TabIndex = 0;
             // 
             // bSave
@@ -880,7 +883,7 @@
             this.bSave.Image = ((System.Drawing.Image)(resources.GetObject("bSave.Image")));
             this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(79, 22);
+            this.bSave.Size = new System.Drawing.Size(78, 22);
             this.bSave.Text = "保存します";
             this.bSave.ToolTipText = "編集しているテンプレートを保存します。";
             this.bSave.Click += new System.EventHandler(this.bSave_Click);
@@ -906,19 +909,19 @@
             // bA4
             // 
             this.bA4.Name = "bA4";
-            this.bA4.Size = new System.Drawing.Size(153, 22);
+            this.bA4.Size = new System.Drawing.Size(150, 22);
             this.bA4.Text = "白紙(A4縦)";
             this.bA4.Click += new System.EventHandler(this.bA4_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(147, 6);
             // 
             // bSpecifyPic
             // 
             this.bSpecifyPic.Name = "bSpecifyPic";
-            this.bSpecifyPic.Size = new System.Drawing.Size(153, 22);
+            this.bSpecifyPic.Size = new System.Drawing.Size(150, 22);
             this.bSpecifyPic.Text = "ファイルを指定...";
             this.bSpecifyPic.Click += new System.EventHandler(this.bSpecifyPic_Click);
             // 
@@ -962,7 +965,7 @@
             this.bAbout.Image = ((System.Drawing.Image)(resources.GetObject("bAbout.Image")));
             this.bAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bAbout.Name = "bAbout";
-            this.bAbout.Size = new System.Drawing.Size(124, 22);
+            this.bAbout.Size = new System.Drawing.Size(121, 22);
             this.bAbout.Text = "利用技術について...";
             this.bAbout.ToolTipText = "利用技術について、特に謝辞のある物を表示します。 ";
             this.bAbout.Click += new System.EventHandler(this.bAbout_Click);
@@ -977,7 +980,7 @@
             this.bAnother.Image = ((System.Drawing.Image)(resources.GetObject("bAnother.Image")));
             this.bAnother.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bAnother.Name = "bAnother";
-            this.bAnother.Size = new System.Drawing.Size(199, 22);
+            this.bAnother.Size = new System.Drawing.Size(195, 22);
             this.bAnother.Text = "評価用に、別の画像を指定します...";
             this.bAnother.ToolTipText = "認識に使用したい画像をファイルから指定します。1ページのみ選択できます。この画像は、テンプレート内容に保存されません。 ";
             this.bAnother.Click += new System.EventHandler(this.bAnother_Click);
@@ -997,28 +1000,38 @@
             this.mPPRepl,
             this.mPPSwap});
             this.cmsPP.Name = "cmsPP";
-            this.cmsPP.Size = new System.Drawing.Size(202, 70);
+            this.cmsPP.Size = new System.Drawing.Size(200, 70);
             // 
             // mPPErase
             // 
             this.mPPErase.Name = "mPPErase";
-            this.mPPErase.Size = new System.Drawing.Size(201, 22);
+            this.mPPErase.Size = new System.Drawing.Size(199, 22);
             this.mPPErase.Text = "指定した文字を削除したい";
             this.mPPErase.Click += new System.EventHandler(this.mPPErase_Click);
             // 
             // mPPRepl
             // 
             this.mPPRepl.Name = "mPPRepl";
-            this.mPPRepl.Size = new System.Drawing.Size(201, 22);
+            this.mPPRepl.Size = new System.Drawing.Size(199, 22);
             this.mPPRepl.Text = "文字を置き換えしたい";
             this.mPPRepl.Click += new System.EventHandler(this.mPPRepl_Click);
             // 
             // mPPSwap
             // 
             this.mPPSwap.Name = "mPPSwap";
-            this.mPPSwap.Size = new System.Drawing.Size(201, 22);
+            this.mPPSwap.Size = new System.Drawing.Size(199, 22);
             this.mPPSwap.Text = "文字を入れ替えたい";
             this.mPPSwap.Click += new System.EventHandler(this.mPPSwap_Click);
+            // 
+            // bSQLServer
+            // 
+            this.bSQLServer.Location = new System.Drawing.Point(356, 171);
+            this.bSQLServer.Name = "bSQLServer";
+            this.bSQLServer.Size = new System.Drawing.Size(75, 53);
+            this.bSQLServer.TabIndex = 105;
+            this.bSQLServer.Text = "SQL Server Lookup";
+            this.tt.SetToolTip(this.bSQLServer, "認識後に SQL Server より追加情報を取得します");
+            this.bSQLServer.UseVisualStyleBackColor = true;
             // 
             // EForm
             // 
@@ -1143,5 +1156,6 @@
         private System.Windows.Forms.ToolStripMenuItem mPPErase;
         private System.Windows.Forms.ToolStripMenuItem mPPRepl;
         private System.Windows.Forms.ToolStripMenuItem mPPSwap;
+        private System.Windows.Forms.Button bSQLServer;
     }
 }

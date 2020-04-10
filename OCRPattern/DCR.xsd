@@ -32,6 +32,7 @@
               <xs:element name="NeedVerify" msprop:Generator_ColumnVarNameInTable="columnNeedVerify" msprop:Generator_ColumnPropNameInRow="NeedVerify" msprop:Generator_ColumnPropNameInTable="NeedVerifyColumn" msprop:Generator_UserColumnName="NeedVerify" type="xs:boolean" default="false" minOccurs="0" />
               <xs:element name="SkipWs" msprop:Generator_ColumnVarNameInTable="columnSkipWs" msprop:Generator_ColumnPropNameInRow="SkipWs" msprop:Generator_ColumnPropNameInTable="SkipWsColumn" msprop:Generator_UserColumnName="SkipWs" type="xs:boolean" default="false" minOccurs="0" />
               <xs:element name="PostProcess" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="PostProcess" msprop:Generator_ColumnVarNameInTable="columnPostProcess" msprop:Generator_ColumnPropNameInTable="PostProcessColumn" msprop:Generator_UserColumnName="PostProcess" type="xs:string" default="" />
+              <xs:element name="UseSQLServerLookup" msprop:Generator_ColumnVarNameInTable="columnUseSQLServerLookup" msprop:Generator_ColumnPropNameInRow="UseSQLServerLookup" msprop:Generator_ColumnPropNameInTable="UseSQLServerLookupColumn" msprop:Generator_UserColumnName="UseSQLServerLookup" type="xs:boolean" default="false" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
