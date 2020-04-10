@@ -753,6 +753,14 @@ namespace OCRPattern
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+        private void bSQLServer_Click(object sender, EventArgs e)
+        {
+            using (var form = new SQLServerLookupForm(blkBindingSource))
+            {
+                form.ShowDialog();
+            }
+        }
     }
 
     public class RUt

@@ -46,6 +46,7 @@
             this.tlpStat = new System.Windows.Forms.TableLayoutPanel();
             this.llRevertPic = new System.Windows.Forms.LinkLabel();
             this.lRes = new System.Windows.Forms.Label();
+            this.bSQLServer = new System.Windows.Forms.Button();
             this.bAddPP = new System.Windows.Forms.Button();
             this.postProcessTextBox = new System.Windows.Forms.TextBox();
             this.blkBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -112,7 +113,6 @@
             this.mPPErase = new System.Windows.Forms.ToolStripMenuItem();
             this.mPPRepl = new System.Windows.Forms.ToolStripMenuItem();
             this.mPPSwap = new System.Windows.Forms.ToolStripMenuItem();
-            this.bSQLServer = new System.Windows.Forms.Button();
             testKeywordLabel = new System.Windows.Forms.Label();
             laWL = new System.Windows.Forms.Label();
             laBL = new System.Windows.Forms.Label();
@@ -305,7 +305,7 @@
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
             this.vsc.Size = new System.Drawing.Size(770, 631);
-            this.vsc.SplitterDistance = 306;
+            this.vsc.SplitterDistance = 304;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
             // 
@@ -318,7 +318,7 @@
             this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.slpPv.Location = new System.Drawing.Point(0, 0);
             this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(306, 616);
+            this.slpPv.Size = new System.Drawing.Size(304, 616);
             this.slpPv.TabIndex = 1;
             // 
             // picPane
@@ -372,7 +372,7 @@
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(306, 15);
+            this.tlpStat.Size = new System.Drawing.Size(304, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -394,12 +394,23 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(292, 0);
+            this.lRes.Location = new System.Drawing.Point(290, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
             this.lRes.TabIndex = 4;
             this.lRes.Text = "...";
+            // 
+            // bSQLServer
+            // 
+            this.bSQLServer.Location = new System.Drawing.Point(356, 171);
+            this.bSQLServer.Name = "bSQLServer";
+            this.bSQLServer.Size = new System.Drawing.Size(75, 53);
+            this.bSQLServer.TabIndex = 105;
+            this.bSQLServer.Text = "SQL Server Lookup";
+            this.tt.SetToolTip(this.bSQLServer, "認識後に SQL Server より追加情報を取得します");
+            this.bSQLServer.UseVisualStyleBackColor = true;
+            this.bSQLServer.Click += new System.EventHandler(this.bSQLServer_Click);
             // 
             // bAddPP
             // 
@@ -758,7 +769,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(458, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(460, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -1022,16 +1033,6 @@
             this.mPPSwap.Size = new System.Drawing.Size(199, 22);
             this.mPPSwap.Text = "文字を入れ替えたい";
             this.mPPSwap.Click += new System.EventHandler(this.mPPSwap_Click);
-            // 
-            // bSQLServer
-            // 
-            this.bSQLServer.Location = new System.Drawing.Point(356, 171);
-            this.bSQLServer.Name = "bSQLServer";
-            this.bSQLServer.Size = new System.Drawing.Size(75, 53);
-            this.bSQLServer.TabIndex = 105;
-            this.bSQLServer.Text = "SQL Server Lookup";
-            this.tt.SetToolTip(this.bSQLServer, "認識後に SQL Server より追加情報を取得します");
-            this.bSQLServer.UseVisualStyleBackColor = true;
             // 
             // EForm
             // 

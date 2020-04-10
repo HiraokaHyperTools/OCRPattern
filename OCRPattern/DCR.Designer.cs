@@ -315,6 +315,14 @@ namespace OCRPattern {
             
             private global::System.Data.DataColumn columnUseSQLServerLookup;
             
+            private global::System.Data.DataColumn columnSQLConnStr;
+            
+            private global::System.Data.DataColumn columnSQLQuery;
+            
+            private global::System.Data.DataColumn columnSQLOutputColumns;
+            
+            private global::System.Data.DataColumn columnSQLInputSample;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public BlkDataTable() {
@@ -494,6 +502,38 @@ namespace OCRPattern {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SQLConnStrColumn {
+                get {
+                    return this.columnSQLConnStr;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SQLQueryColumn {
+                get {
+                    return this.columnSQLQuery;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SQLOutputColumnsColumn {
+                get {
+                    return this.columnSQLOutputColumns;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SQLInputSampleColumn {
+                get {
+                    return this.columnSQLInputSample;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -547,7 +587,11 @@ namespace OCRPattern {
                         bool NeedVerify, 
                         bool SkipWs, 
                         string PostProcess, 
-                        bool UseSQLServerLookup) {
+                        bool UseSQLServerLookup, 
+                        string SQLConnStr, 
+                        string SQLQuery, 
+                        string SQLOutputColumns, 
+                        string SQLInputSample) {
                 BlkRow rowBlkRow = ((BlkRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         x,
@@ -567,7 +611,11 @@ namespace OCRPattern {
                         NeedVerify,
                         SkipWs,
                         PostProcess,
-                        UseSQLServerLookup};
+                        UseSQLServerLookup,
+                        SQLConnStr,
+                        SQLQuery,
+                        SQLOutputColumns,
+                        SQLInputSample};
                 rowBlkRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBlkRow);
                 return rowBlkRow;
@@ -608,6 +656,10 @@ namespace OCRPattern {
                 this.columnSkipWs = base.Columns["SkipWs"];
                 this.columnPostProcess = base.Columns["PostProcess"];
                 this.columnUseSQLServerLookup = base.Columns["UseSQLServerLookup"];
+                this.columnSQLConnStr = base.Columns["SQLConnStr"];
+                this.columnSQLQuery = base.Columns["SQLQuery"];
+                this.columnSQLOutputColumns = base.Columns["SQLOutputColumns"];
+                this.columnSQLInputSample = base.Columns["SQLInputSample"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -649,6 +701,14 @@ namespace OCRPattern {
                 base.Columns.Add(this.columnPostProcess);
                 this.columnUseSQLServerLookup = new global::System.Data.DataColumn("UseSQLServerLookup", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUseSQLServerLookup);
+                this.columnSQLConnStr = new global::System.Data.DataColumn("SQLConnStr", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSQLConnStr);
+                this.columnSQLQuery = new global::System.Data.DataColumn("SQLQuery", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSQLQuery);
+                this.columnSQLOutputColumns = new global::System.Data.DataColumn("SQLOutputColumns", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSQLOutputColumns);
+                this.columnSQLInputSample = new global::System.Data.DataColumn("SQLInputSample", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSQLInputSample);
                 this.columnx.AllowDBNull = false;
                 this.columnx.DefaultValue = ((float)(0F));
                 this.columny.AllowDBNull = false;
@@ -672,6 +732,14 @@ namespace OCRPattern {
                 this.columnPostProcess.DefaultValue = ((string)(""));
                 this.columnUseSQLServerLookup.AllowDBNull = false;
                 this.columnUseSQLServerLookup.DefaultValue = ((bool)(false));
+                this.columnSQLConnStr.AllowDBNull = false;
+                this.columnSQLConnStr.DefaultValue = ((string)(""));
+                this.columnSQLQuery.AllowDBNull = false;
+                this.columnSQLQuery.DefaultValue = ((string)(""));
+                this.columnSQLOutputColumns.AllowDBNull = false;
+                this.columnSQLOutputColumns.DefaultValue = ((string)(""));
+                this.columnSQLInputSample.AllowDBNull = false;
+                this.columnSQLInputSample.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1067,6 +1135,50 @@ namespace OCRPattern {
                 }
                 set {
                     this[this.tableBlk.UseSQLServerLookupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SQLConnStr {
+                get {
+                    return ((string)(this[this.tableBlk.SQLConnStrColumn]));
+                }
+                set {
+                    this[this.tableBlk.SQLConnStrColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SQLQuery {
+                get {
+                    return ((string)(this[this.tableBlk.SQLQueryColumn]));
+                }
+                set {
+                    this[this.tableBlk.SQLQueryColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SQLOutputColumns {
+                get {
+                    return ((string)(this[this.tableBlk.SQLOutputColumnsColumn]));
+                }
+                set {
+                    this[this.tableBlk.SQLOutputColumnsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SQLInputSample {
+                get {
+                    return ((string)(this[this.tableBlk.SQLInputSampleColumn]));
+                }
+                set {
+                    this[this.tableBlk.SQLInputSampleColumn] = value;
                 }
             }
             
