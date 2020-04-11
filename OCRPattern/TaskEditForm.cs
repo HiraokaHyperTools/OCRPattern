@@ -18,6 +18,7 @@ using OCRPattern.Utils;
 using PdfiumViewer;
 using OCRPattern.Interfaces;
 using OCRPattern.Models;
+using System.Data.SqlClient;
 
 namespace OCRPattern
 {
@@ -396,6 +397,8 @@ namespace OCRPattern
 
                                 Object res = RUt.Recognize2(pic, row);
                                 crc.AddTempl(row.FieldName, res ?? "");
+
+                                TrySQLServerLookup(row, crc, "" + res);
                             }
 
                             crc.NewRecord();
@@ -446,6 +449,8 @@ namespace OCRPattern
 
                                 Object res = RUt.Recognize2(pic, row);
                                 crc.AddTempl(row.FieldName, res ?? "");
+
+                                TrySQLServerLookup(row, crc, "" + res);
                             }
                             crc.TemplAvail = true;
                             return CRRes.Sepa;
@@ -467,6 +472,8 @@ namespace OCRPattern
 
                             Object res = RUt.Recognize2(pic, row);
                             crc.SetValue(row.FieldName, res ?? "");
+
+                            TrySQLServerLookup(row, crc, "" + res);
                         }
                         if (needVerify)
                         {
@@ -504,6 +511,42 @@ namespace OCRPattern
                 return CRRes.Avail;
             }
             return CRRes.Fail;
+        }
+
+        private void TrySQLServerLookup(DCR.BlkRow row, CRContext crc, string text)
+        {
+            if (row.UseSQLServerLookup)
+            {
+                using (var db = new SqlConnection(row.SQLConnStr))
+                {
+                    db.Open();
+
+                    var command = new SqlCommand(row.SQLQuery, db);
+                    command.Parameters.AddWithValue("@input", text);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            foreach (var outputColumn in row.SQLOutputColumns.Replace("\r\n", "\n").Split('\n'))
+                            {
+                                if (string.IsNullOrEmpty(outputColumn))
+                                {
+                                    continue;
+                                }
+                                try
+                                {
+                                    crc.AddTempl(outputColumn, "" + reader[outputColumn]);
+                                }
+                                catch (IndexOutOfRangeException)
+                                {
+                                    // 列名無効s
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void bRefDirOut_Click(object sender, EventArgs e)
