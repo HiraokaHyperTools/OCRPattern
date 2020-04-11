@@ -111,20 +111,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DSRes.xsd</DependentUpon>
     </Compile>
-    <Compile Include="EForm.cs">
+    <Compile Include="TemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EForm.Designer.cs">
-      <DependentUpon>EForm.cs</DependentUpon>
+    <Compile Include="TemplateForm.Designer.cs">
+      <DependentUpon>TemplateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GOcr.cs" />
     <Compile Include="HelpBtn.cs" />
     <Compile Include="Interfaces\IMultiPageFileLoader.cs" />
-    <Compile Include="MForm.cs">
+    <Compile Include="TaskEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MForm.Designer.cs">
-      <DependentUpon>MForm.cs</DependentUpon>
+    <Compile Include="TaskEditForm.Designer.cs">
+      <DependentUpon>TaskEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\OCRTask.cs" />
     <Compile Include="OCRWIPForm.cs">
@@ -171,13 +171,13 @@
       <SubType>Designer</SubType>
       <DependentUpon>ConfirmForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EForm.resx">
+    <EmbeddedResource Include="TemplateForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>EForm.cs</DependentUpon>
+      <DependentUpon>TemplateForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MForm.resx">
+    <EmbeddedResource Include="TaskEditForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>MForm.cs</DependentUpon>
+      <DependentUpon>TaskEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OCRWIPForm.resx">
       <SubType>Designer</SubType>

@@ -1,5 +1,5 @@
 ﻿namespace OCRPattern {
-    partial class PSelForm {
+    partial class PageSelForm {
         /// <summary>
         /// 必要なデザイナ変数です。
         /// </summary>

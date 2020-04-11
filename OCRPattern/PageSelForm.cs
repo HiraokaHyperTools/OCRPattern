@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace OCRPattern
 {
-    public partial class PSelForm : Form
+    public partial class PageSelForm : Form
     {
-        public PSelForm()
+        public PageSelForm()
         {
             InitializeComponent();
         }

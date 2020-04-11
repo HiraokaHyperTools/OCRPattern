@@ -24,7 +24,7 @@ namespace OCRPattern
                 if (a == "/e")
                 {
                     ++x;
-                    Application.Run(new EForm(args[x]));
+                    Application.Run(new TemplateForm(args[x]));
                     return;
                 }
                 if (a == "/t")
@@ -37,7 +37,7 @@ namespace OCRPattern
                     {
                         if (args[x] == "/run") run = true;
                     }
-                    Application.Run(new MForm(fp, run));
+                    Application.Run(new TaskEditForm(fp, run));
                     return;
                 }
             }

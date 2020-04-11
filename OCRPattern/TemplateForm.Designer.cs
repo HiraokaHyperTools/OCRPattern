@@ -1,5 +1,5 @@
 ﻿namespace OCRPattern {
-    partial class EForm {
+    partial class TemplateForm {
         /// <summary>
         /// 必要なデザイナ変数です。
         /// </summary>
@@ -32,7 +32,7 @@
             System.Windows.Forms.Label cRTypeLabel;
             System.Windows.Forms.Label fieldNameLabel;
             System.Windows.Forms.Label postProcessLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TemplateForm));
             this.cmsCharList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mCLDigit = new System.Windows.Forms.ToolStripMenuItem();
             this.mCLLetterU = new System.Windows.Forms.ToolStripMenuItem();

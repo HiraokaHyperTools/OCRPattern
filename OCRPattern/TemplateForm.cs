@@ -19,11 +19,11 @@ using OCRPattern.Utils;
 
 namespace OCRPattern
 {
-    public partial class EForm : Form
+    public partial class TemplateForm : Form
     {
         String fpxml;
 
-        public EForm(String fpxml)
+        public TemplateForm(String fpxml)
         {
             this.fpxml = fpxml;
 
@@ -325,7 +325,7 @@ namespace OCRPattern
                         cz = pic.GetFrameCount(FrameDimension.Page);
                     }
                 }
-                using (PSelForm form = new PSelForm())
+                using (PageSelForm form = new PageSelForm())
                 {
                     form.numPage.Maximum = cz;
                     if (form.ShowDialog() == DialogResult.OK)

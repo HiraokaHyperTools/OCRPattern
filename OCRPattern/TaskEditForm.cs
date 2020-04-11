@@ -21,11 +21,11 @@ using OCRPattern.Models;
 
 namespace OCRPattern
 {
-    public partial class MForm : Form
+    public partial class TaskEditForm : Form
     {
         bool run;
 
-        public MForm(String fpxml, bool run)
+        public TaskEditForm(String fpxml, bool run)
         {
             this.fpxml = fpxml;
             this.run = run;

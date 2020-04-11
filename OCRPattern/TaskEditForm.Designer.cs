@@ -1,5 +1,5 @@
 namespace OCRPattern {
-    partial class MForm {
+    partial class TaskEditForm {
         /// <summary>
         /// 必要なデザイナ変数です。
         /// </summary>
@@ -24,7 +24,7 @@ namespace OCRPattern {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskEditForm));
             this.label1 = new System.Windows.Forms.Label();
             this.tbFiles = new System.Windows.Forms.TextBox();
             this.cfgBindingSource = new System.Windows.Forms.BindingSource(this.components);
