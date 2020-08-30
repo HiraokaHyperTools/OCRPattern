@@ -142,7 +142,7 @@
     <value>17, 17</value>
   </metadata>
   <metadata name="cmsPicPane.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>133, 17</value>
+    <value>343, 17</value>
   </metadata>
   <data name="picPane.SelRect" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -153,13 +153,13 @@
 </value>
   </data>
   <metadata name="tt.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>248, 17</value>
+    <value>458, 17</value>
   </metadata>
   <metadata name="blkBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>541, 9</value>
+    <value>753, 17</value>
   </metadata>
   <metadata name="dcr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>311, 9</value>
+    <value>518, 17</value>
   </metadata>
   <data name="cbPWay.ToolTip" xml:space="preserve">
     <value>このページの種類を選択します。 
@@ -274,7 +274,7 @@ CODE128 OCR
 zxing を使用して、CODE128 バーコードを認識します</value>
   </data>
   <metadata name="blkBindingNavigator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>681, 9</value>
+    <value>900, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="bindingNavigatorAddNewItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -342,7 +342,7 @@ zxing を使用して、CODE128 バーコードを認識します</value>
 </value>
   </data>
   <metadata name="tstop.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>379, 9</value>
+    <value>587, 17</value>
   </metadata>
   <data name="bSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -405,13 +405,16 @@ zxing を使用して、CODE128 バーコードを認識します</value>
 </value>
   </data>
   <metadata name="ofdPic.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>457, 9</value>
+    <value>667, 17</value>
   </metadata>
   <metadata name="ofdAnother.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 54</value>
+    <value>1063, 17</value>
   </metadata>
   <metadata name="cmsPP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+    <value>134, 17</value>
+  </metadata>
+  <metadata name="menuPattern.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>221, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>29</value>

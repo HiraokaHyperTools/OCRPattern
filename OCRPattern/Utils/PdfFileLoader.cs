@@ -24,9 +24,13 @@ namespace OCRPattern.Utils
             pdfOpen = fp;
         }
 
-        public Bitmap Rasterize(int z)
+        public Bitmap Rasterize(int index)
         {
-            return (Bitmap)pdfDocument.Render(z, DPI, DPI, false);
+            var size = pdfDocument.PageSizes[index];
+            return (Bitmap)pdfDocument.Render(index,
+                (int)(size.Width * 0.01389659f * DPI),
+                (int)(size.Height * 0.01389659f * DPI),
+                DPI, DPI, false);
         }
 
         public void SavePageAs(string pdfSave, int index)

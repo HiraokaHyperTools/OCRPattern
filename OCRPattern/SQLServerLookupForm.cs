@@ -17,6 +17,7 @@ namespace OCRPattern
             InitializeComponent();
 
             this.blkBindingSource.DataSource = blkBindingSource;
+            this.blkBindingSource.CurrencyManager.Position = blkBindingSource.CurrencyManager.Position;
         }
 
         private void runBtn_Click(object sender, EventArgs e)

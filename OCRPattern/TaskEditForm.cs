@@ -398,7 +398,7 @@ namespace OCRPattern
                                 Object res = RUt.Recognize2(pic, row);
                                 crc.AddTempl(row.FieldName, res ?? "");
 
-                                TrySQLServerLookup(row, crc, "" + res);
+                                needVerify |= TestPattern(row.PassPattern, "" + res);
                             }
 
                             crc.NewRecord();
@@ -421,6 +421,12 @@ namespace OCRPattern
                                             throw new ApplicationException("中止しました。");
                                     }
                                 }
+                            }
+                            for (int x = 0; x < rows.Length; x++)
+                            {
+                                DCR.BlkRow row = (DCR.BlkRow)rows[x];
+
+                                TrySQLServerLookup(row, crc, "" + crc.TryGetValue(row.FieldName));
                             }
                             crc.CommitRecord();
 
@@ -473,7 +479,7 @@ namespace OCRPattern
                             Object res = RUt.Recognize2(pic, row);
                             crc.SetValue(row.FieldName, res ?? "");
 
-                            TrySQLServerLookup(row, crc, "" + res);
+                            needVerify |= TestPattern(row.PassPattern, "" + res);
                         }
                         if (needVerify)
                         {
@@ -493,6 +499,12 @@ namespace OCRPattern
                                 }
                             }
                         }
+                        for (int x = 0; x < rows.Length; x++)
+                        {
+                            DCR.BlkRow row = (DCR.BlkRow)rows[x];
+
+                            TrySQLServerLookup(row, crc, "" + crc.TryGetValue(row.FieldName));
+                        }
                         crc.CommitRecord();
                         crc.TemplAvail = false;
                         return CRRes.Avail;
@@ -511,6 +523,18 @@ namespace OCRPattern
                 return CRRes.Avail;
             }
             return CRRes.Fail;
+        }
+
+        private bool TestPattern(string pattern, string input)
+        {
+            if (!string.IsNullOrEmpty(pattern))
+            {
+                if (!Regex.IsMatch(input, pattern))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void TrySQLServerLookup(DCR.BlkRow row, CRContext crc, string text)
@@ -536,11 +560,11 @@ namespace OCRPattern
                                 }
                                 try
                                 {
-                                    crc.AddTempl(outputColumn, "" + reader[outputColumn]);
+                                    crc.SetValue(outputColumn, "" + reader[outputColumn]);
                                 }
                                 catch (IndexOutOfRangeException)
                                 {
-                                    // 列名無効s
+                                    // 列名無効
                                 }
                             }
                         }

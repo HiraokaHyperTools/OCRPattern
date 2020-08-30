@@ -36,22 +36,24 @@
             this.bOk = new System.Windows.Forms.Button();
             this.bCancel = new System.Windows.Forms.Button();
             this.sc1 = new System.Windows.Forms.SplitContainer();
+            this.slp = new OCRPattern.ScrollLessPanel();
+            this.picPane = new OCRPattern.PicPane();
             this.sc2 = new System.Windows.Forms.SplitContainer();
             this.tbRes = new System.Windows.Forms.RichTextBox();
             this.flpbtn = new System.Windows.Forms.FlowLayoutPanel();
-            this.slp = new OCRPattern.ScrollLessPanel();
-            this.picPane = new OCRPattern.PicPane();
             ((System.ComponentModel.ISupportInitialize)(this.bsRes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsRes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sc1)).BeginInit();
             this.sc1.Panel1.SuspendLayout();
             this.sc1.Panel2.SuspendLayout();
             this.sc1.SuspendLayout();
+            this.slp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sc2)).BeginInit();
             this.sc2.Panel1.SuspendLayout();
             this.sc2.Panel2.SuspendLayout();
             this.sc2.SuspendLayout();
             this.flpbtn.SuspendLayout();
-            this.slp.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -170,6 +172,34 @@
             this.sc1.SplitterDistance = 316;
             this.sc1.TabIndex = 8;
             // 
+            // slp
+            // 
+            this.slp.AutoScroll = true;
+            this.slp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.slp.Controls.Add(this.picPane);
+            this.slp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.slp.Location = new System.Drawing.Point(0, 12);
+            this.slp.Name = "slp";
+            this.slp.Size = new System.Drawing.Size(769, 304);
+            this.slp.TabIndex = 1;
+            this.slp.Paint += new System.Windows.Forms.PaintEventHandler(this.slp_Paint);
+            // 
+            // picPane
+            // 
+            this.picPane.AutoSize = true;
+            this.picPane.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.picPane.CanSelRect = false;
+            this.picPane.Image = null;
+            this.picPane.Location = new System.Drawing.Point(0, 0);
+            this.picPane.MinimumSize = new System.Drawing.Size(32, 32);
+            this.picPane.Name = "picPane";
+            this.picPane.PelsPerMeter = new System.Drawing.SizeF(0F, 0F);
+            this.picPane.SelRect = ((System.Drawing.RectangleF)(resources.GetObject("picPane.SelRect")));
+            this.picPane.Size = new System.Drawing.Size(32, 32);
+            this.picPane.TabIndex = 0;
+            this.picPane.UseBright = false;
+            this.picPane.Zoom = 1F;
+            // 
             // sc2
             // 
             this.sc2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -214,34 +244,6 @@
             this.flpbtn.Size = new System.Drawing.Size(769, 33);
             this.flpbtn.TabIndex = 9;
             // 
-            // slp
-            // 
-            this.slp.AutoScroll = true;
-            this.slp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.slp.Controls.Add(this.picPane);
-            this.slp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.slp.Location = new System.Drawing.Point(0, 12);
-            this.slp.Name = "slp";
-            this.slp.Size = new System.Drawing.Size(769, 304);
-            this.slp.TabIndex = 1;
-            this.slp.Paint += new System.Windows.Forms.PaintEventHandler(this.slp_Paint);
-            // 
-            // picPane
-            // 
-            this.picPane.AutoSize = true;
-            this.picPane.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.picPane.CanSelRect = false;
-            this.picPane.Image = null;
-            this.picPane.Location = new System.Drawing.Point(0, 0);
-            this.picPane.MinimumSize = new System.Drawing.Size(32, 32);
-            this.picPane.Name = "picPane";
-            this.picPane.PelsPerMeter = new System.Drawing.SizeF(0F, 0F);
-            this.picPane.SelRect = ((System.Drawing.RectangleF)(resources.GetObject("picPane.SelRect")));
-            this.picPane.Size = new System.Drawing.Size(32, 32);
-            this.picPane.TabIndex = 0;
-            this.picPane.UseBright = false;
-            this.picPane.Zoom = 1F;
-            // 
             // ConfirmForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -252,23 +254,25 @@
             this.Name = "ConfirmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "認識結果の確認画面";
-            this.Load += new System.EventHandler(this.ConfirmForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfirmForm_FormClosing);
+            this.Load += new System.EventHandler(this.ConfirmForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bsRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvr)).EndInit();
             this.sc1.Panel1.ResumeLayout(false);
             this.sc1.Panel1.PerformLayout();
             this.sc1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.sc1)).EndInit();
             this.sc1.ResumeLayout(false);
+            this.slp.ResumeLayout(false);
+            this.slp.PerformLayout();
             this.sc2.Panel1.ResumeLayout(false);
             this.sc2.Panel1.PerformLayout();
             this.sc2.Panel2.ResumeLayout(false);
             this.sc2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sc2)).EndInit();
             this.sc2.ResumeLayout(false);
             this.flpbtn.ResumeLayout(false);
-            this.slp.ResumeLayout(false);
-            this.slp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

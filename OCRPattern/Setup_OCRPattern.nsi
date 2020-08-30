@@ -14,7 +14,7 @@ XPStyle on
 !define APP "OCRPattern"
 !define TTL "OCRPattern"
 !define COM "HIRAOKA HYPERS TOOLS, Inc."
-!system 'DefineAsmVer.exe bin\x86\DEBUG\${APP}.exe "!define VER ""[SVER]"" " > Ver.nsh'
+!system 'DefineAsmVer.exe bin\x86\DEBUG\${APP}.exe "!define VER ""[SFVER]"" " > Ver.nsh'
 !include "Ver.nsh"
 !searchreplace APV ${VER} "." "_"
 

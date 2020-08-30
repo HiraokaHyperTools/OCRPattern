@@ -39,18 +39,17 @@
             this.mCLLetterL = new System.Windows.Forms.ToolStripMenuItem();
             this.tsc = new System.Windows.Forms.ToolStripContainer();
             this.vsc = new System.Windows.Forms.SplitContainer();
-            this.slpPv = new OCRPattern.ScrollLessPanel();
-            this.picPane = new OCRPattern.PicPane();
             this.cmsPicPane = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mSelArea = new System.Windows.Forms.ToolStripMenuItem();
             this.tlpStat = new System.Windows.Forms.TableLayoutPanel();
             this.llRevertPic = new System.Windows.Forms.LinkLabel();
             this.lRes = new System.Windows.Forms.Label();
+            this.bPassPatternSel = new System.Windows.Forms.Button();
+            this.passPatternTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.bSQLServer = new System.Windows.Forms.Button();
             this.bAddPP = new System.Windows.Forms.Button();
             this.postProcessTextBox = new System.Windows.Forms.TextBox();
-            this.blkBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dcr = new OCRPattern.DCR();
             this.cbSkipWs = new System.Windows.Forms.CheckBox();
             this.cbNeedVerify = new System.Windows.Forms.CheckBox();
             this.bVerifyKw = new System.Windows.Forms.Button();
@@ -75,7 +74,6 @@
             this.ifImportCheckBox = new System.Windows.Forms.CheckBox();
             this.bTestAll = new System.Windows.Forms.Button();
             this.gvRes = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cRes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPic = new System.Windows.Forms.DataGridViewImageColumn();
             this.cbType = new System.Windows.Forms.ComboBox();
@@ -113,6 +111,14 @@
             this.mPPErase = new System.Windows.Forms.ToolStripMenuItem();
             this.mPPRepl = new System.Windows.Forms.ToolStripMenuItem();
             this.mPPSwap = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPattern = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mNone = new System.Windows.Forms.ToolStripMenuItem();
+            this.mNaturalNums = new System.Windows.Forms.ToolStripMenuItem();
+            this.blkBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dcr = new OCRPattern.DCR();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slpPv = new OCRPattern.ScrollLessPanel();
+            this.picPane = new OCRPattern.PicPane();
             testKeywordLabel = new System.Windows.Forms.Label();
             laWL = new System.Windows.Forms.Label();
             laBL = new System.Windows.Forms.Label();
@@ -128,17 +134,18 @@
             this.vsc.Panel1.SuspendLayout();
             this.vsc.Panel2.SuspendLayout();
             this.vsc.SuspendLayout();
-            this.slpPv.SuspendLayout();
             this.cmsPicPane.SuspendLayout();
             this.tlpStat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dcr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNewRes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingNavigator)).BeginInit();
             this.blkBindingNavigator.SuspendLayout();
             this.tstop.SuspendLayout();
             this.cmsPP.SuspendLayout();
+            this.menuPattern.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dcr)).BeginInit();
+            this.slpPv.SuspendLayout();
             this.SuspendLayout();
             // 
             // testKeywordLabel
@@ -156,7 +163,7 @@
             laWL.Location = new System.Drawing.Point(5, 323);
             laWL.Name = "laWL";
             laWL.Size = new System.Drawing.Size(71, 12);
-            laWL.TabIndex = 25;
+            laWL.TabIndex = 26;
             laWL.Text = "ホワイトリスト：";
             // 
             // laBL
@@ -165,7 +172,7 @@
             laBL.Location = new System.Drawing.Point(5, 286);
             laBL.Name = "laBL";
             laBL.Size = new System.Drawing.Size(67, 12);
-            laBL.TabIndex = 22;
+            laBL.TabIndex = 23;
             laBL.Text = "ブラックリスト：";
             // 
             // xLabel
@@ -174,7 +181,7 @@
             xLabel.Location = new System.Drawing.Point(3, 25);
             xLabel.Name = "xLabel";
             xLabel.Size = new System.Drawing.Size(35, 12);
-            xLabel.TabIndex = 3;
+            xLabel.TabIndex = 1;
             xLabel.Text = "座標：";
             // 
             // cRTypeLabel
@@ -201,7 +208,7 @@
             postProcessLabel.Location = new System.Drawing.Point(238, 286);
             postProcessLabel.Name = "postProcessLabel";
             postProcessLabel.Size = new System.Drawing.Size(59, 12);
-            postProcessLabel.TabIndex = 33;
+            postProcessLabel.TabIndex = 30;
             postProcessLabel.Text = "文字変換：";
             // 
             // cmsCharList
@@ -267,6 +274,9 @@
             // vsc.Panel2
             // 
             this.vsc.Panel2.AutoScroll = true;
+            this.vsc.Panel2.Controls.Add(this.bPassPatternSel);
+            this.vsc.Panel2.Controls.Add(this.passPatternTextBox);
+            this.vsc.Panel2.Controls.Add(this.label5);
             this.vsc.Panel2.Controls.Add(this.bSQLServer);
             this.vsc.Panel2.Controls.Add(this.bAddPP);
             this.vsc.Panel2.Controls.Add(postProcessLabel);
@@ -305,43 +315,9 @@
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
             this.vsc.Size = new System.Drawing.Size(770, 631);
-            this.vsc.SplitterDistance = 304;
+            this.vsc.SplitterDistance = 296;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
-            // 
-            // slpPv
-            // 
-            this.slpPv.AccessibleName = "テンプレート プレビュー表示";
-            this.slpPv.AutoScroll = true;
-            this.slpPv.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.slpPv.Controls.Add(this.picPane);
-            this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.slpPv.Location = new System.Drawing.Point(0, 0);
-            this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(304, 616);
-            this.slpPv.TabIndex = 1;
-            // 
-            // picPane
-            // 
-            this.picPane.AutoScroll = true;
-            this.picPane.AutoSize = true;
-            this.picPane.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.picPane.BackColor = System.Drawing.Color.White;
-            this.picPane.CanSelRect = false;
-            this.picPane.ContextMenuStrip = this.cmsPicPane;
-            this.picPane.ForeColor = System.Drawing.Color.Black;
-            this.picPane.Image = null;
-            this.picPane.Location = new System.Drawing.Point(3, 3);
-            this.picPane.MinimumSize = new System.Drawing.Size(32, 32);
-            this.picPane.Name = "picPane";
-            this.picPane.PelsPerMeter = new System.Drawing.SizeF(0F, 0F);
-            this.picPane.SelRect = ((System.Drawing.RectangleF)(resources.GetObject("picPane.SelRect")));
-            this.picPane.Size = new System.Drawing.Size(32, 32);
-            this.picPane.TabIndex = 0;
-            this.picPane.UseBright = false;
-            this.picPane.Zoom = 1F;
-            this.picPane.ImageChanged += new System.EventHandler(this.picPane_ImageChanged);
-            this.picPane.SelRectChanged += new System.EventHandler<OCRPattern.SelRectChangedEventArgs>(this.picPane_SelRectChanged);
             // 
             // cmsPicPane
             // 
@@ -372,7 +348,7 @@
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(304, 15);
+            this.tlpStat.Size = new System.Drawing.Size(296, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -394,20 +370,49 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(290, 0);
+            this.lRes.Location = new System.Drawing.Point(282, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
             this.lRes.TabIndex = 4;
             this.lRes.Text = "...";
             // 
+            // bPassPatternSel
+            // 
+            this.bPassPatternSel.Location = new System.Drawing.Point(158, 402);
+            this.bPassPatternSel.Name = "bPassPatternSel";
+            this.bPassPatternSel.Size = new System.Drawing.Size(27, 19);
+            this.bPassPatternSel.TabIndex = 35;
+            this.bPassPatternSel.Text = "...";
+            this.tt.SetToolTip(this.bPassPatternSel, "クリックして、候補から一括で追加できます。");
+            this.bPassPatternSel.UseVisualStyleBackColor = true;
+            this.bPassPatternSel.Click += new System.EventHandler(this.bPassPatternSel_Click);
+            // 
+            // passPatternTextBox
+            // 
+            this.passPatternTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.blkBindingSource, "PassPattern", true));
+            this.passPatternTextBox.Location = new System.Drawing.Point(5, 402);
+            this.passPatternTextBox.Name = "passPatternTextBox";
+            this.passPatternTextBox.Size = new System.Drawing.Size(147, 19);
+            this.passPatternTextBox.TabIndex = 34;
+            this.tt.SetToolTip(this.passPatternTextBox, "認識候補として使いたい文字を、一文字ずつ入力していきます。指定しなかった文字は、認識しません。 ");
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 387);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(419, 12);
+            this.label5.TabIndex = 33;
+            this.label5.Text = "合格検査するための正規表現 (空の場合は常に合格、失格の場合は確認画面を表示)";
+            // 
             // bSQLServer
             // 
             this.bSQLServer.Location = new System.Drawing.Point(356, 171);
             this.bSQLServer.Name = "bSQLServer";
             this.bSQLServer.Size = new System.Drawing.Size(75, 53);
-            this.bSQLServer.TabIndex = 105;
-            this.bSQLServer.Text = "SQL Server Lookup";
+            this.bSQLServer.TabIndex = 17;
+            this.bSQLServer.Text = "SQL Server Lookup (項目単位)";
             this.tt.SetToolTip(this.bSQLServer, "認識後に SQL Server より追加情報を取得します");
             this.bSQLServer.UseVisualStyleBackColor = true;
             this.bSQLServer.Click += new System.EventHandler(this.bSQLServer_Click);
@@ -417,7 +422,7 @@
             this.bAddPP.Location = new System.Drawing.Point(356, 275);
             this.bAddPP.Name = "bAddPP";
             this.bAddPP.Size = new System.Drawing.Size(75, 23);
-            this.bAddPP.TabIndex = 104;
+            this.bAddPP.TabIndex = 32;
             this.bAddPP.Text = "追加∇";
             this.bAddPP.UseVisualStyleBackColor = true;
             this.bAddPP.Click += new System.EventHandler(this.bAddPP_Click);
@@ -430,18 +435,8 @@
             this.postProcessTextBox.Name = "postProcessTextBox";
             this.postProcessTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.postProcessTextBox.Size = new System.Drawing.Size(191, 78);
-            this.postProcessTextBox.TabIndex = 29;
+            this.postProcessTextBox.TabIndex = 31;
             this.tt.SetToolTip(this.postProcessTextBox, "認識を実行した後に、結果を操作できるようにします。この設定は、枠ごとに異なります。\r\n\r\n例えば、零 0 と オー O が逆に認識される等。");
-            // 
-            // blkBindingSource
-            // 
-            this.blkBindingSource.DataMember = "Blk";
-            this.blkBindingSource.DataSource = this.dcr;
-            // 
-            // dcr
-            // 
-            this.dcr.DataSetName = "DCR";
-            this.dcr.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // cbSkipWs
             // 
@@ -450,7 +445,7 @@
             this.cbSkipWs.Location = new System.Drawing.Point(196, 230);
             this.cbSkipWs.Name = "cbSkipWs";
             this.cbSkipWs.Size = new System.Drawing.Size(112, 16);
-            this.cbSkipWs.TabIndex = 18;
+            this.cbSkipWs.TabIndex = 22;
             this.cbSkipWs.Text = "空白を詰めて判定";
             this.cbSkipWs.UseVisualStyleBackColor = true;
             // 
@@ -461,7 +456,7 @@
             this.cbNeedVerify.Location = new System.Drawing.Point(5, 363);
             this.cbNeedVerify.Name = "cbNeedVerify";
             this.cbNeedVerify.Size = new System.Drawing.Size(209, 16);
-            this.cbNeedVerify.TabIndex = 28;
+            this.cbNeedVerify.TabIndex = 29;
             this.cbNeedVerify.Text = "認識結果を都度、確認したい項目です";
             this.cbNeedVerify.UseVisualStyleBackColor = true;
             // 
@@ -478,7 +473,7 @@
             // lnum
             // 
             this.lnum.AutoSize = true;
-            this.lnum.Font = new System.Drawing.Font("ＭＳ ゴシック", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnum.Font = new System.Drawing.Font("MS Gothic", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnum.Location = new System.Drawing.Point(327, 140);
             this.lnum.Name = "lnum";
             this.lnum.Size = new System.Drawing.Size(42, 19);
@@ -491,7 +486,7 @@
             this.bReportAll.Location = new System.Drawing.Point(208, 570);
             this.bReportAll.Name = "bReportAll";
             this.bReportAll.Size = new System.Drawing.Size(75, 46);
-            this.bReportAll.TabIndex = 103;
+            this.bReportAll.TabIndex = 39;
             this.bReportAll.Text = "レポート化";
             this.tt.SetToolTip(this.bReportAll, "認識テストの結果をHTMLと画像を組み合わせてレポートを作成します。");
             this.bReportAll.UseVisualStyleBackColor = true;
@@ -527,7 +522,7 @@
             this.bWL.Location = new System.Drawing.Point(158, 338);
             this.bWL.Name = "bWL";
             this.bWL.Size = new System.Drawing.Size(27, 19);
-            this.bWL.TabIndex = 27;
+            this.bWL.TabIndex = 28;
             this.bWL.Text = "+";
             this.tt.SetToolTip(this.bWL, "クリックして、候補から一括で追加できます。");
             this.bWL.UseVisualStyleBackColor = true;
@@ -538,7 +533,7 @@
             this.bBL.Location = new System.Drawing.Point(158, 301);
             this.bBL.Name = "bBL";
             this.bBL.Size = new System.Drawing.Size(27, 19);
-            this.bBL.TabIndex = 24;
+            this.bBL.TabIndex = 25;
             this.bBL.Text = "+";
             this.tt.SetToolTip(this.bBL, "クリックして、候補から一括で追加できます。");
             this.bBL.UseVisualStyleBackColor = true;
@@ -551,7 +546,7 @@
             this.cbSelArea.Location = new System.Drawing.Point(3, 40);
             this.cbSelArea.Name = "cbSelArea";
             this.cbSelArea.Size = new System.Drawing.Size(77, 44);
-            this.cbSelArea.TabIndex = 4;
+            this.cbSelArea.TabIndex = 2;
             this.cbSelArea.Text = "領域をマウスで選択する";
             this.tt.SetToolTip(this.cbSelArea, "左側の画面から、認識したい領域を指定できます。\r\n\r\nボタンをクリックし、左側の用紙プレビューから、認識したい領域をマウスでドラッグアンドドロップしてください。");
             this.cbSelArea.UseVisualStyleBackColor = true;
@@ -563,7 +558,7 @@
             this.label3.Location = new System.Drawing.Point(110, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 12);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 3;
             this.label3.Text = "ページの種類：";
             // 
             // cbPWay
@@ -573,7 +568,7 @@
             this.cbPWay.Location = new System.Drawing.Point(110, 40);
             this.cbPWay.Name = "cbPWay";
             this.cbPWay.Size = new System.Drawing.Size(146, 20);
-            this.cbPWay.TabIndex = 2;
+            this.cbPWay.TabIndex = 4;
             this.tt.SetToolTip(this.cbPWay, resources.GetString("cbPWay.ToolTip"));
             // 
             // cbNR
@@ -633,7 +628,7 @@
             this.bTestSeled.Location = new System.Drawing.Point(93, 570);
             this.bTestSeled.Name = "bTestSeled";
             this.bTestSeled.Size = new System.Drawing.Size(75, 46);
-            this.bTestSeled.TabIndex = 102;
+            this.bTestSeled.TabIndex = 38;
             this.bTestSeled.Text = "認識テスト\r\n(選択分)";
             this.tt.SetToolTip(this.bTestSeled, "表で選択している認識枠について、認識を実行します。認識結果は、表に出力されます。 ");
             this.bTestSeled.UseVisualStyleBackColor = true;
@@ -645,7 +640,7 @@
             this.whitelistTextBox.Location = new System.Drawing.Point(5, 338);
             this.whitelistTextBox.Name = "whitelistTextBox";
             this.whitelistTextBox.Size = new System.Drawing.Size(147, 19);
-            this.whitelistTextBox.TabIndex = 26;
+            this.whitelistTextBox.TabIndex = 27;
             this.tt.SetToolTip(this.whitelistTextBox, "認識候補として使いたい文字を、一文字ずつ入力していきます。指定しなかった文字は、認識しません。 ");
             // 
             // blacklistTextBox
@@ -654,7 +649,7 @@
             this.blacklistTextBox.Location = new System.Drawing.Point(5, 301);
             this.blacklistTextBox.Name = "blacklistTextBox";
             this.blacklistTextBox.Size = new System.Drawing.Size(147, 19);
-            this.blacklistTextBox.TabIndex = 23;
+            this.blacklistTextBox.TabIndex = 24;
             this.tt.SetToolTip(this.blacklistTextBox, "認識候補から外したい文字を、一文字ずつ入力していきます。 ");
             // 
             // ifTestCheckBox
@@ -664,7 +659,7 @@
             this.ifTestCheckBox.Location = new System.Drawing.Point(5, 230);
             this.ifTestCheckBox.Name = "ifTestCheckBox";
             this.ifTestCheckBox.Size = new System.Drawing.Size(180, 16);
-            this.ifTestCheckBox.TabIndex = 17;
+            this.ifTestCheckBox.TabIndex = 18;
             this.ifTestCheckBox.Text = "フォーム判定に使用する項目です";
             this.tt.SetToolTip(this.ifTestCheckBox, "このテンプレートを使用するかどうか、判定するために使います。必要なキーワード：に、キーワードを入力します。\r\n\r\n例：\r\n認識結果「注 文 書」を、キーワード「注" +
         "文書」で認識 → 合格");
@@ -685,7 +680,7 @@
             this.bTestAll.Location = new System.Drawing.Point(3, 570);
             this.bTestAll.Name = "bTestAll";
             this.bTestAll.Size = new System.Drawing.Size(75, 46);
-            this.bTestAll.TabIndex = 101;
+            this.bTestAll.TabIndex = 37;
             this.bTestAll.Text = "認識テスト\r\n(すべて)";
             this.tt.SetToolTip(this.bTestAll, "すべての認識枠について、認識を実行します。認識結果は、表に出力されます。");
             this.bTestAll.UseVisualStyleBackColor = true;
@@ -705,18 +700,12 @@
             this.cRes,
             this.cPic});
             this.gvRes.DataSource = this.blkBindingSource;
-            this.gvRes.Location = new System.Drawing.Point(5, 385);
+            this.gvRes.Location = new System.Drawing.Point(5, 427);
             this.gvRes.Name = "gvRes";
             this.gvRes.RowTemplate.Height = 21;
-            this.gvRes.Size = new System.Drawing.Size(426, 179);
-            this.gvRes.TabIndex = 99;
+            this.gvRes.Size = new System.Drawing.Size(426, 137);
+            this.gvRes.TabIndex = 36;
             this.gvRes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRes_CellContentClick);
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "FieldName";
-            this.dataGridViewTextBoxColumn7.HeaderText = "フィールド名";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
             // cRes
             // 
@@ -769,7 +758,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(460, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(468, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -785,8 +774,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目の総数";
             // 
             // bindingNavigatorMoveFirstItem
@@ -1034,13 +1023,85 @@
             this.mPPSwap.Text = "文字を入れ替えたい";
             this.mPPSwap.Click += new System.EventHandler(this.mPPSwap_Click);
             // 
-            // EForm
+            // menuPattern
+            // 
+            this.menuPattern.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mNone,
+            this.mNaturalNums});
+            this.menuPattern.Name = "menuPattern";
+            this.menuPattern.Size = new System.Drawing.Size(132, 48);
+            // 
+            // mNone
+            // 
+            this.mNone.Name = "mNone";
+            this.mNone.Size = new System.Drawing.Size(131, 22);
+            this.mNone.Text = "なし";
+            this.mNone.Click += new System.EventHandler(this.mNone_Click);
+            // 
+            // mNaturalNums
+            // 
+            this.mNaturalNums.Name = "mNaturalNums";
+            this.mNaturalNums.Size = new System.Drawing.Size(131, 22);
+            this.mNaturalNums.Text = "自然数のみ";
+            this.mNaturalNums.Click += new System.EventHandler(this.mNaturalNums_Click);
+            // 
+            // blkBindingSource
+            // 
+            this.blkBindingSource.DataMember = "Blk";
+            this.blkBindingSource.DataSource = this.dcr;
+            // 
+            // dcr
+            // 
+            this.dcr.DataSetName = "DCR";
+            this.dcr.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "FieldName";
+            this.dataGridViewTextBoxColumn7.HeaderText = "フィールド名";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // slpPv
+            // 
+            this.slpPv.AccessibleName = "テンプレート プレビュー表示";
+            this.slpPv.AutoScroll = true;
+            this.slpPv.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.slpPv.Controls.Add(this.picPane);
+            this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.slpPv.Location = new System.Drawing.Point(0, 0);
+            this.slpPv.Name = "slpPv";
+            this.slpPv.Size = new System.Drawing.Size(296, 616);
+            this.slpPv.TabIndex = 1;
+            // 
+            // picPane
+            // 
+            this.picPane.AutoScroll = true;
+            this.picPane.AutoSize = true;
+            this.picPane.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.picPane.BackColor = System.Drawing.Color.White;
+            this.picPane.CanSelRect = false;
+            this.picPane.ContextMenuStrip = this.cmsPicPane;
+            this.picPane.ForeColor = System.Drawing.Color.Black;
+            this.picPane.Image = null;
+            this.picPane.Location = new System.Drawing.Point(3, 3);
+            this.picPane.MinimumSize = new System.Drawing.Size(32, 32);
+            this.picPane.Name = "picPane";
+            this.picPane.PelsPerMeter = new System.Drawing.SizeF(0F, 0F);
+            this.picPane.SelRect = ((System.Drawing.RectangleF)(resources.GetObject("picPane.SelRect")));
+            this.picPane.Size = new System.Drawing.Size(32, 32);
+            this.picPane.TabIndex = 0;
+            this.picPane.UseBright = false;
+            this.picPane.Zoom = 1F;
+            this.picPane.ImageChanged += new System.EventHandler(this.picPane_ImageChanged);
+            this.picPane.SelRectChanged += new System.EventHandler<OCRPattern.SelRectChangedEventArgs>(this.picPane_SelRectChanged);
+            // 
+            // TemplateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(770, 656);
             this.Controls.Add(this.tsc);
-            this.Name = "EForm";
+            this.Name = "TemplateForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "テンプレート編集";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EForm_FormClosing);
@@ -1057,13 +1118,9 @@
             this.vsc.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vsc)).EndInit();
             this.vsc.ResumeLayout(false);
-            this.slpPv.ResumeLayout(false);
-            this.slpPv.PerformLayout();
             this.cmsPicPane.ResumeLayout(false);
             this.tlpStat.ResumeLayout(false);
             this.tlpStat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dcr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNewRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingNavigator)).EndInit();
@@ -1072,6 +1129,11 @@
             this.tstop.ResumeLayout(false);
             this.tstop.PerformLayout();
             this.cmsPP.ResumeLayout(false);
+            this.menuPattern.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dcr)).EndInit();
+            this.slpPv.ResumeLayout(false);
+            this.slpPv.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1158,5 +1220,11 @@
         private System.Windows.Forms.ToolStripMenuItem mPPRepl;
         private System.Windows.Forms.ToolStripMenuItem mPPSwap;
         private System.Windows.Forms.Button bSQLServer;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox passPatternTextBox;
+        private System.Windows.Forms.Button bPassPatternSel;
+        private System.Windows.Forms.ContextMenuStrip menuPattern;
+        private System.Windows.Forms.ToolStripMenuItem mNone;
+        private System.Windows.Forms.ToolStripMenuItem mNaturalNums;
     }
 }

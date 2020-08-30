@@ -37,6 +37,7 @@
               <xs:element name="SQLQuery" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="SQLQuery" msprop:Generator_ColumnVarNameInTable="columnSQLQuery" msprop:Generator_ColumnPropNameInTable="SQLQueryColumn" msprop:Generator_UserColumnName="SQLQuery" type="xs:string" default="" />
               <xs:element name="SQLOutputColumns" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="SQLOutputColumns" msprop:Generator_ColumnVarNameInTable="columnSQLOutputColumns" msprop:Generator_ColumnPropNameInTable="SQLOutputColumnsColumn" msprop:Generator_UserColumnName="SQLOutputColumns" type="xs:string" default="" />
               <xs:element name="SQLInputSample" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="SQLInputSample" msprop:Generator_ColumnVarNameInTable="columnSQLInputSample" msprop:Generator_ColumnPropNameInTable="SQLInputSampleColumn" msprop:Generator_UserColumnName="SQLInputSample" type="xs:string" default="" />
+              <xs:element name="PassPattern" msprop:Generator_ColumnVarNameInTable="columnPassPattern" msprop:Generator_ColumnPropNameInRow="PassPattern" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInTable="PassPatternColumn" msprop:Generator_UserColumnName="PassPattern" type="xs:string" default="" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

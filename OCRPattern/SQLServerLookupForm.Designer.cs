@@ -104,7 +104,7 @@ namespace OCRPattern
             this.sqlQueryText.AcceptsReturn = true;
             this.sqlQueryText.AcceptsTab = true;
             this.sqlQueryText.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.blkBindingSource, "SQLQuery", true));
-            this.sqlQueryText.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.sqlQueryText.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.sqlQueryText.Location = new System.Drawing.Point(12, 168);
             this.sqlQueryText.Multiline = true;
             this.sqlQueryText.Name = "sqlQueryText";
@@ -118,9 +118,9 @@ namespace OCRPattern
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 96);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(199, 12);
+            this.label3.Size = new System.Drawing.Size(374, 12);
             this.label3.TabIndex = 9;
-            this.label3.Text = "@input パラメータに与えるサンプル文字列";
+            this.label3.Text = "@input パラメータに与えるサンプル文字列 (実行時は、認識結果を使用します)";
             // 
             // sqlInputSampleText
             // 
@@ -230,7 +230,7 @@ namespace OCRPattern
             this.Controls.Add(this.checkBox1);
             this.Name = "SQLServerLookupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "SQLServerLookupForm";
+            this.Text = "SQL Server Lookup (項目単位)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SQLServerLookupForm_FormClosing);
             this.Load += new System.EventHandler(this.SQLServerLookupForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).EndInit();

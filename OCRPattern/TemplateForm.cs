@@ -761,6 +761,21 @@ namespace OCRPattern
                 form.ShowDialog();
             }
         }
+
+        private void mNone_Click(object sender, EventArgs e)
+        {
+            passPatternTextBox.Text = "";
+        }
+
+        private void mNaturalNums_Click(object sender, EventArgs e)
+        {
+            passPatternTextBox.Text = "^\\d+$";
+        }
+
+        private void bPassPatternSel_Click(object sender, EventArgs e)
+        {
+            menuPattern.Show(bPassPatternSel, Point.Empty);
+        }
     }
 
     public class RUt

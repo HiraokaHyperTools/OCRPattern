@@ -88,5 +88,14 @@ namespace OCRPattern.Utils
             dictTempl.Clear();
             TemplAvail = false;
         }
+
+        internal string TryGetValue(string field)
+        {
+            if (dtCR.Columns.IndexOf(field) < 0)
+            {
+                return null;
+            }
+            return "" + drCR[field];
+        }
     }
 }
