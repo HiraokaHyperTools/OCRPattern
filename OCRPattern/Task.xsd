@@ -33,6 +33,8 @@
               <xs:element name="DoNotSplit" msprop:Generator_ColumnVarNameInTable="columnDoNotSplit" msprop:Generator_ColumnPropNameInRow="DoNotSplit" msprop:Generator_ColumnPropNameInTable="DoNotSplitColumn" msprop:Generator_UserColumnName="DoNotSplit" type="xs:boolean" default="false" minOccurs="0" />
               <xs:element name="EraseOlderTempFiles" msprop:Generator_ColumnVarNameInTable="columnEraseOlderTempFiles" msprop:Generator_ColumnPropNameInRow="EraseOlderTempFiles" msprop:Generator_ColumnPropNameInTable="EraseOlderTempFilesColumn" msprop:Generator_UserColumnName="EraseOlderTempFiles" type="xs:boolean" default="false" minOccurs="0" />
               <xs:element name="EraseOlderOutFiles" msprop:Generator_ColumnVarNameInTable="columnEraseOlderOutFiles" msprop:Generator_ColumnPropNameInRow="EraseOlderOutFiles" msprop:Generator_ColumnPropNameInTable="EraseOlderOutFilesColumn" msprop:Generator_UserColumnName="EraseOlderOutFiles" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="EraseInAfter" msprop:Generator_ColumnVarNameInTable="columnEraseInAfter" msprop:Generator_ColumnPropNameInRow="EraseInAfter" msprop:Generator_ColumnPropNameInTable="EraseInAfterColumn" msprop:Generator_UserColumnName="EraseInAfter" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="EraseOutAfter" msprop:Generator_ColumnVarNameInTable="columnEraseOutAfter" msprop:Generator_ColumnPropNameInRow="EraseOutAfter" msprop:Generator_ColumnPropNameInTable="EraseOutAfterColumn" msprop:Generator_UserColumnName="EraseOutAfter" type="xs:boolean" default="false" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

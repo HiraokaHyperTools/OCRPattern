@@ -166,6 +166,7 @@ namespace OCRPattern
             FPUt fput = new FPUt(outDir);
             FPUt fputRecyc = (recycDir != null) ? new FPUt(recycDir) : null;
             using (Move2Temp m2t = new Move2Temp())
+            using (FileEraser eraser = new FileEraser())
             using (OCRWIPForm form = OCRWIPForm.Show1())
             {
                 form.panelWIP.Show();
@@ -206,7 +207,7 @@ namespace OCRPattern
                                         fput.Prepare(fext, ".csv");
                                         File.Copy(fp, fput.fp1, true);
                                         SCUt.SaveCsv(fput.fp2, crc.dtCR, Encoding.Default);
-                                        RunCmd(fp, fput.fp1, fput.fp2, m2t);
+                                        RunCmd(fp, fput.fp1, fput.fp2, m2t, eraser);
                                         crc.ClearTempl();
                                         break;
                                     }
@@ -215,7 +216,7 @@ namespace OCRPattern
                                         fput.Prepare(fext, ".csv");
                                         pdf.SavePageAs(fput.fp1, 1 + z);
                                         SCUt.SaveCsv(fput.fp2, crc.dtCR, Encoding.Default);
-                                        RunCmd(fp, fput.fp1, fput.fp2, m2t);
+                                        RunCmd(fp, fput.fp1, fput.fp2, m2t, eraser);
                                     }
                                 }
                                 else if (fputRecyc != null)
@@ -255,9 +256,13 @@ namespace OCRPattern
 
         Logger runCmdLog = LogManager.GetLogger("RunCmd");
 
-        private void RunCmd(string fp, string fppic, string fpcsv, Move2Temp m2t)
+        private void RunCmd(string fp, string fppic, string fpcsv, Move2Temp m2t, FileEraser eraser)
         {
-            if (cbMoveInAfter.Checked)
+            if (cbEraseInAfter.Checked)
+            {
+                eraser.Add(fp);
+            }
+            else if (cbMoveInAfter.Checked)
             {
                 m2t.Add(fp);
             }
@@ -276,7 +281,12 @@ namespace OCRPattern
                 runCmdLog.Debug("結果: {0}", p.ExitCode);
             }
 
-            if (cbMoveOutAfter.Checked)
+            if (cbEraseOutAfter.Checked)
+            {
+                eraser.Add(fpcsv);
+                eraser.Add(fppic);
+            }
+            else if (cbMoveOutAfter.Checked)
             {
                 m2t.Add(fpcsv);
                 m2t.Add(fppic);

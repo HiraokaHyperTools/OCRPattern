@@ -141,6 +141,7 @@
     <Compile Include="Utils\CRContext.cs" />
     <Compile Include="Utils\Csvw.cs" />
     <Compile Include="Utils\EraseOldFiles.cs" />
+    <Compile Include="Utils\FileEraser.cs" />
     <Compile Include="Utils\FPUt.cs" />
     <Compile Include="Utils\MFUt.cs" />
     <Compile Include="Utils\Move2Temp.cs" />
