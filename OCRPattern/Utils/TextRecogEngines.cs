@@ -32,6 +32,7 @@ namespace OCRPattern.Utils
                 Name = "gocr",
                 Version = "0.50 20130305",
                 Recognize = RunGOcr,
+                AppExe = GOcr.AppExe,
             };
 
             yield return new TextRecogEngine
@@ -39,6 +40,7 @@ namespace OCRPattern.Utils
                 Name = "ocrad",
                 Version= "0.25",
                 Recognize = RunOcrad,
+                AppExe = Ocrad.AppExe,
             };
 
             yield return new TextRecogEngine
@@ -46,6 +48,7 @@ namespace OCRPattern.Utils
                 Name = "nhocr",
                 Version= "0.22",
                 Recognize = RunNHocr,
+                AppExe = NHocr.AppExe,
             };
 
             foreach (var tess in TesseractOcr.SearchInstalled())
@@ -79,6 +82,7 @@ namespace OCRPattern.Utils
                                 }
                                 return result;
                             },
+                            AppExe = tess.AppExe,
                         };
                     }
                 }

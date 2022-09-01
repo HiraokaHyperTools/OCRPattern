@@ -10,13 +10,15 @@ namespace OCRPattern.Utils.TextRecogWrappers
 {
     public class Ocrad
     {
+        internal static string AppExe => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gocr\\ocrad.exe");
+
         public static string Rec(Bitmap pic)
         {
             String fppbm = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".pbm");
             Utpbm.Save(fppbm, pic);
 
             ProcessStartInfo psi = new ProcessStartInfo(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gocr\\ocrad.exe"),
+                AppExe,
                 " -F utf8 \"" + fppbm + "\""
                 );
             psi.CreateNoWindow = true;

@@ -30,5 +30,10 @@ namespace OCRPattern.Utils
         public string Version { get; set; }
 
         public Func<Bitmap, RecogOption, string> Recognize { get; set; }
+
+        /// <summary>
+        /// デバッグ目的
+        /// </summary>
+        public string AppExe { get; set; }
     }
 }

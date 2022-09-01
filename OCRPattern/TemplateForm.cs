@@ -584,7 +584,12 @@ namespace OCRPattern
 
                         OcrEngines = string.Join("\r\n",
                             engines.SearchInstalled()
-                                .Select(it => $"{it.Name} v{it.Version}")
+                                .Select(it => $"{it.Name} v{it.Version} \"{it.AppExe}\"")
+                        ),
+
+                        Magicks = string.Join("\r\n"
+                            , NoiseReducers.DetectMagicks()
+                                .Select(it => $"v{it.Version} {it.Spec} \"{it.MagickExe}\"")
                         ),
                     }
                 );

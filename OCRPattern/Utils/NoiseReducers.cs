@@ -8,12 +8,15 @@ namespace OCRPattern.Utils
 {
     internal static class NoiseReducers
     {
-        internal static Func<Bitmap, string, Bitmap> UseMagick()
-        {
-            var magick = Magick
+        internal static IEnumerable<Magick> DetectMagicks() =>
+            Magick
                 .GetAll()
                 .Where(it => it.Spec.Contains("Q:8"))
-                .OrderByDescending(it => it.Version, SemVerComparer.Instance)
+                .OrderByDescending(it => it.Version, SemVerComparer.Instance);
+
+        internal static Func<Bitmap, string, Bitmap> UseMagick()
+        {
+            var magick = DetectMagicks()
                 .FirstOrDefault();
 
             if (magick != null)
