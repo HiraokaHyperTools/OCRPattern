@@ -37,6 +37,8 @@ namespace OCRPattern
 
         private void EForm_Load(object sender, EventArgs e)
         {
+            this.Text += " v" + Application.ProductVersion;
+
             {
                 List<KeyValuePair<string, string>> alkv = new List<KeyValuePair<string, string>>();
                 alkv.Add(new KeyValuePair<string, string>("ocr.jpn", "日本語 OCR"));

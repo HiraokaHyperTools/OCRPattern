@@ -60,6 +60,8 @@ namespace OCRPattern
         {
             tsc.ContentPanel.AutoScroll = true;
 
+            this.Text += " v" + Application.ProductVersion;
+
             if (File.Exists(fpxml) && new FileInfo(fpxml).Length != 0)
             {
                 XmlSerializer xs = new XmlSerializer(typeof(OCRTask));
