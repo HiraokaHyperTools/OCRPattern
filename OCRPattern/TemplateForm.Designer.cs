@@ -44,8 +44,11 @@
             this.tlpStat = new System.Windows.Forms.TableLayoutPanel();
             this.llRevertPic = new System.Windows.Forms.LinkLabel();
             this.lRes = new System.Windows.Forms.Label();
+            this.bFieldDetailMenu = new System.Windows.Forms.Button();
             this.bPassPatternSel = new System.Windows.Forms.Button();
             this.passPatternTextBox = new System.Windows.Forms.TextBox();
+            this.blkBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dcr = new OCRPattern.DCR();
             this.label5 = new System.Windows.Forms.Label();
             this.bSQLServer = new System.Windows.Forms.Button();
             this.bAddPP = new System.Windows.Forms.Button();
@@ -74,6 +77,7 @@
             this.ifImportCheckBox = new System.Windows.Forms.CheckBox();
             this.bTestAll = new System.Windows.Forms.Button();
             this.gvRes = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cRes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPic = new System.Windows.Forms.DataGridViewImageColumn();
             this.cbType = new System.Windows.Forms.ComboBox();
@@ -114,9 +118,11 @@
             this.menuPattern = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mNone = new System.Windows.Forms.ToolStripMenuItem();
             this.mNaturalNums = new System.Windows.Forms.ToolStripMenuItem();
-            this.blkBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dcr = new OCRPattern.DCR();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fieldDetailMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cutSpacesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.editUserWordsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editUserPatternsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.slpPv = new OCRPattern.ScrollLessPanel();
             this.picPane = new OCRPattern.PicPane();
             testKeywordLabel = new System.Windows.Forms.Label();
@@ -136,6 +142,8 @@
             this.vsc.SuspendLayout();
             this.cmsPicPane.SuspendLayout();
             this.tlpStat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dcr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNewRes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingNavigator)).BeginInit();
@@ -143,8 +151,7 @@
             this.tstop.SuspendLayout();
             this.cmsPP.SuspendLayout();
             this.menuPattern.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dcr)).BeginInit();
+            this.fieldDetailMenu.SuspendLayout();
             this.slpPv.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -274,6 +281,7 @@
             // vsc.Panel2
             // 
             this.vsc.Panel2.AutoScroll = true;
+            this.vsc.Panel2.Controls.Add(this.bFieldDetailMenu);
             this.vsc.Panel2.Controls.Add(this.bPassPatternSel);
             this.vsc.Panel2.Controls.Add(this.passPatternTextBox);
             this.vsc.Panel2.Controls.Add(this.label5);
@@ -315,7 +323,7 @@
             this.vsc.Panel2.Controls.Add(fieldNameLabel);
             this.vsc.Panel2.Controls.Add(this.fieldNameTextBox);
             this.vsc.Size = new System.Drawing.Size(770, 631);
-            this.vsc.SplitterDistance = 296;
+            this.vsc.SplitterDistance = 284;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
             // 
@@ -348,7 +356,7 @@
             this.tlpStat.Name = "tlpStat";
             this.tlpStat.RowCount = 1;
             this.tlpStat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStat.Size = new System.Drawing.Size(296, 15);
+            this.tlpStat.Size = new System.Drawing.Size(284, 15);
             this.tlpStat.TabIndex = 3;
             // 
             // llRevertPic
@@ -370,12 +378,22 @@
             // 
             this.lRes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lRes.AutoSize = true;
-            this.lRes.Location = new System.Drawing.Point(282, 0);
+            this.lRes.Location = new System.Drawing.Point(270, 0);
             this.lRes.Name = "lRes";
             this.lRes.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lRes.Size = new System.Drawing.Size(11, 15);
             this.lRes.TabIndex = 4;
             this.lRes.Text = "...";
+            // 
+            // bFieldDetailMenu
+            // 
+            this.bFieldDetailMenu.Location = new System.Drawing.Point(356, 87);
+            this.bFieldDetailMenu.Name = "bFieldDetailMenu";
+            this.bFieldDetailMenu.Size = new System.Drawing.Size(75, 49);
+            this.bFieldDetailMenu.TabIndex = 41;
+            this.bFieldDetailMenu.Text = "詳細\r\nオプション ∇";
+            this.bFieldDetailMenu.UseVisualStyleBackColor = true;
+            this.bFieldDetailMenu.Click += new System.EventHandler(this.bFieldDetailMenu_Click);
             // 
             // bPassPatternSel
             // 
@@ -396,6 +414,16 @@
             this.passPatternTextBox.Size = new System.Drawing.Size(147, 19);
             this.passPatternTextBox.TabIndex = 34;
             this.tt.SetToolTip(this.passPatternTextBox, "認識候補として使いたい文字を、一文字ずつ入力していきます。指定しなかった文字は、認識しません。 ");
+            // 
+            // blkBindingSource
+            // 
+            this.blkBindingSource.DataMember = "Blk";
+            this.blkBindingSource.DataSource = this.dcr;
+            // 
+            // dcr
+            // 
+            this.dcr.DataSetName = "DCR";
+            this.dcr.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label5
             // 
@@ -474,7 +502,7 @@
             // 
             this.lnum.AutoSize = true;
             this.lnum.Font = new System.Drawing.Font("MS Gothic", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnum.Location = new System.Drawing.Point(327, 140);
+            this.lnum.Location = new System.Drawing.Point(266, 171);
             this.lnum.Name = "lnum";
             this.lnum.Size = new System.Drawing.Size(42, 19);
             this.lnum.TabIndex = 16;
@@ -707,6 +735,12 @@
             this.gvRes.TabIndex = 36;
             this.gvRes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRes_CellContentClick);
             // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "FieldName";
+            this.dataGridViewTextBoxColumn7.HeaderText = "フィールド名";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
             // cRes
             // 
             this.cRes.HeaderText = "結果";
@@ -758,7 +792,7 @@
             this.blkBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.blkBindingNavigator.Name = "blkBindingNavigator";
             this.blkBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.blkBindingNavigator.Size = new System.Drawing.Size(468, 25);
+            this.blkBindingNavigator.Size = new System.Drawing.Size(480, 25);
             this.blkBindingNavigator.TabIndex = 0;
             this.blkBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -1045,21 +1079,42 @@
             this.mNaturalNums.Text = "自然数のみ";
             this.mNaturalNums.Click += new System.EventHandler(this.mNaturalNums_Click);
             // 
-            // blkBindingSource
+            // fieldDetailMenu
             // 
-            this.blkBindingSource.DataMember = "Blk";
-            this.blkBindingSource.DataSource = this.dcr;
+            this.fieldDetailMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cutSpacesMenuItem,
+            this.toolStripSeparator6,
+            this.editUserWordsMenuItem,
+            this.editUserPatternsMenuItem});
+            this.fieldDetailMenu.Name = "fieldDetailMenu";
+            this.fieldDetailMenu.Size = new System.Drawing.Size(304, 98);
+            this.fieldDetailMenu.Opening += new System.ComponentModel.CancelEventHandler(this.fieldDetailMenu_Opening);
             // 
-            // dcr
+            // cutSpacesMenuItem
             // 
-            this.dcr.DataSetName = "DCR";
-            this.dcr.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.cutSpacesMenuItem.Name = "cutSpacesMenuItem";
+            this.cutSpacesMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.cutSpacesMenuItem.Text = "空白を詰める (preserve_interword_spaces=1)";
+            this.cutSpacesMenuItem.Click += new System.EventHandler(this.cutSpacesMenuItem_Click);
             // 
-            // dataGridViewTextBoxColumn7
+            // toolStripSeparator6
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "FieldName";
-            this.dataGridViewTextBoxColumn7.HeaderText = "フィールド名";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(300, 6);
+            // 
+            // editUserWordsMenuItem
+            // 
+            this.editUserWordsMenuItem.Name = "editUserWordsMenuItem";
+            this.editUserWordsMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.editUserWordsMenuItem.Text = "単語帳を編集";
+            this.editUserWordsMenuItem.Click += new System.EventHandler(this.editUserWordsMenuItem_Click);
+            // 
+            // editUserPatternsMenuItem
+            // 
+            this.editUserPatternsMenuItem.Name = "editUserPatternsMenuItem";
+            this.editUserPatternsMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.editUserPatternsMenuItem.Text = "ユーザーパターン帳を編集";
+            this.editUserPatternsMenuItem.Click += new System.EventHandler(this.editUserPatternsMenuItem_Click);
             // 
             // slpPv
             // 
@@ -1070,7 +1125,7 @@
             this.slpPv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.slpPv.Location = new System.Drawing.Point(0, 0);
             this.slpPv.Name = "slpPv";
-            this.slpPv.Size = new System.Drawing.Size(296, 616);
+            this.slpPv.Size = new System.Drawing.Size(284, 616);
             this.slpPv.TabIndex = 1;
             // 
             // picPane
@@ -1121,6 +1176,8 @@
             this.cmsPicPane.ResumeLayout(false);
             this.tlpStat.ResumeLayout(false);
             this.tlpStat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dcr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNewRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blkBindingNavigator)).EndInit();
@@ -1130,8 +1187,7 @@
             this.tstop.PerformLayout();
             this.cmsPP.ResumeLayout(false);
             this.menuPattern.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.blkBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dcr)).EndInit();
+            this.fieldDetailMenu.ResumeLayout(false);
             this.slpPv.ResumeLayout(false);
             this.slpPv.PerformLayout();
             this.ResumeLayout(false);
@@ -1226,5 +1282,11 @@
         private System.Windows.Forms.ContextMenuStrip menuPattern;
         private System.Windows.Forms.ToolStripMenuItem mNone;
         private System.Windows.Forms.ToolStripMenuItem mNaturalNums;
+        private System.Windows.Forms.Button bFieldDetailMenu;
+        private System.Windows.Forms.ContextMenuStrip fieldDetailMenu;
+        private System.Windows.Forms.ToolStripMenuItem cutSpacesMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem editUserWordsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editUserPatternsMenuItem;
     }
 }

@@ -19,17 +19,22 @@ using PdfiumViewer;
 using OCRPattern.Interfaces;
 using OCRPattern.Models;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace OCRPattern
 {
     public partial class TaskEditForm : Form
     {
-        bool run;
+        private readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly bool autoRun;
+        private readonly TextRecogEngines engines = new TextRecogEngines();
 
-        public TaskEditForm(String fpxml, bool run)
+        private string BaseDir => Path.GetDirectoryName(fpxml);
+
+        public TaskEditForm(String fpxml, bool autoRun)
         {
             this.fpxml = fpxml;
-            this.run = run;
+            this.autoRun = autoRun;
             InitializeComponent();
             Icon = Resources.t;
         }
@@ -42,11 +47,11 @@ namespace OCRPattern
             }
         }
 
-        private void AddFiles(string[] p)
+        private void AddFiles(string[] fileList)
         {
-            if (p == null || p.Length == 0) return;
+            if (fileList == null || fileList.Length == 0) return;
             List<string> files = new List<string>(tbFiles.Lines);
-            files.AddRange(p);
+            files.AddRange(fileList);
             tbFiles.Lines = files.ToArray();
             tbFiles.DataBindings["Text"].WriteValue();
         }
@@ -54,6 +59,8 @@ namespace OCRPattern
         private void MForm_Load(object sender, EventArgs e)
         {
             tsc.ContentPanel.AutoScroll = true;
+
+            this.Text += " v" + Application.ProductVersion;
 
             if (File.Exists(fpxml) && new FileInfo(fpxml).Length != 0)
             {
@@ -77,16 +84,16 @@ namespace OCRPattern
 
             cfgBindingSource.DataSource = ocrTask.Task;
 
-            Updatefl();
+            TryToUpdateFileList();
 
-            if (run)
+            if (autoRun)
             {
                 bRun.PerformClick();
                 Close();
             }
         }
 
-        private void Updatefl()
+        private void TryToUpdateFileList()
         {
             foreach (Task.CfgRow row in task.Cfg.Rows)
             {
@@ -100,11 +107,12 @@ namespace OCRPattern
                 {
                     try
                     {
-                        List<string> files = new List<string>();
-                        foreach (String fext in "tif,tiff,pdf".Split(','))
-                        {
-                            files.AddRange(Directory.GetFiles(row.DirIn, "*." + fext));
-                        }
+                        var extensions = ".tif|.tiff|.pdf".Split('|');
+
+                        List<string> files = new List<string>(
+                            Directory.GetFiles(Path.GetFullPath(Path.Combine(BaseDir, row.DirIn)))
+                                .Where(it => extensions.Contains(Path.GetExtension(it).ToLowerInvariant()))
+                        );
                         files.Sort();
                         AddFiles(files.ToArray());
                     }
@@ -145,12 +153,37 @@ namespace OCRPattern
             MessageBox.Show(this, "保存しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        Logger log = LogManager.GetCurrentClassLogger();
+        private RunCR.VerifyResult DoVerify(
+            OCRSettei settei,
+            Bitmap pic,
+            IEnumerable<KeyValuePair<string, string>> pairs,
+            Action<string, string> setter
+        )
+        {
+            using (ConfirmForm confirm = new ConfirmForm(settei, pic))
+            {
+                confirm.Read(pairs, settei.DCR.Blk);
+                switch (confirm.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        confirm.SaveTo(setter);
+                        return RunCR.VerifyResult.Submit;
+                    case DialogResult.No:
+                        return RunCR.VerifyResult.Skip;
+                    default:
+                        return RunCR.VerifyResult.Abort;
+                }
+            }
+        }
 
         private void bRun_Click(object sender, EventArgs e)
         {
-            CRContext crc = new CRContext();
-            if (!crc.ReadSet(Path.GetDirectoryName(fpxml)))
+            if (!ValidateChildren()) return;
+
+            cfgBindingSource.EndEdit();
+
+            var setteiLoader = new SetteiLoader(Path.GetDirectoryName(fpxml));
+            if (!setteiLoader.GetAll().Any())
             {
                 MessageBox.Show(this, "OCRPattern テンプレート ファイルが見付かりません。\n\n先に作成してください。\n\n中止します。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -161,10 +194,24 @@ namespace OCRPattern
                 MessageBox.Show(this, "保存できる出力フォルダを先に設定してください。\n\n中止します。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+            outDir = Path.GetFullPath(Path.Combine(BaseDir, outDir));
             String recycDir = cbUseRecyc.Checked ? tbRecycDir.Text : null;
             String formSel = cbOnlyThis.Checked ? tbSeledForm.Text : "";
             FPUt fput = new FPUt(outDir);
             FPUt fputRecyc = (recycDir != null) ? new FPUt(recycDir) : null;
+            var magick = NoiseReducers.UseMagick();
+            string DoRecognize(Bitmap bitmap, DCR.BlkRow row)
+            {
+                var opt = BlkRowUtil.ToRecogOption(row);
+                var resp = RecogUtil.Recognize2(
+                    bitmap,
+                    opt,
+                    magick,
+                    engines.SearchInstalled()
+                        .FirstOrDefault(it => it.Name == row.CRType)
+                );
+                return "" + resp;
+            }
             using (Move2Temp m2t = new Move2Temp())
             using (FileEraser eraser = new FileEraser())
             using (OCRWIPForm form = OCRWIPForm.Show1())
@@ -180,77 +227,114 @@ namespace OCRPattern
                 }
                 foreach (String fp in tbFiles.Lines)
                 {
-                    if (!File.Exists(fp)) continue;
+                    if (!File.Exists(fp))
+                    {
+                        continue;
+                    }
                     form.lfn.Text = Path.GetFileName(fp);
                     form.ldir.Text = Path.GetDirectoryName(fp);
                     fput.Flush();
                     String fext = Path.GetExtension(fp);
-                    bool isPDF = String.Compare(fext, ".pdf", true) == 0;
+                    var runCR = new RunCR();
+                    var recogCore = new RecogCore();
+                    var crc = new CRContext();
 
-                    using (IMultiPageFileLoader pdf = isPDF ? new PdfFileLoader(fp) as IMultiPageFileLoader : new TiffFileLoader(fp))
+                    using (IMultiPageFileLoader pdf = MultiPageFileLoader.LoadFromFile(fp))
                     {
-                        int cz = pdf.NumPages;
-                        for (int z = 0; z < cz; z++)
-                        {
-                            if (cbDoNotSplit.Checked && z != 0) continue;
-                            form.HintPage(1 + z, true);
-                            using (Bitmap pic = pdf.Rasterize(z))
+                        recogCore.Run(
+                            pdf.NumPages,
+                            cbDoNotSplit.Checked,
+                            pageNum =>
                             {
-                                crc.dtCR.Columns.Clear();
-                                crc.dtCR.Rows.Clear();
-                                CRRes resc;
-                                if (CanSave(resc = TryCR(pic, fp, z, crc, form, cbRotate4.Checked, formSel)))
+                                crc.ClearRecords();
+
+                                form.HintPage(pageNum, true);
+
+                                using (var pic = pdf.Rasterize(pageNum - 1))
                                 {
-                                    // 認識：成功
-                                    if (resc == CRRes.SaveAll)
+                                    var resp = runCR.TryCR(
+                                        pic,
+                                        fp,
+                                        pageNum - 1,
+                                        () => setteiLoader.GetAll()
+                                            .Where(pair => cbOnlyThis.Checked
+                                                ? string.Compare(
+                                                    Path.GetFileNameWithoutExtension(pair.Key),
+                                                    tbSeledForm.Text,
+                                                    true
+                                                ) == 0
+                                                : true
+                                            )
+                                            .ToArray(),
+                                        crc,
+                                        form,
+                                        cbRotate4.Checked,
+                                        cbOnlyThis.Checked,
+                                        DoVerify,
+                                        DoRecognize,
+                                        RunCR.TrySQLServerLookup
+                                    );
+
+                                    if (resp == CRRes.SaveAll)
                                     {
+                                        // 認識：成功
                                         fput.Prepare(fext, ".csv");
                                         File.Copy(fp, fput.fp1, true);
-                                        SCUt.SaveCsv(fput.fp2, crc.dtCR, Encoding.Default);
+                                        SCUt.SaveCsv(fput.fp2, crc.GetExported(), Encoding.Default);
                                         RunCmd(fp, fput.fp1, fput.fp2, m2t, eraser);
-                                        crc.ClearTempl();
-                                        break;
+                                        return RecogCore.Next.Break;
                                     }
-                                    else
+                                    else if (resp == CRRes.Avail)
                                     {
+                                        // 認識：成功
                                         fput.Prepare(fext, ".csv");
-                                        pdf.SavePageAs(fput.fp1, 1 + z);
-                                        SCUt.SaveCsv(fput.fp2, crc.dtCR, Encoding.Default);
+                                        pdf.SavePageAs(fput.fp1, pageNum);
+                                        SCUt.SaveCsv(fput.fp2, crc.GetExported(), Encoding.Default);
                                         RunCmd(fp, fput.fp1, fput.fp2, m2t, eraser);
+                                        return RecogCore.Next.Continue;
                                     }
-                                }
-                                else if (fputRecyc != null)
-                                {
-                                    // 認識：失敗、保存有り
-                                    if (cbDoNotSplit.Checked)
+                                    else if (resp == CRRes.TemplatePage)
                                     {
-                                        fputRecyc.Prepare(fext, fext);
-                                        File.Copy(fp, fputRecyc.fp1, true);
-                                        pdf.Dispose();
-                                        try
+                                        return RecogCore.Next.Continue;
+                                    }
+                                    else if (fputRecyc != null)
+                                    {
+                                        // 認識：失敗、保存有り
+                                        if (cbDoNotSplit.Checked)
                                         {
-                                            File.Delete(fp);
+                                            fputRecyc.Prepare(fext, fext);
+                                            File.Copy(fp, fputRecyc.fp1, true);
+                                            pdf.Dispose();
+                                            try
+                                            {
+                                                File.Delete(fp);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                log.Warn(ex, "認識失敗ファイルの削除に失敗: {0}", fp);
+                                            }
+                                            return RecogCore.Next.Break;
                                         }
-                                        catch (Exception ex)
+                                        else
                                         {
-                                            log.Warn(ex, "認識失敗ファイルの削除に失敗: {0}", fp);
+                                            fputRecyc.Prepare(fext, fext);
+                                            pdf.SavePageAs(fputRecyc.fp1, pageNum);
+                                            return RecogCore.Next.Continue;
                                         }
-                                        break;
                                     }
                                     else
                                     {
-                                        fputRecyc.Prepare(fext, fext);
-                                        pdf.SavePageAs(fputRecyc.fp1, 1 + z);
+                                        return RecogCore.Next.Break;
                                     }
                                 }
                             }
-                        }
+                        );
                     }
 
                 }
             }
 
-            Updatefl();
+            TryToUpdateFileList();
             MessageBox.Show(this, "完了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -293,295 +377,7 @@ namespace OCRPattern
             }
         }
 
-        private bool CanSave(CRRes res)
-        {
-            switch (res)
-            {
-                case CRRes.Avail:
-                case CRRes.SaveAll:
-                    //case CRRes.Sepa:
-                    return true;
-            }
-            return false;
-        }
-
         delegate void SavePicDelegate(String fpTo);
-
-        enum CRRes
-        {
-            Avail, Fail, Sepa, SaveAll,
-        }
-
-        Logger ocrLog = LogManager.GetLogger("OCR");
-
-        private CRRes TryCR(Bitmap picSrc, String fp, int z, CRContext crc, OCRWIPForm wipper, bool rotate4, String formSel)
-        {
-            String baseDir = Path.GetDirectoryName(fpxml);
-            ocrLog.Info("認識対象＝{0}", fp);
-            ocrLog.Debug("ページ＝{0}", 1 + z);
-
-            if (formSel == null) formSel = "";
-            bool fSelForm = formSel != "";
-
-            for (int rot = 0; rot < (rotate4 ? 4 : 1); rot++)
-            {
-                ocrLog.Debug("回転回数＝{0}", rot);
-                wipper.HintRot(rot);
-                Bitmap pic = PiUt.Rotate(picSrc, rot);
-                foreach (KeyValuePair<string, OCRSettei> kvs in crc.dictSet)
-                {
-                    ocrLog.Info("フォーム＝{0}", kvs.Key);
-
-                    bool forceThis = false;
-                    if (fSelForm)
-                    {
-                        if (String.Compare(formSel, Path.GetFileNameWithoutExtension(kvs.Key), true) != 0)
-                            continue;
-                        forceThis = true;
-                    }
-
-                    wipper.HintTempl(Path.GetFileNameWithoutExtension(kvs.Key), false);
-
-                    bool fail = false, any = false;
-                    {
-                        DataRow[] rows = kvs.Value.DCR.Blk.Select("IfTest");
-                        for (int x = 0; x < rows.Length; x++)
-                        {
-                            DCR.BlkRow row = (DCR.BlkRow)rows[x];
-                            wipper.HintForm(x, rows.Length * 2);
-
-                            Object res = RUt.Recognize2(pic, row);
-                            if (res != null && UtKwt.PartMatch2(Convert.ToString(res), row.TestKeyword, row.SkipWs))
-                            {
-                                any = true;
-                            }
-                            else
-                            {
-                                fail = true;
-                            }
-                        }
-                    }
-
-                    ocrLog.Debug("fail={0}, any={1}", fail, any);
-
-                    if (fail)
-                    {
-                        if (forceThis)
-                        {
-
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        if (!any) continue;
-                    }
-
-                    ocrLog.Info("通過");
-
-                    bool needVerify = kvs.Value.DCR.Blk.Select("NeedVerify").Length != 0;
-
-                    wipper.HintTempl(Path.GetFileNameWithoutExtension(kvs.Key), true);
-
-                    if (kvs.Value.PWay == "S1" && z == 0)
-                    {
-                        ocrLog.Info("種類＝表紙付きモード");
-                        if (fail)
-                        {
-                            ocrLog.Info("検出：失敗");
-                        }
-                        else
-                        {
-                            ocrLog.Info("検出：成功");
-                            // 表紙付き(フォーム検出成功)
-                            crc.StartTemplPage();
-                            crc.AddTempl("TEMPLATE", Path.GetFileNameWithoutExtension(kvs.Key));
-                            DataRow[] rows = kvs.Value.DCR.Blk.Select("IfImport");
-                            for (int x = 0; x < rows.Length; x++)
-                            {
-                                DCR.BlkRow row = (DCR.BlkRow)rows[x];
-                                wipper.HintForm(rows.Length + x, 2 * rows.Length);
-
-                                Object res = RUt.Recognize2(pic, row);
-                                crc.AddTempl(row.FieldName, res ?? "");
-
-                                needVerify |= TestPattern(row.PassPattern, "" + res);
-                            }
-
-                            crc.NewRecord();
-                            crc.AddFrmTempl();
-                            crc.SetValue("OCR", 1);
-                            if (needVerify)
-                            {
-                                using (ConfirmForm form = new ConfirmForm(kvs.Value, pic))
-                                {
-                                    form.Read(crc, kvs.Value.DCR.Blk);
-                                    switch (form.ShowDialog())
-                                    {
-                                        case DialogResult.OK:
-                                            form.SaveTo(crc);
-                                            break;
-                                        case DialogResult.No:
-                                            continue;
-                                        default:
-                                            log.Info("中止しました。");
-                                            throw new ApplicationException("中止しました。");
-                                    }
-                                }
-                            }
-                            for (int x = 0; x < rows.Length; x++)
-                            {
-                                DCR.BlkRow row = (DCR.BlkRow)rows[x];
-
-                                TrySQLServerLookup(row, crc, "" + crc.TryGetValue(row.FieldName));
-                            }
-                            crc.CommitRecord();
-
-                            crc.TemplAvail = true;
-                            return CRRes.SaveAll;
-                        }
-                    }
-                    else if (kvs.Value.PWay == "S")
-                    {
-                        ocrLog.Info("種類＝区切り/代表ページ");
-                        if (fail)
-                        {
-                            ocrLog.Info("検出：失敗");
-                        }
-                        else
-                        {
-                            ocrLog.Info("検出：成功");
-                            // 区切り(フォーム検出成功)
-                            crc.StartTemplPage();
-                            crc.AddTempl("TEMPLATE", Path.GetFileNameWithoutExtension(kvs.Key));
-                            DataRow[] rows = kvs.Value.DCR.Blk.Select("IfImport");
-                            for (int x = 0; x < rows.Length; x++)
-                            {
-                                DCR.BlkRow row = (DCR.BlkRow)rows[x];
-                                wipper.HintForm(rows.Length + x, 2 * rows.Length);
-
-                                Object res = RUt.Recognize2(pic, row);
-                                crc.AddTempl(row.FieldName, res ?? "");
-
-                                TrySQLServerLookup(row, crc, "" + res);
-                            }
-                            crc.TemplAvail = true;
-                            return CRRes.Sepa;
-                        }
-                    }
-                    else if (kvs.Value.PWay == "")
-                    {
-                        ocrLog.Info("種類＝通常フォーム認識");
-                        // 通常(フォーム検出成功)
-                        crc.ClearTempl();
-                        crc.NewRecord();
-                        crc.SetValue("OCR", 1);
-                        crc.SetValue("FORM", Path.GetFileNameWithoutExtension(kvs.Key));
-                        DataRow[] rows = kvs.Value.DCR.Blk.Select("IfImport");
-                        for (int x = 0; x < rows.Length; x++)
-                        {
-                            DCR.BlkRow row = (DCR.BlkRow)rows[x];
-                            wipper.HintForm(rows.Length + x, 2 * rows.Length);
-
-                            Object res = RUt.Recognize2(pic, row);
-                            crc.SetValue(row.FieldName, res ?? "");
-
-                            needVerify |= TestPattern(row.PassPattern, "" + res);
-                        }
-                        if (needVerify)
-                        {
-                            using (ConfirmForm form = new ConfirmForm(kvs.Value, pic))
-                            {
-                                form.Read(crc, kvs.Value.DCR.Blk);
-                                switch (form.ShowDialog())
-                                {
-                                    case DialogResult.OK:
-                                        form.SaveTo(crc);
-                                        break;
-                                    case DialogResult.No:
-                                        continue;
-                                    default:
-                                        log.Info("中止しました。");
-                                        throw new ApplicationException("中止しました。");
-                                }
-                            }
-                        }
-                        for (int x = 0; x < rows.Length; x++)
-                        {
-                            DCR.BlkRow row = (DCR.BlkRow)rows[x];
-
-                            TrySQLServerLookup(row, crc, "" + crc.TryGetValue(row.FieldName));
-                        }
-                        crc.CommitRecord();
-                        crc.TemplAvail = false;
-                        return CRRes.Avail;
-                    }
-                    ocrLog.Info("終了");
-                }
-            }
-            ocrLog.Debug("crc.TemplAvail={0}", crc.TemplAvail);
-            if (crc.TemplAvail)
-            {
-                // 区切り従属
-                crc.NewRecord();
-                crc.AddFrmTempl();
-                crc.SetValue("OCR", 1);
-                crc.CommitRecord();
-                return CRRes.Avail;
-            }
-            return CRRes.Fail;
-        }
-
-        private bool TestPattern(string pattern, string input)
-        {
-            if (!string.IsNullOrEmpty(pattern))
-            {
-                if (!Regex.IsMatch(input, pattern))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void TrySQLServerLookup(DCR.BlkRow row, CRContext crc, string text)
-        {
-            if (row.UseSQLServerLookup)
-            {
-                using (var db = new SqlConnection(row.SQLConnStr))
-                {
-                    db.Open();
-
-                    var command = new SqlCommand(row.SQLQuery, db);
-                    command.Parameters.AddWithValue("@input", text);
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            foreach (var outputColumn in row.SQLOutputColumns.Replace("\r\n", "\n").Split('\n'))
-                            {
-                                if (string.IsNullOrEmpty(outputColumn))
-                                {
-                                    continue;
-                                }
-                                try
-                                {
-                                    crc.SetValue(outputColumn, "" + reader[outputColumn]);
-                                }
-                                catch (IndexOutOfRangeException)
-                                {
-                                    // 列名無効
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         private void bRefDirOut_Click(object sender, EventArgs e)
         {

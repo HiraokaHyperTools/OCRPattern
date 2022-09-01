@@ -22,7 +22,7 @@ namespace OCRPattern.Utils
         public Bitmap Rasterize(int z)
         {
             bitmap.SelectActiveFrame(FrameDimension.Page, z);
-            return bitmap;
+            return (Bitmap)bitmap.Clone();
         }
 
         public void SavePageAs(string fp, int page)

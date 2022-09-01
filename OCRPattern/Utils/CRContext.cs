@@ -1,4 +1,5 @@
 using NLog;
+using OCRPattern.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,91 +12,110 @@ namespace OCRPattern.Utils
 {
     public class CRContext
     {
-        public DataTable dtCR = new DataTable();
-        public SortedDictionary<string, OCRSettei> dictSet = new SortedDictionary<string, OCRSettei>();
-        public SortedDictionary<string, string> dictTempl = new SortedDictionary<string, string>();
+        private readonly Logger crcLog = LogManager.GetLogger("CRContext");
+        private readonly Dictionary<string, string> templateDict = new Dictionary<string, string>();
+        private readonly List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
 
-        public bool ReadSet(String baseDir)
+        public delegate string ValueTryGetter(string field);
+        public delegate void ValueSetter(string field, string value);
+        public delegate IEnumerable<KeyValuePair<string, string>> ValuePairs();
+
+        public class ValueAccess
         {
-            dictSet.Clear();
-            foreach (String fpSet in Directory.GetFiles(baseDir, "*.OCR-Settei"))
+            public ValueTryGetter tryGet;
+            public ValueSetter set;
+            public ValuePairs pairs;
+        }
+
+        public class Export
+        {
+            public IEnumerable<string> Headers { get; set; }
+            public IEnumerable<IEnumerable<string>> Rows { get; set; }
+        }
+
+        public ValueSetter StartNewTemplate()
+        {
+            crcLog.Debug("StartNewTemplate");
+            templateDict.Clear();
+            TemplateAvailable = true;
+
+            return (a, b) =>
             {
-                using (FileStream fs = File.OpenRead(fpSet))
+                crcLog.Debug("SetTemplateValue({0}, {1})", a, b);
+                templateDict[a] = b ?? "";
+            };
+        }
+
+        public bool TemplateAvailable { get; private set; }
+
+        public ValueAccess AddRecord()
+        {
+            crcLog.Debug("AddRecord");
+
+            var record = new Dictionary<string, string>();
+            records.Add(record);
+
+            return new ValueAccess
+            {
+                set = (a, b) =>
                 {
-                    XmlSerializer xs = new XmlSerializer(typeof(OCRSettei));
-                    OCRSettei ocrs = dictSet[fpSet] = (OCRSettei)xs.Deserialize(fs);
-                    DCR dcr = new DCR();
-                    dcr.Merge(ocrs.DCR, true, MissingSchemaAction.Add);
-                    ocrs.DCR = dcr;
-                }
-            }
-            return dictSet.Count != 0;
+                    crcLog.Debug("SetRecordValue({0}, {1})", a, b);
+                    record[a] = b ?? "";
+                },
+                tryGet = (a) =>
+                {
+                    record.TryGetValue(a, out string b);
+                    return b;
+                },
+                pairs = () => record,
+            };
         }
 
-        Logger crcLog = LogManager.GetLogger("CRContext");
-
-        public void AddTempl(String field, Object value)
+        public Export GetExported()
         {
-            crcLog.Debug("AddTempl({0}, {1})", field, value);
-            dictTempl[field] = Convert.ToString(value);
-        }
+            var keys = templateDict.Keys
+                .Concat(
+                    records.SelectMany(record => record.Keys)
+                )
+                .Distinct()
+                .ToArray();
 
-        internal void StartTemplPage()
-        {
-            crcLog.Debug("StartTemplPage");
-            dictTempl.Clear();
-        }
-
-        internal DataRow drCR = null;
-
-        bool templAvail = false;
-
-        public bool TemplAvail { get { return templAvail; } set { templAvail = value; } }
-
-        internal void NewRecord()
-        {
-            crcLog.Debug("NewRecord");
-            drCR = dtCR.NewRow();
-        }
-
-        internal void SetValue(String field, Object val)
-        {
-            if (dtCR.Columns.IndexOf(field) < 0)
+            return new Export
             {
-                dtCR.Columns.Add(field, typeof(string));
-            }
-            drCR[field] = val;
+                Headers = keys,
+
+                Rows = records
+                    .Select(
+                        record =>
+                        {
+                            var newRecord = new Dictionary<string, string>();
+                            foreach (var pair in templateDict)
+                            {
+                                newRecord[pair.Key] = pair.Value;
+                            }
+                            foreach (var pair in record)
+                            {
+                                newRecord[pair.Key] = pair.Value;
+                            }
+
+                            return keys
+                                .Select(
+                                    key =>
+                                    {
+                                        newRecord.TryGetValue(key, out string value);
+                                        return value ?? "";
+                                    }
+                                )
+                                .ToArray();
+                        }
+                    )
+                    .ToArray()
+            };
         }
 
-        internal void CommitRecord()
+        public void ClearRecords()
         {
-            crcLog.Debug("CommitRecord");
-            dtCR.Rows.Add(drCR);
-        }
-
-        internal void AddFrmTempl()
-        {
-            crcLog.Debug("AddFrmTempl");
-            foreach (KeyValuePair<string, string> kv in dictTempl)
-            {
-                SetValue(kv.Key, kv.Value);
-            }
-        }
-
-        internal void ClearTempl()
-        {
-            crcLog.Debug("ClearTempl");
-            dictTempl.Clear();
-            TemplAvail = false;
-        }
-
-        internal string TryGetValue(string field)
-        {
-            if (dtCR.Columns.IndexOf(field) < 0)
-            {
-                return null;
-            }
-            return "" + drCR[field];
+            records.Clear();
         }
     }
 }

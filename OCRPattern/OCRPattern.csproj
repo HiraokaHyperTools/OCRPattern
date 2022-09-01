@@ -37,6 +37,18 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugSigned|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\DebugSigned\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +58,9 @@
     </Reference>
     <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
       <HintPath>packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="Scriban, Version=2.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scriban.2.1.4\lib\net40\Scriban.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -97,13 +112,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DSRes.xsd</DependentUpon>
     </Compile>
+    <Compile Include="EditUserPatternsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditUserPatternsForm.Designer.cs">
+      <DependentUpon>EditUserPatternsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserWordsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditUserWordsForm.Designer.cs">
+      <DependentUpon>EditUserWordsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OCRSettei.cs" />
     <Compile Include="TemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TemplateForm.Designer.cs">
       <DependentUpon>TemplateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GOcr.cs" />
     <Compile Include="HelpBtn.cs" />
     <Compile Include="Interfaces\IMultiPageFileLoader.cs" />
     <Compile Include="TaskEditForm.cs">
@@ -138,25 +165,50 @@
     <Compile Include="SQLServerLookupForm.Designer.cs">
       <DependentUpon>SQLServerLookupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\BlkRowUtil.cs" />
     <Compile Include="Utils\CRContext.cs" />
+    <Compile Include="Utils\CRRes.cs" />
     <Compile Include="Utils\Csvw.cs" />
     <Compile Include="Utils\EraseOldFiles.cs" />
     <Compile Include="Utils\FileEraser.cs" />
     <Compile Include="Utils\FPUt.cs" />
+    <Compile Include="Utils\Magick.cs" />
     <Compile Include="Utils\MFUt.cs" />
     <Compile Include="Utils\Move2Temp.cs" />
+    <Compile Include="Utils\MultiPageFileLoader.cs" />
+    <Compile Include="Utils\NoiseReducers.cs" />
     <Compile Include="Utils\PdfFileLoader.cs" />
-    <Compile Include="Utils\PiUt.cs" />
+    <Compile Include="Utils\BitmapRotateUtil.cs" />
+    <Compile Include="Utils\RecogCore.cs" />
+    <Compile Include="Utils\TempFiles.cs" />
+    <Compile Include="Utils\TextRecogWrappers\GOcr.cs" />
+    <Compile Include="Utils\TextRecogWrappers\NHocr.cs" />
+    <Compile Include="Utils\TextRecogWrappers\Ocrad.cs" />
+    <Compile Include="Utils\TextRecogEngine.cs" />
+    <Compile Include="Utils\TextRecogEngines.cs" />
+    <Compile Include="Utils\RecogOption.cs" />
+    <Compile Include="Utils\RecogUtil.cs" />
+    <Compile Include="Utils\RunCR.cs" />
     <Compile Include="Utils\SCUt.cs" />
+    <Compile Include="Utils\SemVerComparer.cs" />
     <Compile Include="Utils\SemVerToVersion.cs" />
+    <Compile Include="Utils\SetteiLoader.cs" />
     <Compile Include="Utils\TiffFileLoader.cs" />
+    <Compile Include="Utils\TesseractOcr.cs" />
     <Compile Include="Utils\UtKwt.cs" />
+    <Compile Include="Utils\Utpbm.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfirmForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConfirmForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditUserPatternsForm.resx">
+      <DependentUpon>EditUserPatternsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditUserWordsForm.resx">
+      <DependentUpon>EditUserWordsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TemplateForm.resx">
       <SubType>Designer</SubType>
@@ -305,6 +357,7 @@
     <None Include="help\ocrpattern.hhp" />
     <None Include="Resources\Help.png" />
     <None Include="Resources\A4V300.tif" />
+    <Content Include="Resources\Report.html" />
     <Content Include="Resources\_1335406206_help.png" />
     <Content Include="Resources\_1335406105_help-contents.png" />
     <Content Include="t.ico">

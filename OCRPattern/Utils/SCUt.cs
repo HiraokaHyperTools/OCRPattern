@@ -9,21 +9,23 @@ namespace OCRPattern.Utils
 {
     class SCUt
     {
-        public static void SaveCsv(String fpcsv, DataTable dt, Encoding enc)
+        public static void SaveCsv(string fpcsv, CRContext.Export export, Encoding enc)
         {
-            Csvw wr = new Csvw();
-            foreach (DataColumn dc in dt.Columns)
-                wr.AddCol(dc.ColumnName);
-            wr.NewRow();
-            foreach (DataRow dr in dt.Rows)
+            Csvw csv = new Csvw();
+
+            foreach (var header in export.Headers)
             {
-                foreach (DataColumn dc in dt.Columns)
-                {
-                    wr.AddCol(Convert.ToString(dr[dc]));
-                }
-                wr.NewRow();
+                csv.AddCol(header);
             }
-            File.WriteAllText(fpcsv, wr.ToString(), enc);
+            foreach (var row in export.Rows)
+            {
+                csv.NewRow();
+                foreach (var cell in row)
+                {
+                    csv.AddCol(cell ?? "");
+                }
+            }
+            File.WriteAllText(fpcsv, csv.ToString(), enc);
         }
     }
 }
