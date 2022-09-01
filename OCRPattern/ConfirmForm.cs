@@ -1,3 +1,4 @@
+using OCRPattern.Models;
 using OCRPattern.Utils;
 using System;
 using System.Collections.Generic;
@@ -27,29 +28,25 @@ namespace OCRPattern
             bsRes_CurrentChanged(sender, e);
         }
 
-        internal void SaveTo(CRContext crc)
+        internal void SaveTo(Action<string, string> setter)
         {
             foreach (DSRes.TResRow row in dsRes.TRes)
             {
-                crc.drCR[row.Nam] = row.Dat;
+                setter(row.Nam, row.Dat);
             }
         }
 
-        internal void Read(CRContext crc, DCR.BlkDataTable blkdt)
+        internal void Read(IEnumerable<KeyValuePair<string, string>> pairs, DCR.BlkDataTable blkdt)
         {
-            DataTable dt = crc.dtCR;
-            int cx = dt.Columns.Count;
-            DataRow dr = crc.drCR;
-            if (dr == null) return;
-            for (int x = 0; x < cx; x++)
+            foreach (var pair in pairs)
             {
-                String nam = dt.Columns[x].ColumnName;
-                String dat = Convert.ToString(dr[x]);
-                if (String.IsNullOrEmpty(nam)) continue;
-                foreach (DCR.BlkRow blk in blkdt.Select("FieldName = '" + (nam.Replace("'", "''")) + "'"))
+                var field = pair.Key;
+                var value = pair.Value;
+                if (string.IsNullOrEmpty(field)) continue;
+                foreach (DCR.BlkRow blk in blkdt.Select("FieldName = '" + (field.Replace("'", "''")) + "'"))
                 {
                     if (!blk.IfImport) break;
-                    DSRes.TResRow row = dsRes.TRes.AddTResRow(nam, dat, 0, 0, 0, 0);
+                    DSRes.TResRow row = dsRes.TRes.AddTResRow(field, value, 0, 0, 0, 0);
                     row.x = blk.x;
                     row.y = blk.y;
                     row.cx = blk.cx;

@@ -1,0 +1,14 @@
+<TestCases>
+  <!-- wrong cases -->
+  <TestCase File="A1001.tif" Expected="A1O01" Engine="gocr" />
+  <TestCase File="A1001.tif" Expected="A1OO1" Engine="ocrad" />
+  <TestCase File="A1001.tif" Expected="AjOOj" Engine="nhocr" />
+  
+  <!-- right cases -->
+  <TestCase File="A1001.tif" Expected="A1001" Engine="ocr.eng" />
+  <TestCase File="A1001.tif" Expected="A1001" Engine="ocr.jpn" />
+  <TestCase File="B2002.tif" Expected="B2002" Engine="ocr.eng" />
+  <TestCase File="B2002.tif" Expected="B2002" Engine="ocr.jpn" />
+  <TestCase File="タイトル.tif" Expected="タイトル" Engine="ocr.jpn" />
+  <TestCase File="見積.tif" Expected="見積" Engine="ocr.jpn" />
+</TestCases>

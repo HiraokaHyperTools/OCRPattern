@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<OCRSettei xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" PWay="">
+  <DCR>
+    <xs:schema id="DCR" targetNamespace="http://tempuri.org/DCR.xsd" xmlns:mstns="http://tempuri.org/DCR.xsd" xmlns="http://tempuri.org/DCR.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+      <xs:element name="DCR" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="Blk">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="x" type="xs:float" default="0" />
+                  <xs:element name="y" type="xs:float" default="0" />
+                  <xs:element name="cx" type="xs:float" default="0" />
+                  <xs:element name="cy" type="xs:float" default="0" />
+                  <xs:element name="CRType" type="xs:string" default="ocr.jpn" minOccurs="0" />
+                  <xs:element name="FieldName" type="xs:string" minOccurs="0" />
+                  <xs:element name="IfImport" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="IfTest" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="Blacklist" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="Whitelist" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="PSM" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="TestKeyword" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="NoiseReduction" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="ResampleDPI" type="xs:int" default="0" minOccurs="0" />
+                  <xs:element name="NeedVerify" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="SkipWs" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="PostProcess" type="xs:string" default="" />
+                  <xs:element name="UseSQLServerLookup" type="xs:boolean" default="false" />
+                  <xs:element name="SQLConnStr" type="xs:string" default="" />
+                  <xs:element name="SQLQuery" type="xs:string" default="" />
+                  <xs:element name="SQLOutputColumns" type="xs:string" default="" />
+                  <xs:element name="SQLInputSample" type="xs:string" default="" />
+                  <xs:element name="PassPattern" type="xs:string" default="" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+      <DCR xmlns="http://tempuri.org/DCR.xsd">
+        <Blk diffgr:id="Blk1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+          <x>10.16</x>
+          <y>4.064</y>
+          <cx>39.9626656</cx>
+          <cy>25.0613327</cy>
+          <CRType>ocr.jpn</CRType>
+          <FieldName>見積</FieldName>
+          <IfImport>false</IfImport>
+          <IfTest>true</IfTest>
+          <Blacklist>槙種</Blacklist>
+          <Whitelist />
+          <PSM>7</PSM>
+          <TestKeyword>見積</TestKeyword>
+          <NoiseReduction />
+          <ResampleDPI>30</ResampleDPI>
+          <NeedVerify>false</NeedVerify>
+          <SkipWs>false</SkipWs>
+          <PostProcess />
+          <UseSQLServerLookup>false</UseSQLServerLookup>
+          <SQLConnStr />
+          <SQLQuery />
+          <SQLOutputColumns />
+          <SQLInputSample />
+          <PassPattern />
+        </Blk>
+        <Blk diffgr:id="Blk2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+          <x>5.418667</x>
+          <y>27.0933342</y>
+          <cx>65.70134</cx>
+          <cy>25.0613327</cy>
+          <CRType>ocr.eng</CRType>
+          <FieldName>DATA</FieldName>
+          <IfImport>true</IfImport>
+          <IfTest>false</IfTest>
+          <Blacklist />
+          <Whitelist />
+          <PSM />
+          <TestKeyword />
+          <NoiseReduction />
+          <ResampleDPI>0</ResampleDPI>
+          <NeedVerify>false</NeedVerify>
+          <SkipWs>false</SkipWs>
+          <PostProcess />
+          <UseSQLServerLookup>false</UseSQLServerLookup>
+          <SQLConnStr />
+          <SQLQuery />
+          <SQLOutputColumns />
+          <SQLInputSample />
+          <PassPattern />
+        </Blk>
+      </DCR>
+    </diffgr:diffgram>
+  </DCR>
+  <PictureBinary>SUkqAIAZAACAP+BQOCQWDQeEQmFQuGQ2HQ+IRGJROKRWLReMRmNRuOR2PR+QSGRSOSSWTSeUSmVSuWS2XS+YTGZTOaTWbTecTmdTueT2fT+gUGhUOiUWjUekUmlUumU2nU+oVGpVOqVWrVesVmtVuuV2vV+wWGxWOyWWzWe0Wm1Wu2W23W+4XG5XO6XW7Xe8Xm9Xu+X2/X/AYHBYPCYXDYfEYnFYvGY3HY/IZHJZPKZXLZfMZnNZvOZ3PZ/QaHRaPSaXTafUanVavWa3Xa/YbHZbPabXbbfcbndbveb3fb/gcHhcPicXjcfkcnlcvmc3nc/odHpdPqdXrdfsdntdvud3vd/weHxePyeXzef0en1ev2e33e/4fH5fP6fX7ff8fn9fv+f3/P/AEAwFAcCQLAyDn4P6DAAAMDpKeAfwWAEIwckRAQoggAQnCqQn4AAPwlBUOI+cEPwlEaQQ0B8TxQjp4Q0A8WRbD0NRrG0bAGhcaxigsNRagUaRvIQARyhMXw1IsMgBH5/yDIccIVG0Gx7JcfydJ8kITEsaynJUmSvLEkoKfEhRlFEwSfMSBn9IczRHNEhzUgUnxEgcfStLEbzlNkhzrOcqxnPMoILPkbxBKkv0FGs5H/IUG0LLFDwPOEhUZIUQUhJ9JQNSk9IPG8p0zIdNwKgD8AEDgkFgoDf8JhT/gwPhL+g0RAAfhcVi0XjEZjUbjkdj0fkEhkUjkklk0igUSiMIiyAgsOf8QlUEiknm03nE5nU7nk9kspmcElkVl0EmEyoM1n1LplNp1PqEoAFDi8CqkKosDo9BgdKqNfsFhsVjjtWjVmlsDGAArdcr1kuFxuVznFojF2hbAAAHeFsh9cid0wWDwmFit4i2IhLAAL/vttpOGyWTylRxULy7AH+Ov0xwFvyuh0WjqVXw9Ti7vhOPv9u0mv2GxquojOXhWsz2u2W73mh20J3+cmEWge943HynB4O44gA5HP6Fz5W0jHMivF6PZ7WW6mz00L60L7Hb8nlnfT7+3zvN83t90m9Ea8MK8fv+33s/dxP6ivzhL6vxAMBPijL/IY50BQTAKgK49LVvW68EQVCb3QYoMHOEhSkIkzcKQ86MLJnDDmQ2iMOw/FDjRClURvXEqDRPFMZNjFaJRa4cXoLGMZx40UapW+UXKDHceyKyUfoNG8NSHI0msnJCDyDHEmSdKrBygoUpSWmciStLyxSwgclNalUuy/M6oTC/h/qygr2TROCyTU782oJN84zwr85ovOsAQPPNATSwExT4iU70DRCez2tKI0PRNHrrNaFMvPsJPpS1IUy+FJOBNdK0dTVQpDAiiUNCNRVQ0r8zpUzxUxVNYNrTh/0pVtL1jXFV11RiDHBQY/1zXNSIXStfMBYFg1jYasIlYyuWRZNU2WhNi1/aNYWnNlm2ta9UWy9SYWcoNoW7TVvwfcNuXLc1ZuWztxJncl10fc5/19dNj3ndkMODe6E3glV5X1QNFoxf17XVgdEYKi+D4AiWBYVPGGIsvV8WfiVE4oiuLYza+NrzCGPVxkFmOHkeSUHWaXZPlFsZVDGWZdYWYI0rWZ5TQcMZvnGX51m2RZ7dmfowmWW6FTOSty4ckNBpEnaUlOmMjp8v6jnlaapqsrXPqVJ61reoXbTh8UJTqZ6dsMeXPsoAMbs6VbTtUZXOvqB2Rpu57FflObsAEO7zvUjXPZyYcDwUe8IggD7giW5cRClzr1syBaPsvH8hBXJTdrPLMDzMZ3PNtgcqi3L9B0OxwdNqKdKivT9RFNzobzvTc/2MP9mgvGdchfYdxD1vxKhHeoV3/gQn4VG+KhPj+RBNvxCP/mH/53nwX1S7xN6nreu++S7agoP8P73saIi2/KN8ny+/mqL78BCBgP9f2PfktnAYrX6fq9v7gABAAADn9Ngf4hV9zFX/lsJc+OAkBTzMlJcWsB5eoGNogcfaCAAIJK+B+/uC52mSlqLYX2DsDYPwggOQsmQcC2Nlem0F7sJ0QQpS3CwB5AoXuecxDJFUNGzmPIg7V17t4eQofO74gZrDnPciJEWGcRz1ABNYIGIUSIdxONkyAvsUi/DBiq8aJsWDkFoJcsA1hl1fADNYPOL7zYwxih6SyMqGTMl7NYPuNr1Y3xwN5GQAEZi/K1L4euJkV4+Gjj9IAhxlytHMkLIc58iY6JrkbISGEe5IGwklGc/hMgPyOhNJmTRtI5ycNMSmT8loLSiN6Whu8kzTNtB/KCVcrDkSvQMg+P8tG4y2OfLhoJC1jB/l446X0t4/oZIysaZTWZazHN5MBo54G3TNg9NA0k0iNNlMbMUiMhpsGGJlIpXU3iDTgnCYQmS6CNEQcZOZ8U6TZTrmaRgv0oIdTyRodiXK1CKT4dtOifR0p+TBWJP+S0+aBmkJTOwjRmprSXoFQsuE3KHTLnIp2hVFDQ0Wnq++i8j6OGhi3RcjA+aQ0SpHSQ2k/ZqNTo3SsyUaaTJao1QGmRlKaUfQLQmnFOTJF6JZS5cDX5n1AMGS5xlPDqyql7Ugwr8qa09anUeqBcmjU1E/U2qtT6rl0qzR+Kj76nTGq+XSVFNY3zwJpWcujbSanhTXWwrtbi5rGQ7XJv76KyzfrsXJydeWREDSJXSTFfyoFFWRXqwtfZz2ILgnak046+NHHGQuidkDz2SnrZQ/rQYvEPqXZosbdm32dlfZ9o6Eh+WntIWFYxQzrWepeRWIKnbXljKLaO2afqPwujcma3JSykW8QhQ2ytn7BTTuGUtvxwzrXItUxyvZnLXXNKa5N251m21kZbXVhEybsFNQ2icvtozOKvnq14f7k7M3jJAuJaF55hTVuSeozpRUMXwJsQaalriB3XpNbtalnL+E7XEVR9JBcBTNKRHKtuBydPhqlfgiODTmN+JYs6/eEiQIhZPgtLN972kEbe+liOHiRXawjLpIF90NtvQZczFRIMWWpxcQa9FRb0n1wZjUk+N7r4iwrdNbWAViYmyASZeBV8KEvu9M7It4b7ZLJGvBluTyjZRwoV7DWViSLwR2jVpxrMKLkKBh3MFZHOGYTLlEoGAnF5rJE+k0yObxXTzTAgvedCQvpacSqrmUmjt2x3n4jeZ1CpJ0GUhgV7NEEdfCelgFzDWEywatrGmkYh3gIsiXTMyspzUvflYoBNzcaeNPqXJekCTapzyxXVmQLpEnNwIBflwtOZu10SDW+m9dkeH9sDXxnRgYp2CXMYeydmbN2ds/aG0dpbT2ptXa219sbZ21tvbm3dvbf3BuHcW49ybl3NufdG6d1br3Zu3d2794bx3lvPem9d7b33xvnfW+9+b939v/gHAeBcD4JwXg3B+EcJ4VwvhnDeHcP4hxHiXE+KcV4txfjHGeNcb45x3j3H+Qch5FyPknJeTcn5RynlRrx8aherfseGh2K7EyW2XmTptQyeVlYe9vNMgNlzVy2ZeSCMOTv2MDn2NS+9B1CVnFJBdkc92Z0sjo8NMobacgzXXSNmK+5cbfTOFOZPp02IDpOKuvdV0yuLBuLGY9nw9Mwjg4NM430X0Se3cMJOTI73QjCdWBER2RQbOnfCOGMntY+FSJmi+EzW5PqJi8GovZaiFtJEO9YHsURwQGDctY7y1cx6miCi69IZ57F+Fs5kXbL5m/hBNekQwxhcirAD0+t2Z7AjfsmGq2xKQbTNRMl4te121+Wp8kwt7x7Xx2VikOYo8qWvfm1LzJwMyH114/nkb7SowxdhFXNv+ohH7N2CgbAL1g1szdkTkyqXMPT7WNOfnI38s1tS64VGJh+x23zdWvVntMqktnDGsK0o9IwljPyrmnwubvvwBGzilGsJZDWi3ikQFLhwGCMMKMBCUkTsim2lkKwwHP5NIsvvWMftOloKlL8FXGTsWQLrcwTP+v7QDloKhQWFmL0QXtkm/OwwUJqFLKdmELXC9QdMoNglnQfMlLPrXQhQhMSiqQdwkQlwZwHrrL/iFQnwnwpNdi9H8r1QDwaQnqSvvr0QtwjwugAQvwNQfwsjuruwywsCFQuNOC9IBNYowQqQ5s+w8w9sQwBQ6NIiXAPMcQTsBQis3EJGZIwPjQYLXxBxCnbRDw+GzlkRFo3L1GOtgiuvwCMvow/RExLIiQ4LqRHLSLCROw2MBRLpnFkNVRSPsNkxULDxPsCmTrPNVNaxQNdpxoFptwrRfEtkOxUxWoERTLIRexaRgIiCZRhrqxKxjNgpxxNRVDmivRmjckYraRdv5iAAAAP9gAAHv+EQmFPgAAGFQiBB+HwIfv9/RSFRcAH+HwSDR2QSGRSOSSWTSeUSmVSuWS2XS+TPyBR4DyOGQ6JgCJQqMRqKwmNRyHwWDzCjUekUmlUumU2QQyBuAATWRTeOxieTqLQKhQifR2iU6xWOyWWzWeO1apVSQ1acz+ExGtxuM1iFWG0Xm9Xu+X1/2oAAObQ2rgC4RCtUG64awR+/Y/IZHJSh4YF/5XBVXCYvDv9AVqZXSs52PUXJ6fUam+ZjL5bNTigXaEZ+JaGu4jSXjVbveb2k1LBW625vY4yFbR/7a343Tb7nc/oSO13/iU/q3PO8jlaPmdHvd/o9OoYPYV6uQ/Pwft3GtUPHeD4fHTwWa6HyQ/FceP/aczu7ve+UAwEvSwv44byrm27PP2mb+u7AcIQisb0uS88DvxCyEwpAz2P8hLdQlEMRJg5D8utBETNnBiBwc9zmxHGEYpNErZIe4SEPXFT1QarMPIREEZSDIUetw16HxzBcdxZIkXSHJ0nKxGqFuvJEKPHFr/xfJ8twkr5/rlC6FSqj8ryZLMuTREMvORMKEzGg8yw7B80zpAL8wpNscQzHTqSXOUmzrQL4O3PETyPPckz6wsfNLQVHO9A0gSnBE30VLEPwBR9NN3Mr6SNMVEStHk/zPTdTNVMrpzzCrRQ1MlRsRRlJVPWi/OE4FPzdUNXz9WM51rYC+sq2FcVXSs419QFg2WvTWIRZ1DVBVs+WRL721LZlsrNaFh1zPVp0TaswWxbVyqdYrqQRSdD3BUVe2tWVM3NeakVVS1o11dteUXX96X8mFPIRaqExvVkFXdfllX/haW4DVlvYM9F90vH95YZi6TN1JGCSpXc4VheF+4xkaR0LjeBY7fWP3fcdMS1kmYYk/0U3XaWD4nM2XZjnaQXHLy05Tm+V4TcmeZ5lspZRSmPXvUmdaNqDZZbmt86Fptk6LqGSZ/kN8W/q1xWvp+tZjrk2aBpeVavrus7Ji8c0LG2g4loeKUbt2Ybhi103ZsGQanu+8ZG0KBcKgS2bltO/ZZsWK5fwV/Khw3C8Rqmv7ptfAVnyF6clyap2NpkOaxsfOYWyvPoEzO0b7zHR7Z0vTX91HU9XxMMbV1/Nb32Vtdpz91aV3Grd1xvA97eipdS6+ORR0VEd3x/kWZ5XU+DvjOdd6Hjc36dloL5d3+F7L9Nr7d4+l71gfB5dV65BfzXBKXu/VWv2dTBXxuK7LQe23LvH6q0M++F/L2H9syYidxhUAVlwDeXAVgr7y5Ipfe8eBiwYHOpNJAY9hnYJp7gq/SC6mmpwVg46RkLXIQwAhGo+ErgITuwWsRWFT84WQtUDBWGDBYZE9NkzSC0OFNw6eNDFlpX4argiDEJR8FW4vNaIdh0jG4RRMTSxuJ7+lXHNS8y2KkN4rJciwxaHjcT8xeZBEuMKdWBsOcsnxqrpI2xgjWk6OblYtMVcQoRAEc30x1S2wNdEbyaM2jgyh8UVZAJDW6R2QcUD3R7R43GHkapFpbkaQ+R8eSPO2TKZ9xEmW2yXS3Js1rwYeSDU66AhMonYykS5KaV0nCpHlkyQV20ppFSwRhKZgcPJRSZkHLqOkvERRuY4+KYCo10S1P+7aV8xkhzIkQ15Z6GZmqjmpJaaSMYswJkIVArsuJWqjlASCXc3UIzfY3DwqBcJzzXVaQJl86Z1IDm/BWHhoT/OHmST8jU9Ziz3QFDCfTzDQmmnpMknZGlGTcoIhKgyUoeEaKpQlfJRSoUPntRE+EJoZQxI0Zmja+SqOog3R2jx36QOAkqQInFKDimZeVAWlVKzo0gizJWAZHHwGHcKiqJVEKcHyZOol25HYBkScKbdwoPyNPiqJUVQaiItusMaVNyTEiDOoevTeqhvnXqYjxJV6rhj3OTq/QOsJz2Bx6qwQ939MJNOfmhNGtp8q3j/k3JVzzqq5Ofjw46vKEpZkJr68xVjhnK1/b3WCwpqbDkIsS8GqLhUXuEcLQ+qdkTnLQI7LOSq1nDI+su0mztnjeymmuuq0cGYlOfJFZC1RkrWQxtG/d8UGXr2ptqaqbc1akyOcM8Gs9d68W/OfcFtdo3PWDd+9K2lyi/PdSRaOy9D7NQbsJdQ8E33LyEVdVYxEabk3eN5eBBNw7Q10JC8q5F570GqhgeY4xKKHEiNDdy+awB+WDIXH+/uA8CYFwNgfBGCcFYLwZg3B2D8IYRwlhPCmFcLYXwxhnDWG8OYdw9h/EGIcRYjxJiXE2J8UYpxVivFmLcXYvxhjHGWM8aY1xtjfHGOcdY7x5j3H2P8gZByFkPImRcjZHyRknJWS8mZNydk/KGUcpZTyplXK2V8sZZy1lvLmXcvZfzBmHMWY8yZlzNmfNGac1ZrzZm3N2b84ZxzlnPOmdc7Z3zxnnPWe8+Z9z9n/QGgdBaD0JoXQ2h9EaJ0VovRmjdHaP0hpHSWk9KaV0tpfTGmdNab05p3T2n9Qah1FqPUmpdTan1RqnVWq9Wat1dq/WGsdZaz1prXW2t9ca511rvXmvdfa/2BsHYWw9ibF2NsfZGydlbL2Zs3Z2z9obR2ltPam1drbX2xtnbW29ubd29t/cG4dxbj3JuXc2590bp3Vuvdm7d3bv3hvHeW896b13tvffG+d9b735v3f2/+AcB4FwPgnBeDcH4RwnhXC+GcN4dw/iHEeJcT4pxXi3F+McZ41xvjnHePcf5ByHkXI+Scl5NyflHKeVcr5Zy3l3L+Ycx5lzPmnNebc35xznnXO+ec959z/oHQehdD6J0Xo3R+kdJ6V0vpnTendP6h1HqXU+qdV6t1frHWetdb6513r3X+wdh7F2PsnZezdn7R2ntXa+2dt7d2/uHce5dz7p3Xu3d+8d5713vvnfe/d/8B4HwXg/CeF8N4fxHifFeL8Z43x3j/IeR8l5PynlfLeX8x5nzXm/Oed895/0HofRej9J6X03p/Uep9V6v1nrfXev9h7H2Xs/ae19t7f3Hufde7957333v/gfB+F8P4nxfjfH+R8n5Xy/mfN+d8/6H0fpfT+p9X631/sfZ+19v7n3fvff/B+H8X4/yfl/N+f9H6f1fr/Z+3937/4fx/l/P+n9f7f3/x/n/X+/+f9/8//ABADAFAHAJALANAPARATAVAXAZAbAdAfAhAjAlAnApArAtAvAxAzA1A3A5A7A9A/BBBDBFBHBJBLBNBPBRBTBVBXBZBbBdBfBhBjBlBnBpBrBtBvBxBzB1B3B5B7B9B/CBCDCFCHCJCLCNCPCRCTCVCXCZCbCdCfChCjClCnCpCrCtCvCxCzC1C3C5C7C9C/DBDDDFDHDJDLDNDPDRDTDVDXDZDbDdDfDhDjDlDnDpDrDtDvDxDzD1D3D5D7D9D/EBEDEFEHEJELENEPERETEVEXEZEbEdEfEhEjElEnEpErEtEvExEzE1E3E5E7E9E/FBFDFFFHFJFLFNFPFRFTFVFXFZFbFdFfFhFjFlFnFpFrFtFvFxFzF1F3F5F7F9F/GBGDGFGHGJGLGNGPGRGTGVGXGZGbGdGfGhGjGlGnGpGrGtGvGxGzG1G3G5G7G9G/HBHDHFHHHJHLHNHPHRHTHVHXHZHbHdHfHhHjHlHnHpHrHtHvHxHzH1H3H5H7H9H/IBIDIFIHIJILINIPIRITIVIXIZIbIdIfIhIjIlInIpIrItIvIxIzI1I3I5I7I9I/JBJDJFJHJJJLJNJPJRJTJVJXJZJbJdJfJhJjJlJnJpJrJtJvJxJzJ1J3J5J7J9J/KBKDKFKHKJKLKNKPKRKTKVKXKZKbKdKfKhKjKlKnKpKrKtKvKxKzK1K3K5K7K9K/LBLDLFLHLJLLLNLPLRLTLVLXLZLbLdLfLhLjLlLnLpLrLtLvLxLzL1L3L5L7L9L/MBMDMFMHMJMLMNMPMRMTMVMXMZMbMdMfMhMjMlMnMpMrMtMvMxMzM1M3M5M7M9M/NBNDNFNHNJNLNNNPNRNTNVNXNZNbNdNfNhNjNlNnNpNrNtNvNxNzN1N3N5N7N9N/OBODOFOHOJOLONOPOROTOVOXOZObOdOfOhOjOlOnOpOrOtOvOxOzO1O3O5O7O9O/PBPDPFPHPJPLPNPPPRPTPVPXPZPbPdPfPhPjPlPnPpPrPtPvPxPzP1P3P5P7P9P/QBQDQFQHQJQLQNQPQRQTQVQXQZQbQdQfQhQjQlQnQpQrQtQvQxQzQ1Q3Q5Q7Q9Q/RBRDRFRHRJRLRNRPRRRTRVRXRZRbRdRfRhRjRlRnRpRrRtRvRxRzR1R3R5R7R9R/SBSDSFSHSJSLSNSPSRSTSVSXSZSbSdSfShSjSlSnSpSrStSvSxSzS1S3S5S7S9S/TBTDTFTHTJTLTNTPTRTTTVTXTZTbTdTfThTjTlTnTpTrTtTvTxTzT1T3T5T7T9T/UBUDUFUHUJULUNUPURUTUVUXUZUbUdUfUhUjUlUnUpUrUtUvUxUzU1U3U5U7U9U/VBVDVFVHVJVKWYICADgD+AAQAAQAAAAAAAAAAAQQAAQAAALAJAAABAQQAAQAAALANAAACAQMAAQAAAAEAAAADAQMAAQAAAAUAAAAGAQMAAQAAAAEAAAARAQQAAQAAAAgAAAAVAQMAAQAAAAEAAAAWAQQAAQAAALANAAAXAQQAAQAAAHgZAAAaAQUAAQAAAC4aAAAbAQUAAQAAADYaAAAoAQMAAQAAAAIAAAA9AQMAAQAAAAEAAAAAAAAA4JMEAOgDAADgkwQA6AMAAA==</PictureBinary>
+</OCRSettei>

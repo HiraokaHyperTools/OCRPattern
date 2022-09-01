@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using OCRPattern.Utils;
 
 namespace OCRPattern
 {
-    public partial class OCRWIPForm : Form
+    public partial class OCRWIPForm : Form, RunCR.IProgress
     {
         public OCRWIPForm()
         {
@@ -35,7 +36,7 @@ namespace OCRPattern
             Update();
         }
 
-        internal void HintRot(int rot)
+        void RunCR.IProgress.HintRot(int rot)
         {
             switch (rot)
             {
@@ -57,7 +58,7 @@ namespace OCRPattern
             Update();
         }
 
-        internal void HintTempl(string p, bool import)
+        void RunCR.IProgress.HintTempl(string p, bool import)
         {
             lTempl.Text = "テンプレート " + p + " で" + (import ? "取り込み" : "解析");
             progressBar1.Maximum = 1;
@@ -65,7 +66,7 @@ namespace OCRPattern
             Update();
         }
 
-        internal void HintForm(int x, int cx)
+        void RunCR.IProgress.HintForm(int x, int cx)
         {
             progressBar1.Maximum = cx;
             progressBar1.Value = x;

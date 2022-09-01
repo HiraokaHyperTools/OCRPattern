@@ -25,6 +25,12 @@
                   <xs:element name="NeedVerify" type="xs:boolean" default="false" minOccurs="0" />
                   <xs:element name="SkipWs" type="xs:boolean" default="false" minOccurs="0" />
                   <xs:element name="PostProcess" type="xs:string" default="" />
+                  <xs:element name="UseSQLServerLookup" type="xs:boolean" default="false" />
+                  <xs:element name="SQLConnStr" type="xs:string" default="" />
+                  <xs:element name="SQLQuery" type="xs:string" default="" />
+                  <xs:element name="SQLOutputColumns" type="xs:string" default="" />
+                  <xs:element name="SQLInputSample" type="xs:string" default="" />
+                  <xs:element name="PassPattern" type="xs:string" default="" minOccurs="0" />
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
@@ -52,6 +58,12 @@
           <NeedVerify>false</NeedVerify>
           <SkipWs>true</SkipWs>
           <PostProcess />
+          <UseSQLServerLookup>false</UseSQLServerLookup>
+          <SQLConnStr />
+          <SQLQuery />
+          <SQLOutputColumns />
+          <SQLInputSample />
+          <PassPattern />
         </Blk>
         <Blk diffgr:id="Blk2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
           <x>6.096</x>
@@ -71,6 +83,12 @@
           <NeedVerify>false</NeedVerify>
           <SkipWs>false</SkipWs>
           <PostProcess />
+          <UseSQLServerLookup>false</UseSQLServerLookup>
+          <SQLConnStr />
+          <SQLQuery />
+          <SQLOutputColumns />
+          <SQLInputSample />
+          <PassPattern />
         </Blk>
       </DCR>
     </diffgr:diffgram>

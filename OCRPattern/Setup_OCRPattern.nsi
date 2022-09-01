@@ -1,4 +1,4 @@
-; example1.nsi
+ï»¿; example1.nsi
 ;
 ; This script is perhaps one of the simplest NSIs you can make. All of the
 ; optional settings are left to their default settings. The installer simply 
@@ -11,15 +11,23 @@ Unicode true
 
 XPStyle on
 
+!ifdef SIGNED
+!define Configuration "DebugSigned"
+!else
+!define Configuration "DEBUG"
+!endif
+
 !define APP "OCRPattern"
 !define TTL "OCRPattern"
 !define COM "HIRAOKA HYPERS TOOLS, Inc."
-!system 'DefineAsmVer.exe bin\x86\DEBUG\${APP}.exe "!define VER ""[SFVER]"" " > Ver.nsh'
-!include "Ver.nsh"
+!system 'DefineAsmVer.exe bin\x86\${Configuration}\${APP}.exe "!define VER ""[FVER]"" " > Appver.tmp'
+!include "Appver.tmp"
 !searchreplace APV ${VER} "." "_"
 
-!system 'MySign "bin\x86\DEBUG\${APP}".exe'
+!ifdef SIGNED
+!system 'MySign "bin\x86\${Configuration}\${APP}".exe'
 !finalize 'MySign "%1"'
+!endif
 
 !define EXT ".OCR-Settei"
 !define PROGID "OCR-Settei"
@@ -33,7 +41,11 @@ XPStyle on
 Name "${TTL} ${VER}"
 
 ; The file to write
-OutFile "Setup_${APP}_${APV}.exe"
+!ifdef SIGNED
+OutFile "Setup_${APP}_${APV}_Signed.exe"
+!else
+OutFile "Setup_${APP}_${APV}_Unsigned.exe"
+!endif
 
 ; The default installation directory
 InstallDir "$PROGRAMFILES\${APP}"
@@ -44,6 +56,8 @@ InstallDirRegKey HKLM "Software\${COM}\${APP}" "Install_Dir"
 
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
+
+SetCompressor /SOLID lzma
 
 !include "DotNetVer.nsh"
 !include "LogicLib.nsh"
@@ -108,48 +122,48 @@ Section "" ;No components page, name is not important
   ${ElseIf} $1 != ""
   ${AndIf} ${FileExists} "$1\*.*"
   ${Else}
-    MessageBox MB_ICONEXCLAMATION|MB_OKCANCEL "Tesseract-OCR 3.01ˆÈã‚ª•K—v‚Å‚·B$\n$\nŒ©•t‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B$\n$\nOCR‚ğg—p‚·‚éˆ×‚ÉA—\‚ß“üèEƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B" IDOK +2
-      Abort "Tesseract-OCR 3.01ˆÈã‚ª•K—v‚Å‚·B"
+    MessageBox MB_ICONEXCLAMATION|MB_OKCANCEL "Tesseract-OCR 3.01 ä»¥ä¸ŠãŒå¿…è¦ã§ã™ã€‚$\n$\nè¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚$\n$\nOCR ã‚’ä½¿ç”¨ã™ã‚‹ç‚ºã«ã€äºˆã‚å…¥æ‰‹ãƒ»ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãŠã„ã¦ãã ã•ã„ã€‚" IDOK +2
+      Abort "Tesseract-OCR 3.01ä»¥ä¸ŠãŒå¿…è¦ã§ã™ã€‚"
   ${EndIf}
 
   ReadRegStr $0 HKLM "SOFTWARE\ImageMagick\Current" "BinPath"
   ${If} $0 != ""
   ${AndIf} ${FileExists} "$0\*.*"
   ${Else}
-    MessageBox MB_ICONEXCLAMATION|MB_OKCANCEL "ImageMagick 6.7.6ˆÈã‚ª•K—v‚Å‚·B$\n$\nŒ©•t‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B$\n$\n‰æ‘œˆ—‚ğg—p‚·‚éˆ×‚ÉA—\‚ß“üèEƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B" IDOK +2
-      Abort "ImageMagick 6.7.6ˆÈã‚ª•K—v‚Å‚·B"
+    MessageBox MB_ICONEXCLAMATION|MB_OKCANCEL "ImageMagick 6.7.6 ä»¥ä¸ŠãŒå¿…è¦ã§ã™ã€‚$\n$\nè¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚$\n$\nç”»åƒå‡¦ç†ã‚’ä½¿ç”¨ã™ã‚‹ç‚ºã«ã€äºˆã‚å…¥æ‰‹ãƒ»ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãŠã„ã¦ãã ã•ã„ã€‚" IDOK +2
+      Abort "ImageMagick 6.7.6ä»¥ä¸ŠãŒå¿…è¦ã§ã™ã€‚"
   ${EndIf}
 
   ; Put file there
-  File /r /x "*.vshost.*" "bin\x86\DEBUG\*.*"
+  File /r /x "*.vshost.*" "bin\x86\${Configuration}\*.*"
 
   ; EXT
   WriteRegStr HKCR "${EXT}" "" "${PROGID}"
-  WriteRegStr HKCR "${EXT}\ShellNew" "ItemName" "OCRPattern ƒeƒ“ƒvƒŒ[ƒg"
+  WriteRegStr HKCR "${EXT}\ShellNew" "ItemName" "OCRPattern ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ"
   WriteRegStr HKCR "${EXT}\ShellNew" "NullFile" ""
 
-  WriteRegStr HKCR "${PROGID}" "" "OCRPattern ƒeƒ“ƒvƒŒ[ƒg"
+  WriteRegStr HKCR "${PROGID}" "" "OCRPattern ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ"
   
   WriteRegStr HKCR "${PROGID}\DefaultIcon" "" "$INSTDIR\e.ico"
   WriteRegStr HKCR "${PROGID}\shell\open\command" "" '"$INSTDIR\OCRPattern.exe" /e "%1"'
 
   ; EXT2
   WriteRegStr HKCR "${EXT2}" "" "${PROGID2}"
-  WriteRegStr HKCR "${EXT2}\ShellNew" "ItemName" "OCRPattern ƒ^ƒXƒN"
+  WriteRegStr HKCR "${EXT2}\ShellNew" "ItemName" "OCRPattern ã‚¿ã‚¹ã‚¯"
   WriteRegStr HKCR "${EXT2}\ShellNew" "NullFile" ""
 
-  WriteRegStr HKCR "${PROGID2}" "" "OCRPattern ƒ^ƒXƒN"
+  WriteRegStr HKCR "${PROGID2}" "" "OCRPattern ã‚¿ã‚¹ã‚¯"
 
   WriteRegStr HKCR "${PROGID2}\DefaultIcon" "" "$INSTDIR\t.ico"
-  WriteRegStr HKCR "${PROGID2}\shell\open"         "" "ŠJ‚­"
+  WriteRegStr HKCR "${PROGID2}\shell\open"         "" "é–‹ã"
   WriteRegStr HKCR "${PROGID2}\shell\open\command" "" '"$INSTDIR\OCRPattern.exe" /t "%1"'
-  WriteRegStr HKCR "${PROGID2}\shell\edit"         "" "•ÒW‚·‚é"
+  WriteRegStr HKCR "${PROGID2}\shell\edit"         "" "ç·¨é›†ã™ã‚‹"
   WriteRegStr HKCR "${PROGID2}\shell\edit\command" "" '"$INSTDIR\OCRPattern.exe" /t "%1"'
-  WriteRegStr HKCR "${PROGID2}\shell\run"         "" "Às‚·‚é"
+  WriteRegStr HKCR "${PROGID2}\shell\run"         "" "å®Ÿè¡Œã™ã‚‹"
   WriteRegStr HKCR "${PROGID2}\shell\run\command" "" '"$INSTDIR\OCRPattern.exe" /t "%1" /run'
 
   ; Update
-  DetailPrint "ŠÖ˜A•t‚¯XV’†..."
+  DetailPrint "é–¢é€£ä»˜ã‘æ›´æ–°ä¸­..."
   !insertmacro UPDATEFILEASSOC
 
   ; Write the installation path into the registry
@@ -174,7 +188,7 @@ Section "Uninstall"
   DeleteRegKey HKCR "${EXT2}"
   DeleteRegKey HKCR "${PROGID2}"
 
-  DetailPrint "ŠÖ˜A•t‚¯XV’†..."
+  DetailPrint "é–¢é€£ä»˜ã‘æ›´æ–°ä¸­..."
   !insertmacro UPDATEFILEASSOC
 
   ; Remove registry keys
