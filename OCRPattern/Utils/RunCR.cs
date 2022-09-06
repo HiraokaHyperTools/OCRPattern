@@ -132,8 +132,8 @@ namespace OCRPattern.Utils
                             {
                                 ocrLog.Info("検出：成功");
                                 // 表紙付き(フォーム検出成功)
-                                var templateSetter = crc.StartNewTemplate();
-                                templateSetter("TEMPLATE", formKey);
+                                var template = crc.StartNewTemplate();
+                                template.set("TEMPLATE", formKey);
                                 DataRow[] rows = oneForm.Value.DCR.Blk.Select("IfImport");
                                 for (int x = 0; x < rows.Length; x++)
                                 {
@@ -141,7 +141,7 @@ namespace OCRPattern.Utils
                                     progress.HintForm(rows.Length + x, 2 * rows.Length);
 
                                     var res = recognizer(pic, row) ?? "";
-                                    templateSetter(row.FieldName, res);
+                                    template.set(row.FieldName, res);
 
                                     needVerify |= TestPattern(row.PassPattern, res);
                                 }
@@ -150,7 +150,7 @@ namespace OCRPattern.Utils
                                 record.set("OCR", "1");
                                 if (needVerify)
                                 {
-                                    switch (doVerify(oneForm.Value, pic, record.pairs(), (a, b) => record.set(a, b)))
+                                    switch (doVerify(oneForm.Value, pic, template.pairs().Concat(record.pairs()), (a, b) => record.set(a, b)))
                                     {
                                         case VerifyResult.Submit:
                                             break;
@@ -188,8 +188,8 @@ namespace OCRPattern.Utils
                             {
                                 ocrLog.Info("検出：成功");
                                 // 区切り(フォーム検出成功)
-                                var templateSetter = crc.StartNewTemplate();
-                                templateSetter("TEMPLATE", formKey);
+                                var template = crc.StartNewTemplate();
+                                template.set("TEMPLATE", formKey);
                                 DataRow[] rows = oneForm.Value.DCR.Blk.Select("IfImport");
                                 for (int x = 0; x < rows.Length; x++)
                                 {
@@ -197,12 +197,12 @@ namespace OCRPattern.Utils
                                     progress.HintForm(rows.Length + x, 2 * rows.Length);
 
                                     var res = recognizer(pic, row) ?? "";
-                                    templateSetter(row.FieldName, res);
+                                    template.set(row.FieldName, res);
 
                                     tryExternalLookup?.Invoke(
                                         row,
                                         res,
-                                        (key, value) => templateSetter(key, value)
+                                        (key, value) => template.set(key, value)
                                     );
                                 }
                                 return CRRes.TemplatePage;

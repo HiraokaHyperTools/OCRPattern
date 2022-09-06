@@ -33,16 +33,25 @@ namespace OCRPattern.Utils
             public IEnumerable<IEnumerable<string>> Rows { get; set; }
         }
 
-        public ValueSetter StartNewTemplate()
+        public ValueAccess StartNewTemplate()
         {
             crcLog.Debug("StartNewTemplate");
             templateDict.Clear();
             TemplateAvailable = true;
 
-            return (a, b) =>
+            return new ValueAccess
             {
-                crcLog.Debug("SetTemplateValue({0}, {1})", a, b);
-                templateDict[a] = b ?? "";
+                set = (a, b) =>
+                {
+                    crcLog.Debug("SetTemplateValue({0}, {1})", a, b);
+                    templateDict[a] = b ?? "";
+                },
+                tryGet = (a) =>
+                {
+                    templateDict.TryGetValue(a, out string b);
+                    return b;
+                },
+                pairs = () => templateDict,
             };
         }
 

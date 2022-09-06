@@ -31,6 +31,9 @@
                   <xs:element name="SQLOutputColumns" type="xs:string" default="" />
                   <xs:element name="SQLInputSample" type="xs:string" default="" />
                   <xs:element name="PassPattern" type="xs:string" default="" minOccurs="0" />
+                  <xs:element name="CutSpaces" type="xs:boolean" default="false" />
+                  <xs:element name="UserWords" type="xs:string" default="" />
+                  <xs:element name="UserPatterns" type="xs:string" default="" />
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
@@ -64,6 +67,9 @@
           <SQLOutputColumns />
           <SQLInputSample />
           <PassPattern />
+          <CutSpaces>false</CutSpaces>
+          <UserWords />
+          <UserPatterns />
         </Blk>
         <Blk diffgr:id="Blk2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
           <x>6.096</x>
@@ -80,7 +86,7 @@
           <TestKeyword />
           <NoiseReduction>-median 3 -trim -threshold 100</NoiseReduction>
           <ResampleDPI>0</ResampleDPI>
-          <NeedVerify>false</NeedVerify>
+          <NeedVerify>true</NeedVerify>
           <SkipWs>false</SkipWs>
           <PostProcess />
           <UseSQLServerLookup>false</UseSQLServerLookup>
@@ -89,6 +95,9 @@
           <SQLOutputColumns />
           <SQLInputSample />
           <PassPattern />
+          <CutSpaces>false</CutSpaces>
+          <UserWords />
+          <UserPatterns />
         </Blk>
       </DCR>
     </diffgr:diffgram>

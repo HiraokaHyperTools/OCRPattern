@@ -26,6 +26,8 @@
                   <xs:element name="DoNotSplit" type="xs:boolean" default="false" minOccurs="0" />
                   <xs:element name="EraseOlderTempFiles" type="xs:boolean" default="false" minOccurs="0" />
                   <xs:element name="EraseOlderOutFiles" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="EraseInAfter" type="xs:boolean" default="false" minOccurs="0" />
+                  <xs:element name="EraseOutAfter" type="xs:boolean" default="false" minOccurs="0" />
                   <xs:element name="EraseOlderFiles" type="xs:boolean" default="false" minOccurs="0" />
                 </xs:sequence>
               </xs:complexType>
@@ -37,23 +39,25 @@
     <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
       <Task xmlns="http://tempuri.org/Task.xsd">
         <Cfg diffgr:id="Cfg1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
-          <Files>D:\Proj\OCRPattern\OCRPattern\test1\丸々検査リスト - コピー.pdf</Files>
-          <ClearAlways>false</ClearAlways>
-          <DirIn>D:\Proj\OCRPattern\OCRPattern\test1</DirIn>
-          <ImportAlways>false</ImportAlways>
-          <DirOut>C:\A</DirOut>
+          <Files>H:\Proj\OCRPattern\OCRPattern\test1\丸々検査リスト.pdf</Files>
+          <ClearAlways>true</ClearAlways>
+          <DirIn>.</DirIn>
+          <ImportAlways>true</ImportAlways>
+          <DirOut>.</DirOut>
           <OutCmd>C:\Program Files (x86)\CRIMP32\CRIMP32.exe</OutCmd>
           <OutParm>/import "%csv%" "%pic%" test1</OutParm>
-          <MoveOutAfter>true</MoveOutAfter>
-          <MoveInAfter>true</MoveInAfter>
+          <MoveOutAfter>false</MoveOutAfter>
+          <MoveInAfter>false</MoveInAfter>
           <RunOutCmd>true</RunOutCmd>
           <Rotate4>false</Rotate4>
           <OnlyThis>true</OnlyThis>
           <SeledForm>test1</SeledForm>
           <UseRecyc>false</UseRecyc>
           <DoNotSplit>true</DoNotSplit>
-          <EraseOlderTempFiles>true</EraseOlderTempFiles>
-          <EraseOlderOutFiles>true</EraseOlderOutFiles>
+          <EraseOlderTempFiles>false</EraseOlderTempFiles>
+          <EraseOlderOutFiles>false</EraseOlderOutFiles>
+          <EraseInAfter>false</EraseInAfter>
+          <EraseOutAfter>false</EraseOutAfter>
           <EraseOlderFiles>false</EraseOlderFiles>
         </Cfg>
       </Task>
