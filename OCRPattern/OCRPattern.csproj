@@ -171,7 +171,9 @@
     <Compile Include="Utils\Csvw.cs" />
     <Compile Include="Utils\EraseOldFiles.cs" />
     <Compile Include="Utils\FileEraser.cs" />
-    <Compile Include="Utils\FPUt.cs" />
+    <Compile Include="Utils\FilePostProcessor.cs" />
+    <Compile Include="Utils\ReservedFilePair.cs" />
+    <Compile Include="Utils\ReserveNewFilePair.cs" />
     <Compile Include="Utils\Magick.cs" />
     <Compile Include="Utils\MFUt.cs" />
     <Compile Include="Utils\Move2Temp.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Utils\PdfFileLoader.cs" />
     <Compile Include="Utils\BitmapRotateUtil.cs" />
     <Compile Include="Utils\RecogCore.cs" />
+    <Compile Include="Utils\RunOutCmdDelegate.cs" />
     <Compile Include="Utils\TempFiles.cs" />
     <Compile Include="Utils\TextRecogWrappers\GOcr.cs" />
     <Compile Include="Utils\TextRecogWrappers\NHocr.cs" />

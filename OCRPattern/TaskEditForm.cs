@@ -195,11 +195,12 @@ namespace OCRPattern
                 return;
             }
             outDir = Path.GetFullPath(Path.Combine(BaseDir, outDir));
-            String recycDir = cbUseRecyc.Checked ? tbRecycDir.Text : null;
-            String formSel = cbOnlyThis.Checked ? tbSeledForm.Text : "";
-            FPUt fput = new FPUt(outDir);
-            FPUt fputRecyc = (recycDir != null) ? new FPUt(recycDir) : null;
+            var recycDir = cbUseRecyc.Checked ? tbRecycDir.Text : null;
+            var formSel = cbOnlyThis.Checked ? tbSeledForm.Text : "";
+            var toOutDir = new ReserveNewFilePair(outDir);
+            var toRecycDir = (recycDir != null) ? new ReserveNewFilePair(recycDir) : null;
             var magick = NoiseReducers.UseMagick();
+            var filePostProcessor = new FilePostProcessor();
             string DoRecognize(Bitmap bitmap, DCR.BlkRow row)
             {
                 var opt = BlkRowUtil.ToRecogOption(row);
@@ -225,21 +226,20 @@ namespace OCRPattern
                 {
                     EraseOldFiles.Run(Path.GetTempPath(), "\\.(tif|tiff|pdf|csv|tmp)$", TimeSpan.FromDays(31));
                 }
-                foreach (String fp in tbFiles.Lines)
+                foreach (String sourceFile in tbFiles.Lines)
                 {
-                    if (!File.Exists(fp))
+                    if (!File.Exists(sourceFile))
                     {
                         continue;
                     }
-                    form.lfn.Text = Path.GetFileName(fp);
-                    form.ldir.Text = Path.GetDirectoryName(fp);
-                    fput.Flush();
-                    String fext = Path.GetExtension(fp);
+                    form.lfn.Text = Path.GetFileName(sourceFile);
+                    form.ldir.Text = Path.GetDirectoryName(sourceFile);
+                    var sourceFileExt = Path.GetExtension(sourceFile);
                     var runCR = new RunCR();
                     var recogCore = new RecogCore();
                     var crc = new CRContext();
 
-                    using (IMultiPageFileLoader pdf = MultiPageFileLoader.LoadFromFile(fp))
+                    using (IMultiPageFileLoader pdf = MultiPageFileLoader.LoadFromFile(sourceFile))
                     {
                         recogCore.Run(
                             pdf.NumPages,
@@ -254,7 +254,7 @@ namespace OCRPattern
                                 {
                                     var resp = runCR.TryCR(
                                         pic,
-                                        fp,
+                                        sourceFile,
                                         pageNum - 1,
                                         () => setteiLoader.GetAll()
                                             .Where(pair => cbOnlyThis.Checked
@@ -275,57 +275,72 @@ namespace OCRPattern
                                         RunCR.TrySQLServerLookup
                                     );
 
-                                    if (resp == CRRes.SaveAll)
+                                    bool RunOutCmd(string picFile, string csvFile)
                                     {
-                                        // 認識：成功
-                                        fput.Prepare(fext, ".csv");
-                                        File.Copy(fp, fput.fp1, true);
-                                        SCUt.SaveCsv(fput.fp2, crc.GetExported(), Encoding.Default);
-                                        RunCmd(fp, fput.fp1, fput.fp2, m2t, eraser);
-                                        return RecogCore.Next.Break;
-                                    }
-                                    else if (resp == CRRes.Avail)
-                                    {
-                                        // 認識：成功
-                                        fput.Prepare(fext, ".csv");
-                                        pdf.SavePageAs(fput.fp1, pageNum);
-                                        SCUt.SaveCsv(fput.fp2, crc.GetExported(), Encoding.Default);
-                                        RunCmd(fp, fput.fp1, fput.fp2, m2t, eraser);
-                                        return RecogCore.Next.Continue;
-                                    }
-                                    else if (resp == CRRes.TemplatePage)
-                                    {
-                                        return RecogCore.Next.Continue;
-                                    }
-                                    else if (fputRecyc != null)
-                                    {
-                                        // 認識：失敗、保存有り
-                                        if (cbDoNotSplit.Checked)
+                                        if (cbRunOutCmd.Checked)
                                         {
-                                            fputRecyc.Prepare(fext, fext);
-                                            File.Copy(fp, fputRecyc.fp1, true);
-                                            pdf.Dispose();
+                                            ProcessStartInfo psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(tbOutCmd.Text), tbOutParm.Text
+                                                .Replace("%csv%", csvFile)
+                                                .Replace("%pic%", picFile)
+                                                );
+                                            String cwd = Path.GetDirectoryName(fpxml); // new cwd at fpxml.
+                                            if (cwd != null && Directory.Exists(cwd)) psi.WorkingDirectory = cwd;
+                                            runCmdLog.Debug("実行: {0}\n{1}", psi.FileName, psi.Arguments);
+                                            Process p = Process.Start(psi);
+                                            p.WaitForExit();
+                                            runCmdLog.Debug("結果: {0}", p.ExitCode);
+                                            if (p.ExitCode != 0 && cbApplyRecycOnOutCmdFailure.Checked)
+                                            {
+                                                return false;
+                                            }
+                                        }
+
+                                        if (cbEraseInAfter.Checked)
+                                        {
+                                            eraser.Add(sourceFile);
+                                        }
+                                        else if (cbMoveInAfter.Checked)
+                                        {
+                                            m2t.Add(sourceFile);
+                                        }
+
+                                        if (cbEraseOutAfter.Checked)
+                                        {
+                                            eraser.Add(csvFile);
+                                            eraser.Add(picFile);
+                                        }
+                                        else if (cbMoveOutAfter.Checked)
+                                        {
+                                            m2t.Add(csvFile);
+                                            m2t.Add(picFile);
+                                        }
+
+                                        return true;
+                                    }
+
+                                    return filePostProcessor.Apply(
+                                        resp: resp,
+                                        reserveOut: () => toOutDir.Reserve(sourceFileExt, ".csv"),
+                                        saveEntireTo: copyTo => File.Copy(sourceFile, copyTo, true),
+                                        savePartTo: saveTo => pdf.SavePageAs(saveTo, pageNum),
+                                        saveCsvFileTo: saveTo => SCUt.SaveCsv(saveTo, crc.GetExported(), Encoding.Default),
+                                        useRecyc: toRecycDir != null,
+                                        doNotSplit: cbDoNotSplit.Checked,
+                                        reserveRecyc: () => toRecycDir.Reserve(sourceFileExt, sourceFileExt).File1,
+                                        closeSourceFile: () => pdf.Dispose(),
+                                        recycSourceFile: () =>
+                                        {
                                             try
                                             {
-                                                File.Delete(fp);
+                                                File.Delete(sourceFile);
                                             }
                                             catch (Exception ex)
                                             {
-                                                log.Warn(ex, "認識失敗ファイルの削除に失敗: {0}", fp);
+                                                log.Warn(ex, "認識失敗ファイルの削除に失敗: {0}", sourceFile);
                                             }
-                                            return RecogCore.Next.Break;
-                                        }
-                                        else
-                                        {
-                                            fputRecyc.Prepare(fext, fext);
-                                            pdf.SavePageAs(fputRecyc.fp1, pageNum);
-                                            return RecogCore.Next.Continue;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        return RecogCore.Next.Break;
-                                    }
+                                        },
+                                        runOutCmd: RunOutCmd
+                                    );
                                 }
                             }
                         );
@@ -342,15 +357,6 @@ namespace OCRPattern
 
         private void RunCmd(string fp, string fppic, string fpcsv, Move2Temp m2t, FileEraser eraser)
         {
-            if (cbEraseInAfter.Checked)
-            {
-                eraser.Add(fp);
-            }
-            else if (cbMoveInAfter.Checked)
-            {
-                m2t.Add(fp);
-            }
-
             if (cbRunOutCmd.Checked)
             {
                 ProcessStartInfo psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(tbOutCmd.Text), tbOutParm.Text
@@ -363,6 +369,15 @@ namespace OCRPattern
                 Process p = Process.Start(psi);
                 p.WaitForExit();
                 runCmdLog.Debug("結果: {0}", p.ExitCode);
+            }
+
+            if (cbEraseInAfter.Checked)
+            {
+                eraser.Add(fp);
+            }
+            else if (cbMoveInAfter.Checked)
+            {
+                m2t.Add(fp);
             }
 
             if (cbEraseOutAfter.Checked)
