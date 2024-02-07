@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace OCRPattern.Utils
 {
-    internal class RecogCore
+    public class RecogCore
     {
         public enum Next
         {
