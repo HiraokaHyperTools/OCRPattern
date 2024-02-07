@@ -355,43 +355,6 @@ namespace OCRPattern
 
         Logger runCmdLog = LogManager.GetLogger("RunCmd");
 
-        private void RunCmd(string fp, string fppic, string fpcsv, Move2Temp m2t, FileEraser eraser)
-        {
-            if (cbRunOutCmd.Checked)
-            {
-                ProcessStartInfo psi = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(tbOutCmd.Text), tbOutParm.Text
-                    .Replace("%csv%", fpcsv)
-                    .Replace("%pic%", fppic)
-                    );
-                String cwd = Path.GetDirectoryName(fpxml); // new cwd at fpxml.
-                if (cwd != null && Directory.Exists(cwd)) psi.WorkingDirectory = cwd;
-                runCmdLog.Debug("実行: {0}\n{1}", psi.FileName, psi.Arguments);
-                Process p = Process.Start(psi);
-                p.WaitForExit();
-                runCmdLog.Debug("結果: {0}", p.ExitCode);
-            }
-
-            if (cbEraseInAfter.Checked)
-            {
-                eraser.Add(fp);
-            }
-            else if (cbMoveInAfter.Checked)
-            {
-                m2t.Add(fp);
-            }
-
-            if (cbEraseOutAfter.Checked)
-            {
-                eraser.Add(fpcsv);
-                eraser.Add(fppic);
-            }
-            else if (cbMoveOutAfter.Checked)
-            {
-                m2t.Add(fpcsv);
-                m2t.Add(fppic);
-            }
-        }
-
         delegate void SavePicDelegate(String fpTo);
 
         private void bRefDirOut_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OCRPattern.Interfaces;
 using OCRPattern.Models;
 using OCRPattern.Tests.Utils;

@@ -14,7 +14,7 @@ namespace OCRPattern.Utils
     {
         private readonly Logger _log = LogManager.GetCurrentClassLogger();
 
-        internal RecogCore.Next Apply(
+        public RecogCore.Next Apply(
             CRRes resp,
             Func<ReservedFilePair> reserveOut,
             Action<string> saveEntireTo,
