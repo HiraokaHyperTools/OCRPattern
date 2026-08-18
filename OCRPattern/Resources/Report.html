@@ -7,26 +7,26 @@
 
 <body>
   <table border="1">
-    <caption>{{ table_title }}</caption>
+    <caption>{{TableTitle}}</caption>
     <thead>
       <tr>
-        {{ for column in columns }}
-        <th nowrap="nowrap">{{ column }}</th>
-        {{ end }}
+        {{#each Columns}}
+        <th nowrap="nowrap">{{this}}</th>
+        {{/each}}
       </tr>
     </thead>
     <tbody>
-      {{ for row in rows }}
+      {{#each Rows}}
       <tr>
-        {{ for cell in row }}
-        {{ if cell.pre }}
-        <td nowrap="nowrap"><pre>{{ cell.text }}</pre></td>
-        {{ else }}
-        <td nowrap="nowrap">{{ cell.text }}</td>
-        {{ end }}
-        {{ end }}
+        {{#each this}}
+        {{#if pre}}
+        <td nowrap="nowrap"><pre>{{text}}</pre></td>
+        {{#else}}
+        <td nowrap="nowrap">{{text}}</td>
+        {{/if}}
+        {{/each}}
       </tr>
-      {{ end }}
+      {{/each}}
     </tbody>
   </table>
 
@@ -35,9 +35,9 @@
 
   <p>文字認識で使用した画像：</p>
   <div>
-    {{ for result in results }}
+    {{#each Results}}
     <table border="1" cellpadding="5" cellspacing="1" style="margin-right: 1em; margin-bottom: 1em;">
-      <caption>{{ result.number }} の画像</caption>
+      <caption>{{number}} の画像</caption>
       <thead>
         <tr>
           <th>画像</th>
@@ -47,22 +47,22 @@
       <tbody>
         <tr>
           <td>
-            <img src="{{ result.imgsrc }}" style="border: solid 2px blue; float: left; " />
+            <img src="{{imgsrc}}" style="border: solid 2px blue; float: left; " />
           </td>
           <td>
-            <pre>{{ result.text }}</pre>
+            <pre>{{text}}</pre>
           </td>
         </tr>
       </tbody>
     </table>
-    {{ end }}
+    {{/each}}
   </div>
 
   <p>OCR エンジン:</p>
-  <pre>{{ ocr_engines }}</pre>
+  <pre>{{OcrEngines}}</pre>
 
   <p>ImageMagick:</p>
-  <pre>{{ magicks }}</pre>
+  <pre>{{Magicks}}</pre>
 
 </body>
 

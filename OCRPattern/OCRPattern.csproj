@@ -53,14 +53,14 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="mustache-sharp, Version=0.2.10.0, Culture=neutral, PublicKeyToken=40ca26c1e088cef4, processorArchitecture=MSIL">
+      <HintPath>..\packages\mustache-sharp.0.2.10\lib\net40\mustache-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>packages\NLog.4.6.0\lib\net40-client\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
       <HintPath>packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
-    </Reference>
-    <Reference Include="Scriban, Version=2.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scriban.2.1.4\lib\net40\Scriban.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -171,7 +171,9 @@
     <Compile Include="Utils\Csvw.cs" />
     <Compile Include="Utils\EraseOldFiles.cs" />
     <Compile Include="Utils\FileEraser.cs" />
-    <Compile Include="Utils\FPUt.cs" />
+    <Compile Include="Utils\FilePostProcessor.cs" />
+    <Compile Include="Utils\ReservedFilePair.cs" />
+    <Compile Include="Utils\ReserveNewFilePair.cs" />
     <Compile Include="Utils\Magick.cs" />
     <Compile Include="Utils\MFUt.cs" />
     <Compile Include="Utils\Move2Temp.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Utils\PdfFileLoader.cs" />
     <Compile Include="Utils\BitmapRotateUtil.cs" />
     <Compile Include="Utils\RecogCore.cs" />
+    <Compile Include="Utils\RunOutCmdDelegate.cs" />
     <Compile Include="Utils\TempFiles.cs" />
     <Compile Include="Utils\TextRecogWrappers\GOcr.cs" />
     <Compile Include="Utils\TextRecogWrappers\NHocr.cs" />

@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyFileVersion("0.24")] // here
+[assembly: AssemblyFileVersion("0.25")] // here
 
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。 
 // アセンブリに関連付けられている情報を変更するには、
@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HIRAOKA HYPERS TOOLS, Inc.")]
 [assembly: AssemblyProduct("OCRPattern")]
-[assembly: AssemblyCopyright("Copyright (C)  2012,2022")]
+[assembly: AssemblyCopyright("Copyright (C)  2012,2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

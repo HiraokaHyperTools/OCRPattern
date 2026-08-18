@@ -40,6 +40,12 @@ namespace OCRPattern {
             this.cbOnlyThis = new System.Windows.Forms.CheckBox();
             this.cbRotate4 = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbEraseOutAfter = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbEraseInAfter = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.cbEraseOlderTempFiles = new System.Windows.Forms.CheckBox();
             this.cbMoveInAfter = new System.Windows.Forms.CheckBox();
             this.cbMoveOutAfter = new System.Windows.Forms.CheckBox();
@@ -77,14 +83,9 @@ namespace OCRPattern {
             this.ofdAdd = new System.Windows.Forms.OpenFileDialog();
             this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.fbdRecycDir = new System.Windows.Forms.FolderBrowserDialog();
-            this.label6 = new System.Windows.Forms.Label();
             this.cfgBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.task = new OCRPattern.Task();
-            this.cbEraseInAfter = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cbEraseOutAfter = new System.Windows.Forms.CheckBox();
+            this.cbApplyRecycOnOutCmdFailure = new System.Windows.Forms.CheckBox();
             this.tsc.ContentPanel.SuspendLayout();
             this.tsc.TopToolStripPanel.SuspendLayout();
             this.tsc.SuspendLayout();
@@ -144,11 +145,11 @@ namespace OCRPattern {
             this.tsc.ContentPanel.Controls.Add(this.label2);
             this.tsc.ContentPanel.Controls.Add(this.label1);
             this.tsc.ContentPanel.Controls.Add(this.tbFiles);
-            this.tsc.ContentPanel.Size = new System.Drawing.Size(449, 729);
+            this.tsc.ContentPanel.Size = new System.Drawing.Size(449, 790);
             this.tsc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tsc.Location = new System.Drawing.Point(0, 0);
             this.tsc.Name = "tsc";
-            this.tsc.Size = new System.Drawing.Size(449, 754);
+            this.tsc.Size = new System.Drawing.Size(449, 815);
             this.tsc.TabIndex = 0;
             this.tsc.Text = "toolStripContainer1";
             // 
@@ -173,7 +174,7 @@ namespace OCRPattern {
             this.groupBox5.Controls.Add(this.bRefRecycDir);
             this.groupBox5.Controls.Add(this.cbUseRecyc);
             this.groupBox5.Controls.Add(this.tbRecycDir);
-            this.groupBox5.Location = new System.Drawing.Point(12, 452);
+            this.groupBox5.Location = new System.Drawing.Point(12, 474);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(407, 76);
             this.groupBox5.TabIndex = 11;
@@ -225,7 +226,7 @@ namespace OCRPattern {
             this.groupBox4.Controls.Add(this.bSelForm);
             this.groupBox4.Controls.Add(this.tbSeledForm);
             this.groupBox4.Controls.Add(this.cbOnlyThis);
-            this.groupBox4.Location = new System.Drawing.Point(12, 649);
+            this.groupBox4.Location = new System.Drawing.Point(12, 671);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(407, 64);
             this.groupBox4.TabIndex = 14;
@@ -266,7 +267,7 @@ namespace OCRPattern {
             // 
             this.cbRotate4.AutoSize = true;
             this.cbRotate4.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "Rotate4", true));
-            this.cbRotate4.Location = new System.Drawing.Point(18, 627);
+            this.cbRotate4.Location = new System.Drawing.Point(18, 649);
             this.cbRotate4.Name = "cbRotate4";
             this.cbRotate4.Size = new System.Drawing.Size(129, 16);
             this.cbRotate4.TabIndex = 13;
@@ -286,12 +287,70 @@ namespace OCRPattern {
             this.groupBox3.Controls.Add(this.cbEraseOlderTempFiles);
             this.groupBox3.Controls.Add(this.cbMoveInAfter);
             this.groupBox3.Controls.Add(this.cbMoveOutAfter);
-            this.groupBox3.Location = new System.Drawing.Point(12, 534);
+            this.groupBox3.Location = new System.Drawing.Point(12, 556);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(407, 87);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "認識が終了した後の動作";
+            // 
+            // cbEraseOutAfter
+            // 
+            this.cbEraseOutAfter.AutoSize = true;
+            this.cbEraseOutAfter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "EraseOutAfter", true));
+            this.cbEraseOutAfter.Location = new System.Drawing.Point(246, 40);
+            this.cbEraseOutAfter.Name = "cbEraseOutAfter";
+            this.cbEraseOutAfter.Size = new System.Drawing.Size(91, 16);
+            this.cbEraseOutAfter.TabIndex = 7;
+            this.cbEraseOutAfter.Text = "ファイルを削除";
+            this.cbEraseOutAfter.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(201, 41);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(33, 12);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "または";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(201, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(33, 12);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "または";
+            // 
+            // cbEraseInAfter
+            // 
+            this.cbEraseInAfter.AutoSize = true;
+            this.cbEraseInAfter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "EraseInAfter", true));
+            this.cbEraseInAfter.Location = new System.Drawing.Point(246, 18);
+            this.cbEraseInAfter.Name = "cbEraseInAfter";
+            this.cbEraseInAfter.Size = new System.Drawing.Size(91, 16);
+            this.cbEraseInAfter.TabIndex = 3;
+            this.cbEraseInAfter.Text = "ファイルを削除";
+            this.cbEraseInAfter.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 41);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(79, 12);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "出力ファイルは：";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 12);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "入力ファイルは：";
             // 
             // cbEraseOlderTempFiles
             // 
@@ -328,6 +387,7 @@ namespace OCRPattern {
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbApplyRecycOnOutCmdFailure);
             this.groupBox2.Controls.Add(this.cbRunOutCmd);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.tbOutParm);
@@ -337,7 +397,7 @@ namespace OCRPattern {
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(12, 346);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(407, 100);
+            this.groupBox2.Size = new System.Drawing.Size(407, 122);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
@@ -612,15 +672,6 @@ namespace OCRPattern {
             // 
             this.fbdRecycDir.Description = "認識に失敗したら、ページを次のフォルダに保存する";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 12);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "入力ファイルは：";
-            // 
             // cfgBindingSource
             // 
             this.cfgBindingSource.DataMember = "Cfg";
@@ -631,61 +682,23 @@ namespace OCRPattern {
             this.task.DataSetName = "Task";
             this.task.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // cbEraseInAfter
+            // cbApplyRecycOnOutCmdFailure
             // 
-            this.cbEraseInAfter.AutoSize = true;
-            this.cbEraseInAfter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "EraseInAfter", true));
-            this.cbEraseInAfter.Location = new System.Drawing.Point(246, 18);
-            this.cbEraseInAfter.Name = "cbEraseInAfter";
-            this.cbEraseInAfter.Size = new System.Drawing.Size(91, 16);
-            this.cbEraseInAfter.TabIndex = 3;
-            this.cbEraseInAfter.Text = "ファイルを削除";
-            this.cbEraseInAfter.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(201, 19);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(33, 12);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "または";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 41);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(79, 12);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "出力ファイルは：";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(201, 41);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(33, 12);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "または";
-            // 
-            // cbEraseOutAfter
-            // 
-            this.cbEraseOutAfter.AutoSize = true;
-            this.cbEraseOutAfter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "EraseOutAfter", true));
-            this.cbEraseOutAfter.Location = new System.Drawing.Point(246, 40);
-            this.cbEraseOutAfter.Name = "cbEraseOutAfter";
-            this.cbEraseOutAfter.Size = new System.Drawing.Size(91, 16);
-            this.cbEraseOutAfter.TabIndex = 7;
-            this.cbEraseOutAfter.Text = "ファイルを削除";
-            this.cbEraseOutAfter.UseVisualStyleBackColor = true;
+            this.cbApplyRecycOnOutCmdFailure.AutoSize = true;
+            this.cbApplyRecycOnOutCmdFailure.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.cfgBindingSource, "ApplyRecycOnOutCmdFailure", true));
+            this.cbApplyRecycOnOutCmdFailure.Location = new System.Drawing.Point(150, 98);
+            this.cbApplyRecycOnOutCmdFailure.Name = "cbApplyRecycOnOutCmdFailure";
+            this.cbApplyRecycOnOutCmdFailure.Size = new System.Drawing.Size(205, 16);
+            this.cbApplyRecycOnOutCmdFailure.TabIndex = 7;
+            this.cbApplyRecycOnOutCmdFailure.Text = "エラーの場合は認識失敗の動作をする";
+            this.cbApplyRecycOnOutCmdFailure.UseVisualStyleBackColor = true;
             // 
             // TaskEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(449, 754);
+            this.ClientSize = new System.Drawing.Size(449, 815);
             this.Controls.Add(this.tsc);
             this.Name = "TaskEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -778,6 +791,7 @@ namespace OCRPattern {
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox cbEraseOutAfter;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox cbApplyRecycOnOutCmdFailure;
     }
 }
 

@@ -8,12 +8,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace OCRPattern.Utils
 {
-    internal class RecogCore
+    public class RecogCore
     {
         public enum Next
         {
             Continue,
-            Break,
+            BreakLoop,
         }
 
         public delegate void OnRasterizeDelegate(int pageNum);
@@ -32,7 +32,7 @@ namespace OCRPattern.Utils
                     continue;
                 }
                 var next = tryCR(1 + z);
-                if (next == Next.Break)
+                if (next == Next.BreakLoop)
                 {
                     break;
                 }
