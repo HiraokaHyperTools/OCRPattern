@@ -324,6 +324,7 @@ namespace OCRPattern
                                         saveEntireTo: copyTo => File.Copy(sourceFile, copyTo, true),
                                         savePartTo: saveTo => pdf.SavePageAs(saveTo, pageNum),
                                         saveCsvFileTo: saveTo => SCUt.SaveCsv(saveTo, crc.GetExported(), Encoding.Default),
+                                        saveAllWithoutFirstPageTo: saveTo => pdf.SavePagesWithoutFirstPageTo(saveTo),
                                         useRecyc: toRecycDir != null,
                                         doNotSplit: cbDoNotSplit.Checked,
                                         reserveRecyc: () => toRecycDir.Reserve(sourceFileExt, sourceFileExt).File1,

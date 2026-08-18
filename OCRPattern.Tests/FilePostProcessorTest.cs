@@ -22,56 +22,40 @@ namespace OCRPattern.Tests
         }
 
         [Test]
-        [TestCase(false, false, false, "Idle", "Saved", "Idle", "Saved", Next.Continue)]
-        [TestCase(false, false, true, "Recycled", "Saved", "Saved", "Idle", Next.BreakLoop)]
-        [TestCase(false, true, false, "Idle", "Saved", "Idle", "Saved", Next.Continue)]
-        [TestCase(false, true, true, "Recycled", "Saved", "Saved", "Idle", Next.BreakLoop)]
-        [TestCase(true, false, false, "Idle", "Saved", "Idle", "Idle", Next.BreakLoop)]
-        [TestCase(true, false, true, "Idle", "Saved", "Idle", "Idle", Next.BreakLoop)]
-        [TestCase(true, true, false, "Idle", "Saved", "Idle", "Idle", Next.BreakLoop)]
-        [TestCase(true, true, true, "Idle", "Saved", "Idle", "Idle", Next.BreakLoop)]
+        [TestCase(false, false, false, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|savePartTo recyc", Next.Continue)]
+        [TestCase(false, false, true, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|saveEntireTo recyc|recycSourceFile", Next.BreakLoop)]
+        [TestCase(false, true, false, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|savePartTo recyc", Next.Continue)]
+        [TestCase(false, true, true, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|saveEntireTo recyc|recycSourceFile", Next.BreakLoop)]
+        [TestCase(true, false, false, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        [TestCase(true, false, true, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        [TestCase(true, true, false, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        [TestCase(true, true, true, "|saveEntireTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
         public void SaveAllCmd(
             bool successful,
             bool useRecyc,
             bool doNotSplit,
-            string expectedSource,
-            string expectedEntirePdf,
-            string expectedEntireRecyc,
-            string expectedPart,
+            string expectedFootprints,
             Next expectedNext)
         {
-            var entirePdf = new OnStated("entirePdf", "Idle");
-            var entireRecyc = new OnStated("entireRecyc", "Idle");
-            var part = new OnStated("part", "Idle");
-            var csv = new OnStated("csv", "Idle");
-            var source = new OnStated("source", "Idle");
-            var cmd = new OnStated("cmd", "Idle");
-
+            string footprints = "";
             var next = _filePostProcessor.Apply(
                 resp: CRRes.SaveAll,
                 reserveOut: () => new ReservedFilePair("pdf", "csv"),
                 saveEntireTo: copyTo =>
                 {
-                    if (copyTo == "pdf")
-                    {
-                        entirePdf.Ensure("Idle", "Saved");
-                    }
-                    else if (copyTo == "recyc")
-                    {
-                        entireRecyc.Ensure("Idle", "Saved");
-                    }
-                    else
-                    {
-                        throw new Exception($"Unexpected copyTo: {copyTo}");
-                    }
+                    footprints += $"|saveEntireTo {copyTo}";
                 },
                 savePartTo: saveTo =>
                 {
-                    part.Ensure("Idle", "Saved");
+                    footprints += $"|savePartTo {saveTo}";
                 },
                 saveCsvFileTo: saveTo =>
                 {
-                    csv.Ensure("Idle", "Saved");
+                    footprints += $"|saveCsvFileTo {saveTo}";
+                },
+                saveAllWithoutFirstPageTo: saveTo =>
+                {
+                    footprints += $"|saveAllWithoutFirstPageTo {saveTo}";
                 },
                 useRecyc: useRecyc,
                 doNotSplit: doNotSplit,
@@ -82,54 +66,105 @@ namespace OCRPattern.Tests
                 },
                 recycSourceFile: () =>
                 {
-                    source.Ensure("Idle", "Recycled");
+                    footprints += $"|recycSourceFile";
                 },
                 runOutCmd: (a, b) =>
                 {
-                    cmd.Ensure("Idle", "Done");
+                    footprints += $"|runOutCmd {a} {b}";
                     return successful;
                 }
             );
             Assert.That(next, Is.EqualTo(expectedNext));
-
-            entirePdf.Ensure(expectedEntirePdf, "_");
-            entireRecyc.Ensure(expectedEntireRecyc, "_");
-            part.Ensure(expectedPart, "_");
-            csv.Ensure("Saved", "_");
-            source.Ensure(expectedSource, "_");
-            cmd.Ensure("Done", "_");
+            Assert.That(footprints, Is.EqualTo(expectedFootprints));
         }
 
         [Test]
-        [TestCase(false, false)]
-        [TestCase(false, true)]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
+        [TestCase(false, false, false, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|savePartTo recyc", Next.Continue)]
+        [TestCase(false, false, true, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|saveEntireTo recyc|recycSourceFile", Next.BreakLoop)]
+        [TestCase(false, true, false, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|savePartTo recyc", Next.Continue)]
+        [TestCase(false, true, true, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv|saveEntireTo recyc|recycSourceFile", Next.BreakLoop)]
+        [TestCase(true, false, false, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        [TestCase(true, false, true, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        [TestCase(true, true, false, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        [TestCase(true, true, true, "|saveAllWithoutFirstPageTo pdf|saveCsvFileTo csv|runOutCmd pdf csv", Next.BreakLoop)]
+        public void SaveAllWithoutFirstPageCmd(
+            bool successful,
+            bool useRecyc,
+            bool doNotSplit,
+            string expectedFootprints,
+            Next expectedNext)
+        {
+            string footprints = "";
+            var next = _filePostProcessor.Apply(
+                resp: CRRes.SaveAllWithoutFirstPage,
+                reserveOut: () => new ReservedFilePair("pdf", "csv"),
+                saveEntireTo: copyTo =>
+                {
+                    footprints += $"|saveEntireTo {copyTo}";
+                },
+                savePartTo: saveTo =>
+                {
+                    footprints += $"|savePartTo {saveTo}";
+                },
+                saveCsvFileTo: saveTo =>
+                {
+                    footprints += $"|saveCsvFileTo {saveTo}";
+                },
+                saveAllWithoutFirstPageTo: saveTo =>
+                {
+                    footprints += $"|saveAllWithoutFirstPageTo {saveTo}";
+                },
+                useRecyc: useRecyc,
+                doNotSplit: doNotSplit,
+                reserveRecyc: () => "recyc",
+                closeSourceFile: () =>
+                {
+
+                },
+                recycSourceFile: () =>
+                {
+                    footprints += $"|recycSourceFile";
+                },
+                runOutCmd: (a, b) =>
+                {
+                    footprints += $"|runOutCmd {a} {b}";
+                    return successful;
+                }
+            );
+            Assert.That(next, Is.EqualTo(expectedNext));
+            Assert.That(footprints, Is.EqualTo(expectedFootprints));
+        }
+
+        [Test]
+        [TestCase(false, false, "|savePartTo pdf|saveCsvFileTo csv|runOutCmd pdf csv")]
+        [TestCase(false, true, "|savePartTo pdf|saveCsvFileTo csv|runOutCmd pdf csv")]
+        [TestCase(true, false, "|savePartTo pdf|saveCsvFileTo csv|runOutCmd pdf csv")]
+        [TestCase(true, true, "|savePartTo pdf|saveCsvFileTo csv|runOutCmd pdf csv")]
         public void SaveAvailCmdSuccessful(
             bool useRecyc,
-            bool doNotSplit
+            bool doNotSplit,
+            string expectedFootprints
             )
         {
-            var entire = new OnStated("entire", "Idle");
-            var part = new OnStated("part", "Idle");
-            var csv = new OnStated("csv", "Idle");
-            var source = new OnStated("source", "Idle");
-            var cmd = new OnStated("cmd", "Idle");
-
+            string footprints = "";
             var next = _filePostProcessor.Apply(
                 resp: CRRes.Avail,
                 reserveOut: () => new ReservedFilePair("pdf", "csv"),
                 saveEntireTo: copyTo =>
                 {
-                    entire.Ensure("Idle", "Saved");
+                    footprints += $"|saveEntireTo {copyTo}";
                 },
                 savePartTo: saveTo =>
                 {
-                    part.Ensure("Idle", "Saved");
+                    footprints += $"|savePartTo {saveTo}";
                 },
                 saveCsvFileTo: saveTo =>
                 {
-                    csv.Ensure("Idle", "Saved");
+                    footprints += $"|saveCsvFileTo {saveTo}";
+                },
+                saveAllWithoutFirstPageTo: saveTo =>
+                {
+                    footprints += $"|saveAllWithoutFirstPageTo {saveTo}";
                 },
                 useRecyc: useRecyc,
                 doNotSplit: doNotSplit,
@@ -140,53 +175,48 @@ namespace OCRPattern.Tests
                 },
                 recycSourceFile: () =>
                 {
-                    source.Ensure("Idle", "Recycled");
+                    footprints += $"|recycSourceFile";
                 },
                 runOutCmd: (a, b) =>
                 {
-                    cmd.Ensure("Idle", "Done");
+                    footprints += $"|runOutCmd {a} {b}";
                     return true;
                 }
             );
             Assert.That(next, Is.EqualTo(Next.BreakLoop));
-
-            entire.Ensure("Idle", "_");
-            part.Ensure("Saved", "_");
-            csv.Ensure("Saved", "_");
-            source.Ensure("Idle", "_");
-            cmd.Ensure("Done", "_");
+            Assert.That(footprints, Is.EqualTo(expectedFootprints));
         }
 
         [Test]
-        [TestCase(false, false)]
-        [TestCase(false, true)]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
+        [TestCase(false, false, "")]
+        [TestCase(false, true, "")]
+        [TestCase(true, false, "")]
+        [TestCase(true, true, "")]
         public void TemplatePageCmdContinue(
             bool useRecyc,
-            bool doNotSplit
+            bool doNotSplit,
+            string expectedFootprints
             )
         {
-            var entire = new OnStated("entire", "Idle");
-            var part = new OnStated("part", "Idle");
-            var csv = new OnStated("csv", "Idle");
-            var source = new OnStated("source", "Idle");
-            var cmd = new OnStated("cmd", "Idle");
-
+            string footprints = "";
             var next = _filePostProcessor.Apply(
                 resp: CRRes.TemplatePage,
                 reserveOut: () => new ReservedFilePair("pdf", "csv"),
                 saveEntireTo: copyTo =>
                 {
-                    entire.Ensure("Idle", "Saved");
+                    footprints += $"|saveEntireTo {copyTo}";
                 },
                 savePartTo: saveTo =>
                 {
-                    part.Ensure("Idle", "Saved");
+                    footprints += $"|savePartTo {saveTo}";
                 },
                 saveCsvFileTo: saveTo =>
                 {
-                    csv.Ensure("Idle", "Saved");
+                    footprints += $"|saveCsvFileTo {saveTo}";
+                },
+                saveAllWithoutFirstPageTo: saveTo =>
+                {
+                    footprints += $"|saveAllWithoutFirstPageTo {saveTo}";
                 },
                 useRecyc: useRecyc,
                 doNotSplit: doNotSplit,
@@ -197,21 +227,17 @@ namespace OCRPattern.Tests
                 },
                 recycSourceFile: () =>
                 {
-                    source.Ensure("Idle", "Recycled");
+                    footprints += $"|recycSourceFile";
                 },
                 runOutCmd: (a, b) =>
                 {
-                    cmd.Ensure("Idle", "Done");
+                    footprints += $"|runOutCmd {a} {b}";
                     return true;
                 }
             );
             Assert.That(next, Is.EqualTo(Next.Continue));
+            Assert.That(footprints, Is.EqualTo(expectedFootprints));
 
-            entire.Ensure("Idle", "_");
-            part.Ensure("Idle", "_");
-            csv.Ensure("Idle", "_");
-            source.Ensure("Idle", "_");
-            cmd.Ensure("Idle", "_");
         }
     }
 }

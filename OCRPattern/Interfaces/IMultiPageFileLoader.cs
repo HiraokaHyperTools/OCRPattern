@@ -11,5 +11,6 @@ namespace OCRPattern.Interfaces
         int NumPages { get; }
         Bitmap Rasterize(int pageIndex);
         void SavePageAs(string fileSaveTo, int pageIndex);
+        void SavePagesWithoutFirstPageTo(string fileSaveTo);
     }
 }

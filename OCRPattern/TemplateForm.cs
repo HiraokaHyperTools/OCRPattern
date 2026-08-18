@@ -1,23 +1,24 @@
+using Microsoft.VisualBasic;
+using Microsoft.Win32;
+using Mustache;
+using OCRPattern.Models;
+using OCRPattern.Properties;
+using OCRPattern.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 using ZXing;
-using Microsoft.Win32;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Drawing.Imaging;
-using System.Xml;
-using Microsoft.VisualBasic;
-using OCRPattern.Properties;
-using OCRPattern.Utils;
-using OCRPattern.Models;
-using System.Linq;
 
 namespace OCRPattern
 {
@@ -126,6 +127,7 @@ namespace OCRPattern
                 alkv.Add(new KeyValuePair<string, string>("", "通常フォーム認識"));
                 alkv.Add(new KeyValuePair<string, string>("S", "区切り/代表ページ"));
                 alkv.Add(new KeyValuePair<string, string>("S1", "表紙付きモード"));
+                alkv.Add(new KeyValuePair<string, string>("S1R", "表紙付き、表紙は削除"));
                 cbPWay.DataSource = alkv;
                 cbPWay.ValueMember = "Key";
                 cbPWay.DisplayMember = "Value";
@@ -484,7 +486,8 @@ namespace OCRPattern
             Directory.CreateDirectory(outDir);
 
             {
-                var template = Scriban.Template.Parse(Resources.Report);
+                var compiler = new FormatCompiler();
+                var generator = compiler.Compile(Resources.Report);
 
                 Bitmap picSrc = PUt.Clone((Bitmap)picPane.Image); //ocrs.Picture;
 
@@ -521,7 +524,7 @@ namespace OCRPattern
                     .Cast<DataColumn>()
                     .ToArray();
 
-                var html = template.Render(
+                var html = generator.Render(
                     new
                     {
                         TableTitle = dt2.TableName,

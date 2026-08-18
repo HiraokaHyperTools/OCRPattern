@@ -20,6 +20,7 @@ namespace OCRPattern.Utils
             Action<string> saveEntireTo,
             Action<string> savePartTo,
             Action<String> saveCsvFileTo,
+            Action<string> saveAllWithoutFirstPageTo,
             bool useRecyc,
             bool doNotSplit,
             Func<string> reserveRecyc,
@@ -52,6 +53,23 @@ namespace OCRPattern.Utils
                 // 認識：成功
                 var reserved = reserveOut();
                 saveEntireTo(reserved.File1);
+                saveCsvFileTo(reserved.File2);
+                if (runOutCmd(reserved.File1, reserved.File2))
+                {
+                    return RecogCore.Next.BreakLoop;
+                }
+                else
+                {
+                    TryToDelete(reserved.File1);
+                    TryToDelete(reserved.File2);
+                    return ApplyFailure();
+                }
+            }
+            else if (resp == CRRes.SaveAllWithoutFirstPage)
+            {
+                // 認識：成功
+                var reserved = reserveOut();
+                saveAllWithoutFirstPageTo(reserved.File1);
                 saveCsvFileTo(reserved.File2);
                 if (runOutCmd(reserved.File1, reserved.File2))
                 {

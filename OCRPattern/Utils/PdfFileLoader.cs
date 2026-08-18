@@ -1,10 +1,8 @@
 using OCRPattern.Interfaces;
 using PdfiumViewer;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace OCRPattern.Utils
 {
@@ -53,6 +51,16 @@ namespace OCRPattern.Utils
                 }
 
                 newPdf.Save(pdfSave);
+            }
+        }
+
+        public void SavePagesWithoutFirstPageTo(string fileSaveTo)
+        {
+            using (var newPdf = PdfDocument.Load(pdfOpen))
+            {
+                newPdf.DeletePage(0);
+
+                newPdf.Save(fileSaveTo);
             }
         }
 

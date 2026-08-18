@@ -121,7 +121,8 @@ namespace OCRPattern.Utils
 
                         progress.HintTempl(formKey, true);
 
-                        if (oneForm.Value.PWay == "S1" && pageIndex == 0)
+                        var pWay = oneForm.Value.PWay;
+                        if ((pWay == "S1" || pWay == "S1R") && pageIndex == 0)
                         {
                             ocrLog.Info("種類＝表紙付きモード");
                             if (fail)
@@ -172,10 +173,10 @@ namespace OCRPattern.Utils
                                     );
                                 }
 
-                                return CRRes.SaveAll;
+                                return (pWay == "S1") ? CRRes.SaveAll : CRRes.SaveAllWithoutFirstPage;
                             }
                         }
-                        else if (oneForm.Value.PWay == "S")
+                        else if (pWay == "S")
                         {
                             ocrLog.Info("種類＝区切り/代表ページ");
                             if (fail)
@@ -208,7 +209,7 @@ namespace OCRPattern.Utils
                                 return CRRes.TemplatePage;
                             }
                         }
-                        else if (oneForm.Value.PWay == "")
+                        else if (pWay == "")
                         {
                             ocrLog.Info("種類＝通常フォーム認識");
                             // 通常(フォーム検出成功)
